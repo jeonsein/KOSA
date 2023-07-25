@@ -2,7 +2,7 @@
 # Edit at https://www.toptal.com/developers/gitignore?templates=java,eclipse,windows
 
 # Ignore the SW directory
-/KOSA202307/SW/
+C:\KOSA202307\SW\
 
 ### Eclipse ###
 .metadata
