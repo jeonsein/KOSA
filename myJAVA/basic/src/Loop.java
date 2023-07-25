@@ -1,6 +1,3 @@
-package basic;
-
-
 public class Loop {
     public static void main(String[] args) {
     
@@ -176,12 +173,15 @@ public class Loop {
         
         String line;
         do {
+        	
         	System.out.println("메시지를 입력하세요, 작업을 중단하려면 exit를 입력하세요 : ");
+        	
         	line = sc.nextLine();
+        	
         	System.out.println("입력한 메시지 : " + line);
-        }while(!line.equals("exit") );
         
-
+        } while(!line.equals("exit") );
+       
         
     }
 
