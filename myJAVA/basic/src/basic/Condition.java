@@ -1,3 +1,5 @@
+package basic;
+
 public class Condition{
     public static void main(String[] args) {
         
@@ -20,17 +22,15 @@ public class Condition{
             System.out.println("짝수");
         }
         */
-
-/*       
-        // int year = 2023;
-        System.out.println("출생년도를 입력하세요 :-)");
+       
+        /*
+        //int year = 2023;
+        System.out.print("출생 년도를 입력하세요.");
         java.util.Scanner sc = new java.util.Scanner(System.in);
-        int year = sc.nextInt();        
-
-
-
+        int year = sc.nextInt();
+        
         System.out.println(year + "년도에 해당하는 동물을 출력하시오.");
-        // 년도를 12로 나눈 나머지값이 0이면 원숭이 ~~~~ 11 양까지
+        // 년도를 12로 나눈 나머지값이 0이면 원숭이,
 
         int mod = year % 12;
         if ( mod == 0) {
@@ -58,24 +58,16 @@ public class Condition{
         }  else if ( mod == 11 ) {
             System.out.println("양");
         };
+        */
 
-*/
-
-    int koScore = 70;
-    int engScore = 60;
-    int mathScore = 84;
-    int totalScore = koScore + engScore + mathScore; // 총점
-    // float avg = totalScore / 3; // 평균 
-    // System.out.println(avg); // => 71.0
-    float avg = (float)totalScore / 3; // 평균 totalScore/3.0F
-    System.out.println(avg); // => 71.333336
-
-/*
-    // 평균값이 90점 이상이면 "A등급"
-    // 80점 이상 "B등급"
-    // 70점 이상 "C등급" 
-    // 60점 이상 "D등급"
-    // 60점 미만이면 "F등급" 출력하기
+       /*
+        // 평균 계산
+        int koScore = 70;
+        int engScore = 60;
+        int mathScore = 84;
+        int totalScore = koScore + engScore + mathScore; //총점
+        float avg = (float)totalScore / 3; //평균
+        System.out.println(avg);
 
         if( avg >= 90 ) {
             System.out.println("A등급 입니다.");
@@ -89,25 +81,57 @@ public class Condition{
             System.out.println("F등급 입니다.");
         }
 
-*/
+        // java.util.Scanner sc = new java.util.Scanner(System.in);
+        // int score = sc.nextInt();
 
+        // System.out.println("평균값을 입력하세요");
+        */
 
-    System.out.println("가위바위보게임");
-    System.out.println("가위-1, 바위-2, 보-3을 입력하세요.");
+        /*
+        System.out.println("가위바위보 게임 입니다. ");
+        System.out.println("가위-1, 바위-2, 보-3을 입력하세요.");
 
-    java.util.Scanner sc = new java.util.Scanner(System.in);
-
-    int u = sc.nextInt(); // 사용자가 낸 값을 얻어보기!
-
-    // 컴퓨터가 낸 값
-    int r = (int)(Math.random()*3+1); // 1 <= x < 4  
+        java.util.Scanner sc = new java.util.Scanner(System.in);
+        int u = sc.nextInt();
+        int r = (int)(Math.random() * 3 +1);
+        System.out.println("컴퓨터가 낸 값은" + r);
 
         if ( u == r ) {
             System.out.println("비김");
-        } else if( (u == 1 && r == 2) || (u == 2 && r == 3) || (u == 3 && r == 1 ) ) {
-            System.out.println("짐");
-        } else {
+        } else if ( u < 1 || u > 3 ) {
+            System.out.println("1~3의 숫자를 입력하세요.");
+        // } else if( (u == 1 && r == 2) || (u == 2 && r == 3) || (u == 3 && r == 1 ) ) {
+        } else if ( u - ( r % 3 ) == 1 ) {
             System.out.println("이김");
+        } else {
+            System.out.println("짐");
+        } 
+
+        System.out.println("");
+       */
+
+        int a = 4;
+
+        switch( a % 2 ) {
+            case 1:  // a 를 2로 나눈값이 1
+                System.out.println("홀수");
+                break;
+            case 0:  // a 를 2로 나눈 값이 0 
+                System.out.println("짝수");
+        }
+
+        int year = 2023;
+        int mod = year % 12;
+        switch(mod) {
+        
+        case 0:
+	   System.out.println("원숭이띠");
+	   break;
+        case 1:
+	   System.out.println("닭띠");
+	   break;
+        default:
+	   System.out.println("그외의 동물");
         }
 
         java.util.Calendar c;
@@ -134,6 +158,8 @@ public class Condition{
         default:
 	   System.out.println("현재" + ( month + 1 ) + "월은 하반기 입니다.");
         }
+        
 
     }
+
 }
