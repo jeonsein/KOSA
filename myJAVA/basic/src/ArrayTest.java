@@ -31,6 +31,8 @@ public class ArrayTest {
 		float avg = (float)totalScore / length;
 		System.out.println("totlaScore = " + totalScore + " , avg = " + avg);
 		
+//		------------------------------
+		
 		int[][] arrTwo = new int[3][2];
 		int num = 1;
 		
@@ -71,6 +73,8 @@ public class ArrayTest {
 			System.out.println();
 		} // outter-for
 		
+//		------------------------------
+		
 		int [][] arrTwo2 = new int[3][]; // 행별 열수를 다르게 하기
 		arrTwo2[0] = new int[1];
 		arrTwo2[1] = new int[2];
@@ -106,6 +110,14 @@ public class ArrayTest {
 			} // inner-for
 			System.out.println();
 		} // outter-for
+		
+//		------------------------------
+		
+		int []arr1 = {1, 10, 6, 3, 2, 3, 6, 1, 5, 7, 6, 5};
+		
+		System.out.println("숫자의 출현 횟수를 출력하세요.");
+//		System.out.println("ex) 1의 출현 횟수는 : 2회입니다.");
+		
 		
 	} // main
 } // end class
