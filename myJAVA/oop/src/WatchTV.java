@@ -48,6 +48,36 @@ class TV{
 		channel++;
 	}
 	
+	void setVolume(int j) {
+		volume = j;
+	}
+	
+	/**
+	 * 현재 음량을 반환한다
+	 * @return 음량
+	 */
+	int getVolume() {
+		return volume;
+	}
+	
+	/**
+	 * 음량을 1 증가한다
+	 */
+	void volumeUp() {
+		volume++;
+	}
+	
+	/**
+	 * 음량을 1 감소한다
+	 * 단 최소음량은 0이다
+	 */
+	void volumeDown() {
+		if (volume == 0) {
+			return;
+		}
+		volume--;
+	}
+	
 } // TV
 
 // 사용자 소스
@@ -75,6 +105,21 @@ public class WatchTV {
 			
 			tv.channelUp(); // 채널을 1 증가한다.
 			System.out.println("현재 채널은 " + tv.getChannel()); // 12
+			
+			tv.setVolume(0);
+			
+			for(int i = 0; i < 20; i++) {
+				tv.volumeUp();
+			} // for
+			
+			System.out.println("현재 음량은 " + tv.getVolume());
+			
+			for(int i = 0; i < 50; i++) {
+				tv.volumeDown();
+			}
+			
+			System.out.println("현재 음량은 " + tv.getVolume());
+			
 		} else {
 			System.out.println("전원이 꺼졌습니다.");
 		} // if-else
