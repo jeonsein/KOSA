@@ -10,7 +10,12 @@ class Shape {  // 컴파일시 class Shape extends Object로 바뀜
 	void makeArea() {
 		
 	}
-}
+
+	public String toString() {		
+		return "도형의 면적은 " + area + " 입니다.";
+	}
+
+} // end Shape class
 
 
 class Circle extends Shape {
@@ -35,7 +40,11 @@ class Circle extends Shape {
 		area = 3.14 * radius * radius;
 	}
 	
-} // Circle
+	public String toString() {		
+		return "반지름이 " + radius + "인 Circle "+ super.toString();
+	}
+	
+} // end Circle class
 
 
 class Rectangle extends Shape {
@@ -57,7 +66,11 @@ class Rectangle extends Shape {
 		area = width * height;
 	}
 	
-} // Rectangle
+	public String toString() {		
+		return "가로 " + width + " 세로 " + height + "인 Rectangle "+ super.toString();
+	}
+	
+} // end Rectangle class
 
 
 public class ShapeTest {	// public class ShapeTest extends Object{}
@@ -82,9 +95,18 @@ public class ShapeTest {	// public class ShapeTest extends Object{}
 		shapes[0] = new Circle(5);
 		shapes[1] = new Rectangle(3, 4);
 		
+		
+		System.out.println(shapes[4]); // shapes[4].toStirng()가 자동 호출 null
 		for(int i = 0; i < 2; i++) {
-			 shapes[i].makeArea();
-			 System.out.println("shapes[i].getArea(): " + shapes[i].getArea());
+			shapes[i].makeArea();
+			
+			System.out.println("shapes[i].getArea(): " + shapes[i].getArea());
+			
+			// Shape클래스이름@Hashcode값
+			System.out.println("shapes[i].toString(): " + shapes[i].toString());
+
+			// Shape Class의 toString()
+			System.out.println(shapes[i]); // shapes[i].toString()가 자동 호출
 			
 //			사용자 입장에서 불편함 🔽
 //			if(shapes[i] instanceof Circle) {				
@@ -114,4 +136,4 @@ public class ShapeTest {	// public class ShapeTest extends Object{}
 
 	} // main
 
-} // end class
+} // end ShapeTest class

@@ -2,21 +2,18 @@ package com.my.product.dao;
 
 import com.my.product.dto.Product;
 
-public class ProductDAO {
+public class ProductDAOArray implements ProductDAOInterface {
 	
 	private Product[] products = new Product[5]; // 상품 저장소
 	
-	private int totalCnt = 0; // 저장된 상품 수
+	private int totalCnt = 0; // 저장된 상품 수 (상품 수 0으로 자동 초기화)
 	
-	/**
-	 * 상품의 번호, 이름, 가격을 저장소에 저장한다. 저장소가 꽉찬 경우(5개) "저장소가 꽉찼습니다"메시지가 출력된다.
-	 * @param product 상품
-	 */
+	@Override
 	public void insert(Product product) {
 
 		if(totalCnt == products.length) {
 			
-			System.out.println("저장소가 꽉찼습니다");
+			System.out.println("저장소가 꽉 찼습니다");
 			
 		} else {
 			
@@ -27,11 +24,7 @@ public class ProductDAO {
 		
 	} // insert
 	
-	/**
-	 * 상품 번호에 해당 상품을 저장소에서 검색하여 반환한다.
-	 * @param prodNo 상품번호
-	 * @return 상품객체, 단 번호에 해당 상품을 찾지 못하면 null을 반환한다.
-	 */
+	@Override
 	public Product selectByProdNo(String prodNo) {
 	
 		// 강사님 코드
@@ -48,10 +41,7 @@ public class ProductDAO {
 		return null;
 	} // selectByNo
 	
-	/**
-	 * 저장소에 저장된 상품들만 반환한다.
-	 * @return 상품객체들, 단 저장소에 저장된 상품이 한개도 없으면 null을 반환한다.
-	 */
+	@Override
 	public Product[] selectAll() {
 
 		// 강사님 코드
