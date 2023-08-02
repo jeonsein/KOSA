@@ -1,7 +1,7 @@
 import java.util.Scanner;
 
+import com.my.product.dao.ProductDAOArray;
 import com.my.product.dao.ProductDAOInterface;
-import com.my.product.dao.ProductDAOList;
 import com.my.product.dto.Product;
 
 public class ProductUser {
@@ -10,23 +10,26 @@ public class ProductUser {
 	
 //	ProductDAOArray dao = new ProductDAOArray();
 	
-	ProductDAOInterface dao = new ProductDAOList();
-	// ProductDAOInterface dao = new ProductDAOArray();
+//	ProductDAOInterface dao = new ProductDAOList();
+	 ProductDAOInterface dao = new ProductDAOArray();
 	
 	public void findAll() {
 		
 		System.out.println(">>상품 전체목록<<");
+		
 		Product[] all1 = dao.selectAll();
+		
 		if(all1 == null) {
 			System.out.println("상품이 없습니다"); //출력됨
-		}else {
+		} else {
 			for(Product p: all1) {
 				System.out.println(p.getProdNo() + ":" + p.getProdName() + ":" + p.getProdPrice());
-			}
-		}
+			} // for
+		} // if-else
+		
 		System.out.println("----------------");
 		
-	}
+	} // findAll()
 	
 	public void findByProdNo() {
 
@@ -36,15 +39,17 @@ public class ProductUser {
 										// 여기는 this.sc.nextLine이 생략 된것
 										// 객체의 밖에서 sc를 user라는 참조 변수로 찾아가야하기 때문에 user.이 붙음
 		Product p;
+		
 		p = dao.selectByProdNo(prodNo);
+		
 		if(p == null) {
 			System.out.println("상품이 없습니다"); 
-		}else{
+		} else {
 			//출력됨
 			System.out.println(p.getProdNo() +"번호 상품의 상품명:" + p.getProdName() + ", 가격:" + p.getProdPrice());
 		}
 		
-	}
+	} // findByProdNo()
 	
 	public void add() {
 		
@@ -67,7 +72,8 @@ public class ProductUser {
 //								  // String -> int : Integer.parseInt(String);
 //		p1.prodPrice = Integer.parseInt(prodPrice);
 	
-		Product p = new Product(prodNo, prodName, Integer.parseInt(prodPrice));
+		Product p = new Product(
+				prodNo, prodName, Integer.parseInt(prodPrice));
 		
 		dao.insert(p);
 		
@@ -75,7 +81,7 @@ public class ProductUser {
 		System.out.println("prodName : " + p.getProdName());
 		System.out.println("prodPrice : " + p.getProdPrice());
 		
-	}
+	} // add()
 	
 	
 	public static void main(String[] args) {	

@@ -18,8 +18,6 @@ public class First {
 		
 		System.out.println(one.mf); // 0
 		
-		
-		
 	} // end main
 
 } // end class
