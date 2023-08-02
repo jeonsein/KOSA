@@ -17,19 +17,55 @@ import javax.swing.JTextField;
  * 		bt.addActionListener( new MyHandler() );
  */
 
-class MyHandler implements ActionListener {
+//----------------------------------
 
-	@Override
-	public void actionPerformed(ActionEvent e) {
-		System.out.println("클릭되었습니다 :-)");
-	} // actionPerformed()
-	
-}
+// ver_1
+//class MyHandler implements ActionListener {
+//
+//	@Override
+//	public void actionPerformed(ActionEvent e) {
+//		System.out.println("클릭되었습니다 :-)");
+//	} // actionPerformed()
+//	
+//} // end class
+
+// ver_2 - outter class : 비추
+//class MyHandler implements ActionListener {
+//	
+//	// 초기값 참조형 변수이기 때문에 초기값 null 
+//	// -> 실행하면 NPE 터짐
+////	private JTextField t;
+//	
+//	// GUITest Class에서 사용되는 t를 사용해야 함
+//	private JTextField t;
+//	MyHandler(JTextField t) {
+//		this.t = t;
+//	} // -> 생성자를 통해서 GUITest에서 사용되는 객체(t)가 
+//	// MyHandler 클래스로 전달되고, 해당 클래스에서 사용 가능해짐
+//
+//	@Override
+//	public void actionPerformed(ActionEvent e) {
+//		t.setText("클릭되었습니다 :-) ");
+//	} // actionPerformed()
+//	
+//} // end class
+
+//	----------------------------------
 
 public class GUITest {
 	private JFrame f;
 	private JButton bt;
 	private JTextField t;
+	
+// ver_3 - inner class
+	class MyHandler implements ActionListener {
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			t.setText("클릭되었습니다 :-) ");
+		} // actionPerformed()
+	
+	} // end class	
 	
 	public GUITest() {
 		
@@ -45,7 +81,9 @@ public class GUITest {
 		c.add(t);
 		
 		// 이벤트 소스와 이벤트 핸들러 연결
-		bt.addActionListener( new MyHandler() );
+//		bt.addActionListener( new MyHandler() );	// ver_1
+//		bt.addActionListener( new MyHandler(t) );	// ver_2
+		bt.addActionListener( new MyHandler() );	// ver_3
 		
 		f.setSize(300, 200);
 		f.setVisible(true);
