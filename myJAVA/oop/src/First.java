@@ -1,3 +1,7 @@
+import lombok.extern.log4j.Log4j2;
+
+@Log4j2
+
 public class First {
 	
 	static int smf; // static 필드
@@ -16,7 +20,9 @@ public class First {
 		First one; // 참조형 지역변수
 		one = new First(); // 인스턴스화
 		
+		log.info("ddd");
 		System.out.println(one.mf); // 0
+		
 		
 	} // end main
 

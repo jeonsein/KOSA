@@ -26,6 +26,8 @@ public class ProductDAOArray implements ProductDAOInterface {
 			products[totalCnt] = product;
 			
 			totalCnt++; // GOODCODE
+			
+			// catch로 가기 전에 ++하고 넘어감!
 			// products[totalCnt++] = product; // BADCOCDE
 			
 		} catch (ArrayIndexOutOfBoundsException e) {
