@@ -58,14 +58,14 @@ public class GUITest {
 	private JTextField t;
 	
 // ver_3 - inner class
-	class MyHandler implements ActionListener {
-
-		@Override
-		public void actionPerformed(ActionEvent e) {
-			t.setText("클릭되었습니다 :-) ");
-		} // actionPerformed()
-	
-	} // end class	
+//	class MyHandler implements ActionListener {
+//
+//		@Override
+//		public void actionPerformed(ActionEvent e) {
+//			t.setText("클릭되었습니다 :-) ");
+//		} // actionPerformed()
+//	
+//	} // end class	
 	
 	public GUITest() {
 		
@@ -81,9 +81,28 @@ public class GUITest {
 		c.add(t);
 		
 		// 이벤트 소스와 이벤트 핸들러 연결
-//		bt.addActionListener( new MyHandler() );	// ver_1
-//		bt.addActionListener( new MyHandler(t) );	// ver_2
-		bt.addActionListener( new MyHandler() );	// ver_3
+		// ver_1
+//		bt.addActionListener( new MyHandler() );
+		
+		// ver_2
+//		bt.addActionListener( new MyHandler(t) );
+		
+		// ver_3
+//		bt.addActionListener( new MyHandler() );
+		
+		// ver_4 - 익명구현객체
+//		bt.addActionListener( new ActionListener() {
+//			@Override
+//			public void actionPerformed(ActionEvent e) {
+//				t.setText("클릭되었습니다 :-) ");
+//			} // actionPerformed()	
+//		}); // 이름없는 클래스 타입의 객체 생성 (익명클래스 형태로 객체 생성)
+		
+		// ver_5 - Lambda
+		bt.addActionListener( (e) -> {
+			t.setText("클릭되었습니다 :-) ");
+		});
+		
 		
 		f.setSize(300, 200);
 		f.setVisible(true);
