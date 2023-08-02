@@ -1,9 +1,14 @@
 import java.util.Scanner;
 
+import com.my.exception.AddException;
 import com.my.product.dao.ProductDAOArray;
 import com.my.product.dao.ProductDAOInterface;
 import com.my.product.dto.Product;
 
+import lombok.extern.log4j.Log4j2;
+
+
+@Log4j2
 public class ProductUser {
 	
 	Scanner sc = new Scanner(System.in);
@@ -68,14 +73,19 @@ public class ProductUser {
 		
 //		p1.prodNo = prodNo;
 //		p1.prodName = prodName;
-////		p1.prodPrice = prodPrice; // p1.prodPrice : int타입, prodPrice : String 타입
+//		p1.prodPrice = prodPrice; // p1.prodPrice : int타입, prodPrice : String 타입
 //								  // String -> int : Integer.parseInt(String);
 //		p1.prodPrice = Integer.parseInt(prodPrice);
 	
 		Product p = new Product(
 				prodNo, prodName, Integer.parseInt(prodPrice));
 		
-		dao.insert(p);
+		try {
+			dao.insert(p);
+		} catch (AddException e) {
+			e.printStackTrace();
+			log.info("e.getMessage(): " + e.getMessage());
+		} // try-catch
 		
 		System.out.println("prodNo : " + p.getProdNo());
 		System.out.println("prodName : " + p.getProdName());
@@ -84,7 +94,7 @@ public class ProductUser {
 	} // add()
 	
 	
-	public static void main(String[] args) {	
+	public static void main(String[] args) throws AddException {	
 		
 		ProductUser user = new ProductUser(); // non-static 필드로 선언된 scanner를 사용하기위해 객체 먼저 생성
 		

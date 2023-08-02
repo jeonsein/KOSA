@@ -21,7 +21,7 @@ public class ProductDAOArray implements ProductDAOInterface {
 //			
 //			return;
 			
-//		}
+//		} // if
 		
 		for(int i = 0; i < totalCnt; i++) {
 			if (products[i].getProdNo().equals(product.getProdNo() )) {
