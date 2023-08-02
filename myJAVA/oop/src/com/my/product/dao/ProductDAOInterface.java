@@ -1,5 +1,6 @@
 package com.my.product.dao;
 
+import com.my.exception.AddException;
 import com.my.product.dto.Product;
 
 public interface ProductDAOInterface {
@@ -9,7 +10,7 @@ public interface ProductDAOInterface {
 	 * @param product 상품
 	 */	
 	// public abstract void insert(Product product);와 같음
-	void insert(Product product);
+	void insert(Product product) throws AddException;
 
 	/**
 	 * 상품 번호에 해당 상품을 저장소에서 검색하여 반환한다.
