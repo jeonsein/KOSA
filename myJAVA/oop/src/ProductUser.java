@@ -1,4 +1,6 @@
+import java.io.IOException;
 import java.util.List;
+import java.util.Properties;
 import java.util.Scanner;
 
 import com.my.exception.AddException;
@@ -6,21 +8,57 @@ import com.my.exception.FindException;
 import com.my.exception.ModifyException;
 import com.my.exception.RemoveException;
 import com.my.product.dao.ProductDAOInterface;
-import com.my.product.dao.ProductDAOList;
 import com.my.product.dto.Product;
 
 import lombok.extern.log4j.Log4j2;
-
 
 @Log4j2
 public class ProductUser {
 	
 	Scanner sc = new Scanner(System.in);
+
+//	--------------------
 	
 //	ProductDAOArray dao = new ProductDAOArray();
 	
-	ProductDAOInterface dao = new ProductDAOList();
-//	 ProductDAOInterface dao = new ProductDAOArray();
+//	ProductDAOInterface dao = new ProductDAOList();
+//	ProductDAOInterface dao = new ProductDAOArray();
+	
+	ProductDAOInterface dao;
+	
+	ProductUser() {
+//		dao = new ProductDAOList();
+		// 🔽🔽 Properties class type 사용하기
+		Properties env = new Properties();
+		
+		try {
+			// ProductUser.class 파일이 있는 곳에서, "my.properties"를 찾아서 읽어와라!
+			env.load(ProductUser.class.getResourceAsStream("my.properties"));
+			
+			String className = env.getProperty("product.dao"); // class 이름이 됨! -> 이걸로 객체 생성
+			
+			// product.dao라는 키로 product value를 찾아오면
+			// value가 com.my.product.dao.ProductDAOArray가 됨!
+			// 이후 load된 클래스를 가지고서 객체를 생성함!
+			Class clazz = Class.forName(className);
+			
+			Object obj = clazz.getDeclaredConstructor().newInstance();
+			
+			dao = (ProductDAOInterface)obj;
+			
+			System.out.println("DAO에서 실제 사용된 클래스: " + dao.getClass().getName());
+			
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} // try-catch
+		
+	} // ProductUser()
+	
+//	--------------------
 	
 	public void findAll() throws FindException {
 		
@@ -183,34 +221,67 @@ public class ProductUser {
 	
 } // end class
 
+/*
+import java.io.IOException;
+import java.util.List;
+import java.util.Properties;
 
-/* 강사님 코드
 import com.my.exception.AddException;
 import com.my.exception.FindException;
 import com.my.exception.ModifyException;
 import com.my.exception.RemoveException;
-import com.my.product.dao.ProductDAOArrayMY;
 import com.my.product.dao.ProductDAOInterface;
 import com.my.product.dto.Product;
-
 
 public class ProductUser {
 	java.util.Scanner sc = new java.util.Scanner(System.in); 
 	//ProductDAOArray dao = new ProductDAOArray();
 	
-	ProductDAOInterface dao = new ProductDAOArrayMY();
+//	ProductDAOInterface dao = new ProductDAOArray();
 //	ProductDAOInterface dao = new ProductDAOList();
+	ProductDAOInterface dao;
+	ProductUser(){
+		//dao = new ProductDAOList();
+		
+		Properties env = new Properties();
+		try {
+			env.load(ProductUser.class.getResourceAsStream("my.properties"));
+			String className = env.getProperty("product.dao");
+			Class clazz = Class.forName(className);//
+			Object obj = clazz.getDeclaredConstructor().newInstance();
+			dao = (ProductDAOInterface)obj;
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+				
+		
+		
+		
+		
+	}
 	
 	void findAll() {
 		System.out.println(">>상품 전체목록<<");
 		try {
-			Product[] all1 = dao.selectAll();
-		
-
-			for(int i = 0; i< all1.length; i++){
-				Product p = all1[i];
-				//System.out.println(p.prodNo + ":" + p.prodName + ":" + p.prodPrice);
-				System.out.println(p.getProdNo() + ":" + p.getProdName() + ":" + p.getProdPrice());
+			//Product[] all1 = dao.selectAll();
+			Object obj = dao.selectAll();
+			if(obj instanceof Product[]) {
+				Product[] all1 = (Product[])obj;				
+				for(int i = 0; i< all1.length; i++){
+					Product p = all1[i];
+					//System.out.println(p.prodNo + ":" + p.prodName + ":" + p.prodPrice);
+					System.out.println(p.getProdNo() + ":" + p.getProdName() + ":" + p.getProdPrice());
+				}
+			}else if(obj instanceof List) {
+				List<Product> list = (List)obj;
+				for(int i=0; i<list.size(); i++) {
+					Product p = list.get(i);
+					System.out.println(p.getProdNo() + ":" + p.getProdName() + ":" + p.getProdPrice());
+				}
 			}
 
 		}catch(FindException e) {
@@ -310,4 +381,5 @@ public class ProductUser {
 		
 	}
 }
+
 */

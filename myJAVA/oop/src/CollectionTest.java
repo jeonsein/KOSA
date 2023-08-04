@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 
+import com.my.customer.dto.Customer;
 import com.my.product.dto.Product;
 
 import lombok.extern.log4j.Log4j2;
@@ -61,9 +62,21 @@ public class CollectionTest {
 		m.put("four", Boolean.valueOf(false));
 		m.put("five", Float.valueOf(19.97F));
 		
+		// hashcode() override 해뒀기 때문에 동일 객체로 인식함
+		m.put(new Product("c0001", "배고파", 1000), "밥주세요");
+		m.put(new Product("c0001", "배곺파", 2000), "밥줘");
+		
+		// hashcode() override 안해서 동일 객체로 인식 X
+		m.put(new Customer("id1", "p1"), "고객1");
+		m.put(new Customer("id1", "p2"), "고객2");
+		
 		log.info("저장된 요소의 개수: " + m.size());
 		log.info("저장된 요소: " + m);
 		
+		Product p = new Product();
+		
+		p.setProdNo("c0001");
+		log.info("c0001의 상품키 값은: " + m.get(p)); // 밥줘
 		
 	} // test()
 	
