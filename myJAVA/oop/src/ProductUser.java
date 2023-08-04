@@ -1,3 +1,4 @@
+import java.util.List;
 import java.util.Scanner;
 
 import com.my.exception.AddException;
@@ -25,16 +26,40 @@ public class ProductUser {
 		
 		System.out.println(">>상품 전체목록<<");
 		
-		Product[] all1 = dao.selectAll();
-		
-		if(all1 == null) {
-			System.out.println("상품이 없습니다"); //출력됨
-		} else {
-			for(Product p: all1) {
-				System.out.println(p.getProdNo() + ":" + p.getProdName() + ":" + p.getProdPrice());
-			} // for
-		} // if-else
-		
+		try {
+			
+			Object obj = dao.selectAll();
+			
+			if(obj instanceof Product[]) {
+				Product[] all1 = (Product[]) obj;
+				
+				for(int i = 0; i < all1.length; i++) {
+					Product p = all1[i];
+					
+					System.out.println(p.getProdNo() + ":" + p.getProdName() + ":" + p.getProdPrice());
+				} // for
+				
+			} else if (obj instanceof List) {
+				List<Product> list = (List) obj;
+				
+				for(int i = 0; i < list.size(); i++) {
+					Product p = list.get(i);
+					System.out.println(p.getProdNo() + ":" + p.getProdName() + ":" + p.getProdPrice());
+				} // for
+			} // if-else
+			// 🔼 코드 변경
+//			if(obj == null) {
+//				System.out.println("상품이 없습니다"); //출력됨
+//			} else {
+//				for(Product p: obj) {
+//					System.out.println(p.getProdNo() + ":" + p.getProdName() + ":" + p.getProdPrice());
+//				} // for
+//			} // if-else
+			
+		} catch(FindException e) {
+			System.out.println(e.getMessage());
+		} // try-catch
+
 		System.out.println("----------------");
 		
 	} // findAll()

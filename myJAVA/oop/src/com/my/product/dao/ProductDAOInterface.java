@@ -26,7 +26,9 @@ public interface ProductDAOInterface {
 	 * 저장소에 저장된 상품들만 반환한다.
 	 * @return 상품객체들, 단 저장소에 저장된 상품이 한개도 없으면 null을 반환한다.
 	 */
-	Product[] selectAll() throws FindException; // Product 배열 타입으로 반환
+//	Product[] selectAll() throws FindException; // Product 배열 타입으로 반환
+	// 🔽 배열 타입을 Object 타입으로 변환하기
+	Object selectAll() throws FindException;
 	
 	/**
 	 * 변경할 상품의 상품번호와 같은 상품을 저장소에서 찾아낸다
