@@ -24,7 +24,9 @@ public class ProductDAOList implements ProductDAOInterface {
 		
 		for(Product p : products) {
 			
-			if(p.getProdNo().equals(product.getProdNo())) {
+			// String의 .equals가 아닌 Product에서 @Override 하기
+//			if(p.getProdNo().equals(product.getProdNo())) {
+			if(p.equals(product)) {
 				throw new AddException("이미 존재하는 상품입니다.");
 			} // if
 			
@@ -40,6 +42,7 @@ public class ProductDAOList implements ProductDAOInterface {
 		
 		for(Product p : products) {
 			
+			// if(p.equals(no)) {
 			if(p.getProdNo().equals(no)) {
 				return p;
 			} // if

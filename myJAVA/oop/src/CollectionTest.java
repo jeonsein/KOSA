@@ -1,6 +1,11 @@
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
+
+import com.my.product.dto.Product;
 
 import lombok.extern.log4j.Log4j2;
 
@@ -16,6 +21,9 @@ public class CollectionTest {
 		c.add(Float.valueOf(19.97F));
 		c.add("sengna");
 		c.add(Boolean.valueOf(false));
+		// 중복된 객체
+		c.add(new Product("C0001", "배고파", 1000));
+		c.add(new Product("C0001", "배곺파", 2000));
 		
 		log.info("저장된 요소의 개수: " + c.size());
 		log.info("c.toString(): " + c); // c.toString() 자동 호출
@@ -45,6 +53,20 @@ public class CollectionTest {
 		
 	} // test()
 	
+	public static void test(Map m) {
+		
+		m.put("one", new Date());
+		m.put("two", new String("sengna"));
+		m.put("one", Integer.valueOf(1216));
+		m.put("four", Boolean.valueOf(false));
+		m.put("five", Float.valueOf(19.97F));
+		
+		log.info("저장된 요소의 개수: " + m.size());
+		log.info("저장된 요소: " + m);
+		
+		
+	} // test()
+	
 	public static void main(String[] args) {
 		
 		// ArrayList
@@ -57,6 +79,12 @@ public class CollectionTest {
 		// HashSet
 		log.info("# HashSet");
 		test(new HashSet());
+		
+		log.info("-----------------------------------");
+		
+		// HashMap
+		log.info("# HashMap");
+		test(new HashMap());
 		
 	} // end main
 	
