@@ -5,8 +5,8 @@ import com.my.exception.AddException;
 import com.my.exception.FindException;
 import com.my.exception.ModifyException;
 import com.my.exception.RemoveException;
-import com.my.product.dao.ProductDAOArray;
 import com.my.product.dao.ProductDAOInterface;
+import com.my.product.dao.ProductDAOList;
 import com.my.product.dto.Product;
 
 import lombok.extern.log4j.Log4j2;
@@ -19,8 +19,8 @@ public class ProductUser {
 	
 //	ProductDAOArray dao = new ProductDAOArray();
 	
-//	ProductDAOInterface dao = new ProductDAOList();
-	 ProductDAOInterface dao = new ProductDAOArray();
+	ProductDAOInterface dao = new ProductDAOList();
+//	 ProductDAOInterface dao = new ProductDAOArray();
 	
 	public void findAll() throws FindException {
 		
