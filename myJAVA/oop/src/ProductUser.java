@@ -1,6 +1,8 @@
 import java.util.Scanner;
 
 import com.my.exception.AddException;
+import com.my.exception.FindException;
+import com.my.exception.ModifyException;
 import com.my.product.dao.ProductDAOArray;
 import com.my.product.dao.ProductDAOInterface;
 import com.my.product.dto.Product;
@@ -18,7 +20,7 @@ public class ProductUser {
 //	ProductDAOInterface dao = new ProductDAOList();
 	 ProductDAOInterface dao = new ProductDAOArray();
 	
-	public void findAll() {
+	public void findAll() throws FindException {
 		
 		System.out.println(">>상품 전체목록<<");
 		
@@ -36,7 +38,7 @@ public class ProductUser {
 		
 	} // findAll()
 	
-	public void findByProdNo() {
+	public void findByProdNo() throws FindException {
 
 		System.out.println(">>상품 번호로 검색<<");
 		System.out.println("상품번호를 입력하세요.");
@@ -93,14 +95,44 @@ public class ProductUser {
 		
 	} // add()
 	
+	public void update() throws ModifyException {
+
+		System.out.println("수정할 상품의 번호를 입력하세요");
+		String prodNo = sc.nextLine();
+
+		if ( prodNo == null ) { // prodNo가 저장된 상품과 같지 않다면..으로 하고싶은데..
+			System.out.println("수정할 상품이 없습니다.");
+		} else {
+			System.out.println("상품의 이름을 입력하세요");
+			String prodName = sc.nextLine();
+
+			System.out.println("상품의 가격을 입력하세요 ");
+			String prodPrice = sc.nextLine();
+
+			Product p = new Product(prodNo, prodName, Integer.parseInt(prodPrice));
+
+			dao.update(p);
+		}
+
+	}
 	
-	public static void main(String[] args) throws AddException {	
+	public void delete() {
+
+		System.out.println("삭제할 상품의 상품번호를 입력하세요.");
+		String prodNo = sc.nextLine();
+
+		dao.delete();
+	}
+	
+	
+	public static void main(String[] args) throws AddException, FindException, ModifyException {	
 		
 		ProductUser user = new ProductUser(); // non-static 필드로 선언된 scanner를 사용하기위해 객체 먼저 생성
 		
 		while(true) {
 		
-			System.out.println("작업을 선택하세요 : 상품전체목록-1, 상품번호로검색-2, 상품추가-3, 종료-9");
+			System.out.println
+			("작업을 선택하세요 : 상품전체목록-1, 상품번호로검색-2, 상품추가-3, 상품수정-4, 종료-9");
 			String opt = user.sc.nextLine(); 
 			
 			if(opt.equals("1")) {
@@ -109,6 +141,8 @@ public class ProductUser {
 				user.findByProdNo();
 			} else if(opt.equals("3")) {
 				user.add();
+			} else if(opt.equals("4")) {
+				user.update();
 			} else if(opt.equals("9")) {
 				break;
 			} // if-else

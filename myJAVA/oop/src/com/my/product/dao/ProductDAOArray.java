@@ -1,6 +1,9 @@
 package com.my.product.dao;
 
 import com.my.exception.AddException;
+import com.my.exception.FindException;
+import com.my.exception.ModifyException;
+import com.my.exception.RemoveException;
 import com.my.product.dto.Product;
 
 import lombok.extern.log4j.Log4j2;
@@ -53,7 +56,7 @@ public class ProductDAOArray implements ProductDAOInterface {
 	} // insert
 	
 	@Override
-	public Product selectByProdNo(String prodNo) {
+	public Product selectByProdNo(String prodNo) throws FindException {
 	
 		// 강사님 코드
 		for(int i = 0; i < totalCnt; i++) {
@@ -66,25 +69,54 @@ public class ProductDAOArray implements ProductDAOInterface {
 			
 		} // for
 		
-		return null;
+//		return null;
+		
+		throw new FindException("상품이 없습니다.");
 	} // selectByNo
 	
 	@Override
-	public Product[] selectAll() {
+	public Product[] selectAll() throws FindException {
 
 		// 강사님 코드
 		if( totalCnt == 0 ) {
-			return null;
-		}
+//			return null;
+			throw new FindException("상품이 한개도 없습니다.");
+		} // if
 		
 		Product[] all = new Product[totalCnt];
 		
 		for(int i = 0; i < totalCnt; i++) {
 			all[i] = products[i];
-		}
+		} // for
 		
 		return all;
 		
 	} // selectAll()
+	
+	@Override
+	public void update(Product p) throws ModifyException {
+		int i = 0;
+		
+		for(; i < totalCnt; i++) {
+			
+			Product savedP = products[i];
+			
+			if(p.getProdNo().equals(savedP.getProdNo())) {
+				
+				if(p.getProdName() != null) {
+					savedP.setProdName(p.getProdName());
+				} // inner-if
+				
+					
+			} // outter-if
+			
+		} // for
+		
+	} // update()
+
+	@Override
+	public void delete(String prodNo) throws RemoveException {
+		
+	} // delete()
 
 } // end class
