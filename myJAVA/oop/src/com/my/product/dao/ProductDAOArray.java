@@ -95,27 +95,49 @@ public class ProductDAOArray implements ProductDAOInterface {
 	
 	@Override
 	public void update(Product p) throws ModifyException {
-		int i = 0;
-		
-		for(; i < totalCnt; i++) {
-			
-			Product savedP = products[i];
-			
-			if(p.getProdNo().equals(savedP.getProdNo())) {
-				
+
+		if ( p == null ) {
+			throw new ModifyException("변경할 상품이 없습니다.");
+		} // if
+
+		for(int i=0; i<totalCnt; i++) {
+			if(products[i].getProdNo().equals(p.getProdNo())) {
+
 				if(p.getProdName() != null) {
-					savedP.setProdName(p.getProdName());
+					products[i].setProdName(p.getProdName());
 				} // inner-if
 				
-					
+				if(p.getProdPrice() != 0) {
+					products[i].setProdPrice(p.getProdPrice());
+				} // inner-if
+				
 			} // outter-if
-			
 		} // for
 		
 	} // update()
 
 	@Override
 	public void delete(String prodNo) throws RemoveException {
+		
+		if ( prodNo == null ) {
+			throw new RemoveException("삭제할 상품이 없습니다.");
+		} // if
+
+		for(int i = 0; i < totalCnt; i++) {
+			if (products[i].getProdNo().equals(prodNo)) {
+				
+				for(int j = i; j < totalCnt-1; j++) {
+					products[j] = products[j+1];
+				} // for
+				
+				products[totalCnt-1] = null;
+				
+				totalCnt--;
+				
+			} else if(totalCnt == 0) {
+				System.out.println("삭제할 상품이 없습니다.");
+			} //if-else
+		} // for
 		
 	} // delete()
 
