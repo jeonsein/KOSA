@@ -125,7 +125,11 @@ public class FileIOTest {
 		FileWriter fw = null;
 		
 		try {
-			fw = new FileWriter(fileName);
+//			fw = new FileWriter(fileName);
+			fw = new FileWriter(fileName, true); 
+			// 기존 파일이 존재할 경우, 기존 파일 끝에 write할 내용을 uppend!
+			// 기존 파일이 없을 경우, 새로 파일 생성!
+			// 셍나는 짱이다!셍나는 짱이다!
 			
 			fw.write("셍나는 짱이다!");
 		} catch (IOException e) {
