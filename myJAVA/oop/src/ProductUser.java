@@ -221,6 +221,8 @@ public class ProductUser {
 	
 } // end class
 
+
+// 강사님 코드
 /*
 import java.io.IOException;
 import java.util.List;
@@ -258,10 +260,6 @@ public class ProductUser {
 			e.printStackTrace();
 		}
 				
-		
-		
-		
-		
 	}
 	
 	void findAll() {
