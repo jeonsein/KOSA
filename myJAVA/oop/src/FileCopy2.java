@@ -60,7 +60,7 @@ public class FileCopy2 {
 				// fos.write(bArr); // XXX byte 배열만큼 쓰면 안됨!!
 				fos.write(bArr, 0, readCnt); 
 				// -> byte 배열인 bArr의 0번째 index부터 쓸 byte의 수
-			} // while
+			} // while 
 			
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -81,6 +81,7 @@ public class FileCopy2 {
 		} // try-catch-finally
 		
 		// 안전한 예외처리 위해서 각각 다 예외처리 해줌!
+		
 		
 	} // end main
 
