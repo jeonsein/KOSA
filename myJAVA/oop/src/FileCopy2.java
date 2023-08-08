@@ -5,6 +5,7 @@
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.Scanner;
 
 public class FileCopy2 {
@@ -39,6 +40,34 @@ public class FileCopy2 {
 			return;
 		} // try-catch
 		
+		// 원본 읽기
+		int readValue; 
+		
+		try {
+			
+			while( (readValue = fis.read()) == -1 ) {
+				fos.write(readValue);
+			} // while
+			
+		} catch (IOException e) {
+			e.printStackTrace();
+		} finally {
+			
+			try {
+				fis.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			} // try-catch
+			
+			try {
+				fos.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			} // try-catch
+			
+		} // try-catch-finally
+		
+		// 안전한 예외처리 위해서 각각 다 예외처리 해줌!
 		
 	} // end main
 
