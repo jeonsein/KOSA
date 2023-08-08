@@ -40,13 +40,26 @@ public class FileCopy2 {
 			return;
 		} // try-catch
 		
-		// 원본 읽기
-		int readValue; 
+		// 원본 읽기#1
+		// int readValue;
+		
+		// 원본 읽기#2
+		int readCnt; // 읽어온 바이트 수
+		byte[] bArr = new byte[1024];
 		
 		try {
 			
+			/*
 			while( (readValue = fis.read()) != -1 ) {
+				// (char)fos.write(readValue); -> txt 파일만 가능함
 				fos.write(readValue);
+			} // while
+			*/ // 원본 읽기#1 -> 효율 안좋음
+			
+			while( (readCnt = fis.read(bArr)) != -1 ) {
+				// fos.write(bArr); // XXX byte 배열만큼 쓰면 안됨!!
+				fos.write(bArr, 0, readCnt); 
+				// -> byte 배열인 bArr의 0번째 index부터 쓸 byte의 수
 			} // while
 			
 		} catch (IOException e) {
