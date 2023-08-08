@@ -45,7 +45,7 @@ public class FileCopy2 {
 		
 		try {
 			
-			while( (readValue = fis.read()) == -1 ) {
+			while( (readValue = fis.read()) != -1 ) {
 				fos.write(readValue);
 			} // while
 			
