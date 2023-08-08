@@ -100,7 +100,9 @@ public class ProductDAOFile implements ProductDAOInterface {
 				fw = new FileWriter(fileName, true);
 				
 				String prodStr = 
-						product.getProdNo() + ":" + product.getProdName() + ":" + product.getProdPrice() + "\n";
+						product.getProdNo() 
+						+ ":" + product.getProdName() 
+						+ ":" + product.getProdPrice() + "\n";
 				
 				fw.write(prodStr);
 				
@@ -205,11 +207,110 @@ public class ProductDAOFile implements ProductDAOInterface {
 	@Override
 	public void update(Product p) throws ModifyException {
 		
-	}
+		FileWriter fw = null;
+		
+		try {
+			List<Product> all = (List)selectAll();
+			
+			boolean updated = false;
+			
+			for(Product savedP : all) {
+//				
+				// if(savedP.getProdNo().equals(p.getProdNo())) {
+				// 위아래 if문 코드 동일 의미
+				if(savedP.equals(p)) {	// 상품 번호가 같으면 true 반환
+					
+					if(p.getProdName() != null) { // 이름이 null이 아닐때
+						savedP.setProdName(p.getProdName());
+						updated = true;
+					} // inner-if #1
+					
+					if(p.getProdPrice() != 0) {
+						savedP.setProdPrice(p.getProdPrice());
+						updated = true;
+					} // inner-if #2
+					
+					// if문 중에서 하나의 조건이라도 만족하면 break;
+					break;
+				} // outter-if
+					
+			} // for
+			
+			// boolean updated = false인 상태로 오면
+			if(updated) {
+				fw = new FileWriter(fileName);
+				
+				for(Product savedP : all) {
+					String pStr = savedP.getProdNo() 
+							+ ":" + savedP.getProdName() 
+							+ ":" + savedP.getProdPrice() 
+							+"\n";
+					fw.write(pStr);
+					
+				} // for
+				
+			} // if
+			
+		} catch(FindException e) {
+//			e.printStackTrace();
+		} catch (IOException e) {
+//			e.printStackTrace();
+		} finally {
+			if(fw != null) {
+				try {
+					fw.close();
+				} catch (IOException e) {
+					e.printStackTrace();
+				} // try-catch
+			} // if
+		} // try-catch-finally
+		
+	} // update()
 
 	@Override
 	public void delete(String prodNo) throws RemoveException {
+		FileWriter fw = null;
 		
-	}
+		try {							// 상품 여러개
+			
+			List<Product> all = (List)selectAll();	// 전체 상품 목록 받아옴
+			
+			/*
+			// 다 삭제해놓고 다시 새로 쓰는 방법
+			Product savedP = new Product();
+			all.remove(savedP);
+			all.remove(savedP);
+			*/
+			
+			// 새로 쓰는데, 해당 번호 빼고 다시 새로 쓰는 방법
+			fw = new FileWriter(fileName); // 새로 쓰는거라 (fileName, true) X
+			// = FileWriter(fileName, false);
+			
+			for(Product p : all) {
+				if(!p.getProdNo().equals(prodNo)) {		// 해당 상품 번호 빼고 나머지 추가
+					String Pstr = 
+							p.getProdNo() 
+							+ ":" + p.getProdName() 
+							+ ":" + p.getProdPrice() + "\n";
+					
+					fw.write(Pstr);
+				} // if
+			} // for
+			
+		} catch (FindException e) {		// 상품 X
+//			e.printStackTrace();
+		} catch (IOException e) {
+//			e.printStackTrace();
+		} finally {
+			if(fw != null) {
+				try {
+					fw.close();
+				} catch (IOException e) {
+//					e.printStackTrace();
+				} // try-catch
+			} // if
+		} // try-catch-finally
+		
+	} // delete()
 	
 } // end class
