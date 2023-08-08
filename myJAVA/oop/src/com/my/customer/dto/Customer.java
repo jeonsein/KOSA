@@ -3,10 +3,12 @@ package com.my.customer.dto;
 import java.io.Serializable;
 
 // 부모 클래스로부터 상속 먼저! 그 이후 구현!
-public class Customer extends Person implements Serializable {
+public class Customer extends Person {
+//public class Customer extends Person implements Serializable {
 
 	private String id;
-	private String pwd;
+//	private String pwd;
+	transient private String pwd;
 	
 	public Customer() {
 		super();

@@ -117,7 +117,7 @@ public class ProductUser {
 			System.out.println("상품이 없습니다"); 
 		} else {
 			//출력됨
-			System.out.println(p.getProdNo() +"번호 상품의 상품명:" + p.getProdName() + ", 가격:" + p.getProdPrice());
+			System.out.println(p.getProdNo() +" 상품의 상품명: " + p.getProdName() + ", 가격: " + p.getProdPrice());
 		} // if-else
 		
 	} // findByProdNo()

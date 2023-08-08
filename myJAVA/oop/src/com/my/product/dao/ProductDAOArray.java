@@ -55,6 +55,8 @@ public class ProductDAOArray implements ProductDAOInterface {
 		
 	} // insert
 	
+//	------------------------------------------
+	
 	@Override
 	public Product selectByProdNo(String prodNo) throws FindException {
 	
@@ -74,6 +76,8 @@ public class ProductDAOArray implements ProductDAOInterface {
 		throw new FindException("상품이 없습니다.");
 	} // selectByNo
 	
+//	------------------------------------------
+	
 	@Override
 	public Object selectAll() throws FindException {
 
@@ -92,6 +96,8 @@ public class ProductDAOArray implements ProductDAOInterface {
 		return all;
 		
 	} // selectAll()
+	
+//	------------------------------------------
 	
 	@Override
 	public void update(Product p) throws ModifyException {
@@ -116,6 +122,8 @@ public class ProductDAOArray implements ProductDAOInterface {
 		
 	} // update()
 
+//	------------------------------------------
+	
 	@Override
 	public void delete(String prodNo) throws RemoveException {
 		
