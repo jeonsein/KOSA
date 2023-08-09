@@ -14,6 +14,8 @@ public class Product {
 	private String prodNo;		// 상품 번호
 	private String prodName;	// 상품 이름
 	private int prodPrice;		// 상품 가격
+//	private Integer prodPrice; // 참조 자료형으로 변경
+	// -> 더 폭 넓게 사용이 가능
 	
 //	---------------
 	

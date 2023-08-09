@@ -163,7 +163,7 @@ public class ProductUser {
 		System.out.println("수정할 상품의 번호를 입력하세요");
 		String prodNo = sc.nextLine();
 
-		if ( prodNo == null ) { // prodNo가 저장된 상품과 같지 않다면..으로 하고싶은데..
+		if ( prodNo == null ) {
 			System.out.println("수정할 상품이 없습니다.");
 		} else {
 			System.out.println("상품의 이름을 입력하세요");
