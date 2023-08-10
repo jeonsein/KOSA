@@ -1,6 +1,9 @@
 package com.my.tcp.server;
 
+import java.io.DataInputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.net.BindException;
 import java.net.ServerSocket;
 import java.net.Socket;
 
@@ -16,6 +19,9 @@ public class ServerTest {
 		ServerSocket ss = null;
 		Socket s = null;
 		
+		InputStream is = null;
+		DataInputStream dis = null;
+		
 		// ServerSocket 타입의 객체 생성
 		try {
 			ss = new ServerSocket(port);
@@ -23,9 +29,29 @@ public class ServerTest {
 			
 			// 클라이언트 접속 시, 서버에서는 자동으로 Socket 생성!
 			s = ss.accept();
+			
+			// 문자 하나 읽기!
+			is = s.getInputStream();
+//			int readValue = is.read();
+//			System.out.println("▷▷▷▷▷ Client가 보낸 메세지: " + (char)readValue);
+			
+			// 문자열 읽기!
+			dis = new DataInputStream(is);
+			String readValue = dis.readUTF();
+			System.out.println("▷▷▷▷▷ Client가 보낸 메세지: " + readValue);
+			
+		} catch (BindException e) {
+			e.printStackTrace();
+			System.out.println(port + "▷▷▷▷▷ 포트가 이미 사용 중입니다 -ㅇ- !");
 		} catch (IOException e) {
 			e.printStackTrace();
-		} // try-catch
+		} finally {
+			if(s != null) {
+				try {
+					s.close();
+				} catch (IOException e) {} // try-catch
+			} // if
+		} // try-catch-finally
 		
 	} // end main
 	
