@@ -117,14 +117,13 @@ public class ServerMultiThread {
 		
 		List<ServerThread> list = new ArrayList<>(); // 일반화된 인터페이스 타입
 //		ArrayList<ServerThread> list = new ArrayList<>(); // 구체화된 클래스 타입
+//		Vector<ServerThread> list = new Vector<>();
 		// 처음에 구체화된 클래스 타입으로 선언했기 때문에 코드 변경이 일어났음 (ArrayList -> Vector)
 		// 만약 처음부터 일반화된 인터페이스 타입으로 선언했다면,
 		// main 내부에서 객체 생성하는 부분만 변경이 가능함!
 		// List<ServerThread> list = new ArrayList<>();
-		// 🔽🔽🔽🔽🔽🔽🔽🔽🔽🔽🔽🔽🔽🔽🔽🔽🔽🔽🔽🔽🔽
+		// 							 🔽🔽🔽🔽🔽🔽🔽🔽
 		// List<ServerThread> list = new Vector<>(); 
-		
-//		Vector<ServerThread> list = new Vector<>();
 		
 		try {
 			
