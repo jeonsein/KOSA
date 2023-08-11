@@ -30,7 +30,7 @@ class ReceiveForClientMultiThread extends Thread{
 			String receiveMsg;
 			
 			while(  !(receiveMsg = dis.readUTF()).equals("quit")) {
-				System.out.println("클라이언트가 보낸 메시지:" + receiveMsg);
+				System.out.println("클라이언트가 보낸 메시지: " + receiveMsg);
 			} // while
 			
 		} catch (IOException e) {

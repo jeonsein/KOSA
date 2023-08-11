@@ -72,7 +72,11 @@ public class ClientMultiThread {
 	
 		// Socket 생성
 		Socket s = null;
-		String serverIP = "127.0.0.1";
+//		String serverIP = "127.0.0.1";
+//		String serverIP = "192.168.1.84";	// 강사님 IP
+		String serverIP = "192.168.1.21"; // 셍나 IP
+//		String serverIP = "192.168.1.22"; // 찬돌이 IP
+		
 		int serverPort = 5432;
 		
 		OutputStream os = null;
@@ -92,7 +96,7 @@ public class ClientMultiThread {
 			String sendMsg;
 			
 			do {
-				System.out.print("서버로 보낼 메시지(종료하려면 quit을 입력하세요.)");
+				System.out.println("🔽🔽🔽🔽🔽 서버로 보낼 메시지를 입력하세요.(종료하려면 quit을 입력하세요.)");
 				
 				sendMsg = sc.nextLine();
 				dos.writeUTF(sendMsg);
@@ -103,7 +107,7 @@ public class ClientMultiThread {
 		} catch(ConnectException e) { //자식예외
 			System.out.println("서버가 실행되지 않았습니다. 서버실행을 확인하세요");
 		} catch(SocketException e) { //부모예외
-			System.out.println("서버가 강제종료되었습니다. 서버확인하세요");
+			System.out.println("서버가 강제 종료되었습니다. 서버 확인하세요");
 		} catch (IOException e) {
 			e.printStackTrace();
 		} finally {
