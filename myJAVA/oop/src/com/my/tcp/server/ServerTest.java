@@ -24,7 +24,6 @@ public class ServerTest {
 		
 		InputStream is = null;
 		OutputStream oos = null;
-		
 		DataInputStream dis = null;
 		DataOutputStream dos = null;
 		
@@ -36,10 +35,6 @@ public class ServerTest {
 			// 클라이언트 접속 시, 서버에서는 자동으로 Socket 생성!
 			s = ss.accept();
 			
-<<<<<<< HEAD
-=======
-			// 문자 하나 읽기!
->>>>>>> parent of 3c64512 (2023-08-10)
 			is = s.getInputStream();
 			
 			// #1 고정된 문자 하나 출력!
@@ -47,7 +42,6 @@ public class ServerTest {
 //			int readValue = is.read();
 //			System.out.println("▷▷▷▷▷ Client가 보낸 메세지: " + (char)readValue);
 			
-<<<<<<< HEAD
 			// #2 고정된 문자열 출력!
 //			dis = new DataInputStream(is);
 //			String readValue = dis.readUTF();
@@ -71,19 +65,14 @@ public class ServerTest {
 			} // while
 //			int readValue = is.read();
 //			System.out.println("▷▷▷▷▷ Client가 보낸 메시지: " + (char)readValue);
-=======
-			// 문자열 읽기!
-			dis = new DataInputStream(is);
-			String readValue = dis.readUTF();
-			System.out.println("▷▷▷▷▷ Client가 보낸 메세지: " + readValue);
->>>>>>> parent of 3c64512 (2023-08-10)
 			
 		} catch (BindException e) {
 			e.printStackTrace();
-			System.out.println(port + "▷▷▷▷▷ 포트가 이미 사용 중입니다 -ㅇ- !");
+			System.out.println("※※※※※ " + port + " 포트가 이미 사용 중입니다 -ㅇ- !");
 		} catch (IOException e) {
 			e.printStackTrace();
 		} finally {
+			System.out.println("※※※※※ 클라이언트와의 연결이 종료되었습니다. :-( ");
 			if(s != null) {
 				try {
 					s.close();
