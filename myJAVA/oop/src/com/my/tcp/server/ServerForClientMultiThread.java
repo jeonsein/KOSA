@@ -103,7 +103,7 @@ public class ServerForClientMultiThread {
 					new SendForClientMultiThread(s).start();
 				} catch(EOFException e) {
 				} catch (IOException e) { e.printStackTrace(); }  // try-catch
-			}// while
+			} // while
 			
 		} catch(BindException e) {
 			System.out.println(port +"포트가 이미 사용중입니다");

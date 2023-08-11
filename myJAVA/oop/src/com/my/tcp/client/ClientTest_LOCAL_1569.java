@@ -1,4 +1,4 @@
-packge com.my.tcp.client;
+package com.my.tcp.client;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -8,20 +8,23 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.ConnectException;
 import java.net.Socket;
+import java.net.SocketException;
 import java.net.UnknownHostException;
+import java.util.Scanner;
 
 
 public class ClientTest {
 
 	public static void main(String[] args) {
 
-		Socket s = null;
-//		String serverIP = "127.0.0.1";	// network가 연결되어 있지 않아도 사용 가능한 IP
-//										// = localhost
-//		String serverIP = "192.168.260.260.1"; // UnknownException
+		Scanner sc = new Scanner(System.in);
 		
-		// 셍나 학원 컴퓨터 IP 주소 192.168.1.21
-		String serverIP = "192.168.1.22"; // 찬돌이 IP : 192.168.1.22
+		Socket s = null;
+		String serverIP = "127.0.0.1";	// network가 연결되어 있지 않아도 사용 가능한 IP
+//										// = localhost
+//		String serverIP = "192.168.260.260.1"; // 존재 X IP - UnknownException
+//		String serverIP = "192.168.1.21"; // 셍나 IP
+//		String serverIP = "192.168.1.22"; // 찬돌이 IP
 		
 		int serverPort = 5432;
 		
@@ -35,15 +38,14 @@ public class ClientTest {
 			s = new Socket(serverIP, serverPort);
 			System.out.println("▷▷▷▷▷ 서버와의 연결 성공 ;-) ");
 			
-			// 문자 보내기
+			// #1 문자 보내기
 			oos = s.getOutputStream();
-			oos.write(65);
+//			oos.write(65);
 			
-			// 문자열 보내기
+			// #2 고정된 문자열 보내기
 //			dos = new DataOutputStream(oos);
 //			dos.writeUTF("안녕하세야 셍나입니다 ㅇ_<");
 			
-<<<<<<< HEAD
 			// #3 chandollbabo 입력 전까지, 입력받은 문자열 보내기
 //			dos = new DataOutputStream(oos);
 //			String sendMsg;
@@ -70,15 +72,10 @@ public class ClientTest {
 			System.out.println("※※※※※ " + serverIP + " 서버가 존재하지 않습니다 -ㅇ-!");
 			System.out.print("※※※※※ 서버 IP를 확인하세요!");
 		} catch (ConnectException e) { // 자식 예외
-=======
-		} catch (UnknownHostException e) {
 			e.printStackTrace();
-			System.out.println("▷▷▷▷▷ " + serverIP + " 서버가 존재하지 않습니다 -ㅇ-!");
-			System.out.print("▷▷▷▷▷ 서버 IP를 확인하세요!");
-		} catch (ConnectException e) {
->>>>>>> parent of 3c64512 (2023-08-10)
-			e.printStackTrace();
-			System.out.println("▷▷▷▷▷ 서버가 실행되지 않았습니다 -ㅇ-!\n▷▷▷▷▷ 서버 실행을 확인하세요!");
+			System.out.println("※※※※※ 서버가 실행되지 않았습니다 -ㅇ-!\n※※※※※ 서버 실행을 확인하세요!");
+		} catch (SocketException e) {	// 부모 예외
+			System.out.print("※※※※※ 서버가 강제로 종료되었습니다 -ㅇ-!\n※※※※※ 서버를 확인하세요!");
 		} catch (IOException e) {
 			e.printStackTrace();
 		} finally {

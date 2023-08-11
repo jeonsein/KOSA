@@ -1,4 +1,4 @@
-packge com.my.tcp.client;
+package com.my.tcp.client;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
