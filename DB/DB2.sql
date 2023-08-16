@@ -1,6 +1,6 @@
 -- 오라클 내장 함수
 
--- A) 다중행 함수
+-- A) 단일행 함수
 -- 1. 숫자형 함수: MOD() 나머지 값 , ROUND() 반올림, TRUNC() 소숫점 이하를 버림, CEIL() 소수점 올림 함수, FLOOR() 소수점 아래 무시 함수
 
 -- #1. ROUND(), 반올림
@@ -268,7 +268,7 @@ FROM employees;
 
 -- ---------------------------------------------------------
 
--- B) 단일행함수: COUNT(), SUM(), AVG(), MAX(), MIN()
+-- B) 다중행함수: COUNT(), SUM(), AVG(), MAX(), MIN()
 -- COUNT()
 SELECT COUNT(*) "전체사원수" -- 107
       ,COUNT(commission_pct) "수당받는사원수" -- 35
@@ -287,3 +287,104 @@ FROM employees;
 -- MAX()& MIN()
 SELECT MAX(salary) "최대급여", MIN(salary) "최소급여"
 FROM employees;
+
+-- ---------------------------------------------------------
+
+-- C) 그룹화 - GROUP BY: GROUP BY절에서 사용한 컬럼만 집계함수와 함께 SELECT절에서 사용이 가능함!!!
+
+-- 부서별 부서번호, 사원수를 출력하시오.
+SELECT department_id "부서번호"
+       , COUNT(*) "부서별사원수"
+       , MAX(salary) "부서의최대급여"
+       , AVG(salary) "부서의평균급여"
+FROM employees
+GROUP BY department_id; -- MAP 자료 구조를 사용 (key = 부서번호, value = 부서번호에 해당하는 값)
+
+-- 부서별 부서번호와 부서의 최대급여, 최대급여자 이름을 출력하시오.
+SELECT department_id "부서번호"
+       , MAX(salary) "부서의최대급여"
+       , first_name "최대급여자 이름"
+FROM employees
+GROUP BY department_id;
+
+-- 부서별, 직무별로 
+-- 부서번호, 직무번호, 사원수를 출력하시오.
+SELECT department_id "부서번호", job_id "직무명", COUNT(*) "사원수"
+FROM employees
+GROUP BY department_id, job_id -- 대그룹 department_id, 소그룹 job_id
+-- ORDER BY department_id; -- 컬럼순으로 오름차순
+ORDER BY department_id, COUNT(*); -- 부서번호 별로 사원수 적은 job_id부터 먼저 출력
+
+-- 그룹별 소계, 합계: ROLLUP()
+-- 계산이 가능한 모든 소계, 합계: CUBE()
+-- 부서별, 직무별로 부서번호, 직무번호, 사원수를 출력하시오.
+SELECT department_id "부서번호", job_id "직무명", COUNT(*) "사원수"
+FROM employees
+-- GROUP BY ROLLUP( department_id, job_id)
+GROUP BY CUBE( department_id, job_id)
+ORDER BY department_id, COUNT(*);
+
+
+-- 1_그룹 조건: HAVING - 집계함수사용가능
+-- 2_일반 조건: WHERE - 집계함수사용불가능
+
+-- 30, 50번 부서의 부서별 부서번호, 평균급여, 최대급여를 출력하시오.
+SELECT department_id "부서번호"
+       , AVG(salary) "부서의평균급여"
+       , MAX(salary) "부서의최대급여"
+FROM employees
+-- WHERE department_id = 30 OR department_id = 50
+WHERE department_id IN(30, 50)
+GROUP BY department_id
+ORDER BY department_id;
+
+-- 모든 부서의 부서별 부서번호, 평균급여, 최대급여를 출력하시오.
+-- 단, 부서가 없는 사원들은 출력하지 않는다.
+SELECT department_id "부서번호"
+       , TRUNC(AVG(salary), 0) "부서의평균급여"
+       , TRUNC(MAX(salary), 0) "부서의최대급여"
+FROM employees
+WHERE department_id IS NOT NULL
+GROUP BY department_id;
+-- 위아래 동일 (그러나 일반 조건인 경우는 WHERE절 사용하는 것을 권장함)
+SELECT department_id "부서번호"
+       , TRUNC(AVG(salary), 0) "부서의평균급여"
+       , TRUNC(MAX(salary), 0) "부서의최대급여"
+FROM employees
+GROUP BY department_id
+HAVING department_id IS NOT NULL;
+
+-- 부서의 부서번호, 평균급여, 최대급여, 최소급여를 출력하시오
+-- 평균급여가 10000이상인 부서만 출력하시오
+SELECT department_id "부서번호"
+       , AVG(salary) "부서의평균급여"
+       , MAX(salary) "부서의최대급여"
+       , MIN(salary) "부서의최소급여"
+FROM employees
+GROUP BY department_id
+HAVING AVG(salary) >= 10000;
+
+-- ---------------------------------------------------------
+
+-- D) 정렬하기
+-- SELECT 처리 순서: FROM ▶? WHERE ▶? GROUP BY ▶? HAVING ▶? SELECT ▶? ORDER BY
+
+-- 사번 순으로 출력되는 것처럼 보이지만, 입력 순으로 출력되고 있음
+SELECT employee_id, hire_date, salary 
+FROM employees;
+
+-- 입사 일자가 빠른 순서대로 출력하시오.
+SELECT employee_id, hire_date, salary 
+FROM employees
+-- ORDER BY hire_date -- default = 오름차순
+ORDER BY hire_date ASC; -- ASC = 오름차순 -- 102번이 제일 빨리 입사함
+
+-- 급여가 많은 사원부터 출력하시오.
+SELECT employee_id, hire_date, salary 
+FROM employees
+ORDER BY salary DESC; -- DESC = 내림차순
+
+-- 입사 일자가 빠른 순서대로 출력하시오. 입사 일자가 같은 경우, 급여가 많은 사원부터 출력하시오.
+SELECT employee_id, hire_date, salary 
+FROM employees
+ORDER BY hire_date ASC, salary DESC; -- 2차 정렬
