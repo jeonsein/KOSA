@@ -170,10 +170,9 @@ FROM employees;
 -- 2) 1)보다 많은 급여를 받는 사원의 사번, 이름, 급여를 출력하시오.
 SELECT employee_id, first_name, salary
 FROM employees
-WHERE salary >= (SELECT AVG(salary)
+WHERE salary > (SELECT AVG(salary)
                  FROM employees
 );
-
 
 -- 부서별 최대 급여를 받는 사원의 사번, 이름, 급여를 출력하시오.
 -- 1. 부서별 최대 급여를 계산한다
@@ -192,6 +191,7 @@ WHERE salary = (SELECT department_id, MAX(salary)
 );
 -- ORA-00913: too many values
 
+-- #Multi Row SubQuery: IN은 =ANY 와 동일함!
 -- IN 사용
 -- 부서별 최대 급여를 받는 사원의 사번, 이름, 급여를 출력하시오.
 SELECT department_id, employee_id, first_name, salary
@@ -208,6 +208,43 @@ WHERE (department_id, salary) IN (SELECT department_id, MAX(salary)
                 FROM employees
                 GROUP BY department_id
 );
+
+-- 관리자 번호와 관리자 이름을 출력하시오.
+-- 부하직원이 있는 관리자의 관리자 번호와 이름을 출력하시오.
+SELECT employee_id, first_name
+FROM employees
+WHERE employee_id IN (SELECT manager_id -- SubQuery 결과 107건
+                      FROM employees
+);
+--SELECT employee_id, first_name
+--FROM employees
+--WHERE employee_id IN (null,100,102,103,101,108...);
+
+-- 부하직원이 없는 관리자의 관리자 번호와 이름을 출력하시오.
+SELECT employee_id, first_name
+FROM employees
+WHERE employee_id NOT IN (SELECT manager_id
+                          FROM employees
+);
+--SELECT employee_id, first_name
+--FROM employees
+--WHERE employee_id NOT IN (null,100,102,103,101,108...);
+-- ??????
+-- NOT IN에서 null 해결 방안
+-- 1) NVL() 사용
+SELECT employee_id, first_name
+FROM employees
+WHERE employee_id NOT IN (SELECT NVL(manager_id, -1)
+                          FROM employees
+);
+-- 2)WHERE절 조건 추가해서 IS NOT NULL 사용
+SELECT employee_id, first_name
+FROM employees
+WHERE employee_id NOT IN (SELECT manager_id
+                          FROM employees
+                          WHERE manager_id IS NOT NULL
+);
+
 
 
 -- ---------------------------------------------------------
