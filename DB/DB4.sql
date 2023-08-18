@@ -156,6 +156,7 @@ CREATE TABLE t_a(one NUMBER(5),
                  four VARCHAR2(3),
                  five DATE );
 
+-- -----------------------
 -- DML
 -- 2. 데이터 추가
 INSERT INTO t_a(one, three, five) VALUES (1, 'A', SYSDATE);
@@ -165,6 +166,7 @@ INSERT INTO t_a VALUES(3, null, 'C', '', '23/01/01');
 -- CHAR 자료형: 고정 길이, VARCHAR2 자료형: 가변 길이
 SELECT three, LENGTH(three), four, LENGTH(four) FROM t_a;
 
+-- -----------------------
 -- 3. 기존 테이블 복사해서 테이블 생성
 CREATE TABLE t_a_copy AS SELECT * FROM t_a;
 SELECT * FROM t_a_copy;
@@ -177,6 +179,7 @@ CREATE TABLE t_a_copy3 AS SELECT * FROM t_a WHERE 1 = 2;
 -- WHERE절에 조건에 만족하지 않는 조건 넣기 -> 테이블의 구조만 복사해오고 행(데이터)은 복사하지 않음!
 SELECT * FROM t_a_copy3;
 
+-- -----------------------
 -- 4. 테이블 구조 변경
 -- 1) 기존 테이블에 컬럼 추가하기
 ALTER TABLE t_a ADD six number;
@@ -187,7 +190,7 @@ ALTER TABLE t_a ADD six number;
 ALTER TABLE t_a RENAME COLUMN six TO six2;
 
 -- 3) 컬럼 삭제
-ALTER TABLE t_a DROP COLUMN six2;
+ALTER TABLE t_a DROP COLUMN six;
 
 -- 4) 컬럼의 자료형 변경 or 자릿수 변경
 ALTER TABLE t_a MODIFY four VARCHAR2(10);
@@ -223,4 +226,80 @@ WHERE TO_CHAR(five, 'yy/mm/dd') = '23/08/17';
 DELETE t_a
 WHERE TO_CHAR(five, 'yy/mm/dd') = TO_CHAR(SYSDATE-1, 'yy/mm/dd'); -- SYSDATE 기준으로!
 
+-- ----------------------------------------------------------------------
 
+-- 무결성 제약 조건: 결점 없는(Data Integrity) 데이터를 위한 제약 조건을 설정할 수 있따!
+-- 테이블 생성 시 혹은 테이블 조건 변경할 때 조건 설정이 가능함!
+
+-- 1. UNIQUE: 중복 안됨
+-- 2. NOT NULL: NULL 포함 안됨
+-- 3. PRIMARY KEY: UNIQUE + NOT NULL
+-- 4. CHECK: 특정값만 포함
+-- 5. FOREGIN KEY: 부모엔티티의 PK를 참조
+
+-- -----------------------
+--id1, p1, n1, id1@a.com, 1
+--id2, p2, n2, id2@a.com, 1
+--id3, p3, '', id3@a.com, 1
+--id4, p4, n2, '', -1
+-- -> 후보 키들 중에서 중복되지 않고 null이 아닌 값인 id 컬럼을 식별자로 사용해야 함! -> PK(주식별자:기본키)
+
+CREATE TABLE t_b(
+    id varchar2(5), -- 아이디_PRIMARY KEY
+    pwd varchar2(5), -- 비번_NOT NULL
+    name varchar2(30), -- 이름_제약조건없음
+    email varchar2(30), -- 이메일_UNIQUE
+    status number(1) -- 상태(아이디가 활동 중인지, 휴면 상태인지 등)_CHECK
+                     -- -1: 탈퇴, 0: 휴면, 1: 활동
+);
+
+-- 제약 조건 설정 방법 (테이블 레벨 제약 조건 사용을 권장 - 가독성 조음)
+-- !! NOT NULL 제약 조건은 반드시!! 컬럼 레벨로만 제약 조건 설정이 가능함!!
+
+-- 1) 테이블 레벨 제약 조건 설정하기
+-- 테이블 먼저 나열, 이후 제약 조건만 따로 나열!
+CREATE TABLE t_b(
+    id varchar2(5),
+    pwd varchar2(5),
+    email varchar2(30),
+    status number(1),
+    CONSTRAINT t_b_id_pk     PRIMARY KEY(id),
+    CONSTRAINT t_b_email_uq  UNIQUE(email),
+    CONSTRAINT t_b_status_ck CHECK(status IN (-1, 0, 1))
+);
+
+-- 2) 컬럼 레벨 제약 조건 설정하기
+-- 컬럼 만들면서 제약 조건도 같이 추가하기!
+-- 제약 조건의 이름은 생략 가능함! 조건만 나열해도 OK
+CREATE TABLE t_b(
+    id varchar2(5) CONSTRAINT t_b_id_pk         PRIMARY KEY(id),
+    pwd varchar2(5)                             NOT NULL(pwd),
+    email varchar2(30) CONSTRAINT t_b_email_uq  UNIQUE(email),
+    status number(1) CONSTRAINT t_b_status_ck   CHECK(status IN (-1, 0, 1))
+);
+
+-- 3) 이미 만들어져 있는 테이블(데이터도 들어있음)에 제약 조건만 추가하기
+-- ALTER 명령어 사용 -> 테이블 구조 변경으로 제약 조건을 추가해야 함!
+-- 테이블 레벨 제약 조건으로 추가하기!
+CREATE TABLE t_b(
+    id varchar2(5),
+    pwd varchar2(5),
+    email varchar2(30),
+    status number(1),
+);
+
+-- id 제약 조건 추가
+ALTER TABLE t_b
+ADD CONSTRAINT t_b_id_pk PRIMARY KEY(id);
+-- email이랑 status 제약 조건 추가
+ALTER TABLE t_b
+ADD CONSTRAINT t_b_email_uq UNIQUE(email)
+ADD CONSTRAINT t_b_status_ck CHECK(status IN (-1, 0, 1));
+-- pwd에 NOT NULL 제약 조건(컬럼 레벨로만 가능)을 추가 -> ADD CONSTRAINT 불가능! MODIFY로!
+ALTER TABLE t_b
+MODIFY pwd NOT NULL;
+
+select * from t_b;
+
+-- ---------------------------------
+COMMIT;
