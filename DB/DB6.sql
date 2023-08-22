@@ -74,6 +74,7 @@ UPDATE account set balance = balance + 100 WHERE no = 'B'; -- 0건처리
 --  - 수동종료#1: 복구(원상태로 복구하는 것) - ROLLBACK
 --  - 수동종료#2: 완료 - COMMIT
 
+select * from customer;
 
 commit;
 rollback;
