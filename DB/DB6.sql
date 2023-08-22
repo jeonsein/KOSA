@@ -57,7 +57,23 @@ VALUES(order_seq.CURRVAL, 'C0001', 1);
 INSERT INTO order_line(order_line_no, order_prod_no, order_quantity) 
 VALUES(order_seq.CURRVAL, 'F0001', 2);
 
+-- 롤백해보기
+ROLLBACK;
+
+SELECT * FROM order_info;
 SELECT * FROM order_line; -- 확인
+-- -------------------------------
+-- #2. 트랜잭션: 작업단위
+-- 계좌이체작업
+-- 1) A계좌에서 100원이 출금
+UPDATE account set balance = balance - 100 WHERE no = 'A'; -- 1건처리
+-- 2) 100원이 B계좌로 입금
+UPDATE account set balance = balance + 100 WHERE no = 'B'; -- 0건처리
+-- DDL(CREATE, ALTER, DROP)은 트랜잭션 자동종료 ?
+-- DML(INSERT, UPDATE, DELETE)은 트랜잭션 자동종료 ? → 수동종료가 필요함
+--  - 수동종료#1: 복구(원상태로 복구하는 것) - ROLLBACK
+--  - 수동종료#2: 완료 - COMMIT
+
 
 commit;
 rollback;
