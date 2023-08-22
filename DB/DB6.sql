@@ -1,30 +1,30 @@
--- #1. Sequence °´Ã¼: ÀÏ·Ã¹øÈ£ ¹ß±Þ¿ë °´Ã¼
-CREATE SEQUENCE order_seq; -- »ý¼º
+-- #1. Sequence ê°ì²´: ì¼ë ¨ë²ˆí˜¸ ë°œê¸‰ìš© ê°ì²´
+CREATE SEQUENCE order_seq; -- ìƒì„±
 
--- »ý¼º »èÁ¦
+-- ìƒì„± ì‚­ì œ
 CREATE SEQUENCE test_seq;
 DROP SEQUENCE test_seq;
 
--- Sequence ¼³Á¤
+-- Sequence ì„¤ì •
 CREATE SEQUENCE test_seq
 START WITH 11
-INCREMENT BY 2 -- 2¾¿ Áõ°¡
+INCREMENT BY 2 -- 2ì”© ì¦ê°€
 MAXVALUE 30
-MINVALUE 0 -- ÃÖ´ë°ª ³Ñ¾î°¡¸é 0ºÎÅÍ Àç½ÃÀÛ
-CYCLE; -- ÃÖ¼Ò°ªÀ¸·Î µ¹¾Æ°¨ (default ÃÖ¼Ò°ª = 1)
+MINVALUE 0 -- ìµœëŒ€ê°’ ë„˜ì–´ê°€ë©´ 0ë¶€í„° ìž¬ì‹œìž‘
+CYCLE; -- ìµœì†Œê°’ìœ¼ë¡œ ëŒì•„ê° (default ìµœì†Œê°’ = 1)
 -- ORA-04013: number to CACHE must be less than one cycle
--- CYCLE ¼öº¸´Ù CACHE ¼ö°¡ ´õ Å©±â ¶§¹®¿¡ ¿À·ù ¹ß»ýÇÔ
--- = CACHE »ç¿ëÇÏÁö ¸»¶ó°í ¿É¼Ç Áà¾ßÇÔ!
--- ¡å¡å¡å
+-- CYCLE ìˆ˜ë³´ë‹¤ CACHE ìˆ˜ê°€ ë” í¬ê¸° ë•Œë¬¸ì— ì˜¤ë¥˜ ë°œìƒí•¨
+-- = CACHE ì‚¬ìš©í•˜ì§€ ë§ë¼ê³  ì˜µì…˜ ì¤˜ì•¼í•¨!
+-- â–¼â–¼â–¼
 CREATE SEQUENCE test_seq
 START WITH 11
-INCREMENT BY 2 -- 2¾¿ Áõ°¡
+INCREMENT BY 2 -- 2ì”© ì¦ê°€
 MAXVALUE 30
-MINVALUE 0 -- ÃÖ´ë°ª ³Ñ¾î°¡¸é 0ºÎÅÍ Àç½ÃÀÛ
+MINVALUE 0 -- ìµœëŒ€ê°’ ë„˜ì–´ê°€ë©´ 0ë¶€í„° ìž¬ì‹œìž‘
 CYCLE
-NOCACHE; -- CACHE »ç¿ë ¾ÈÇÏ´Â ¿É¼Ç!
+NOCACHE; -- CACHE ì‚¬ìš© ì•ˆí•˜ëŠ” ì˜µì…˜!
 
--- ÀÏ·Ã¹øÈ£ ¹ß±ÞÇÏ±â
+-- ì¼ë ¨ë²ˆí˜¸ ë°œê¸‰í•˜ê¸°
 SELECT test_seq.NEXTVAL FROM dual; -- 11
 SELECT test_seq.NEXTVAL FROM dual; -- 13
 SELECT test_seq.NEXTVAL FROM dual; -- 15
@@ -37,42 +37,42 @@ SELECT test_seq.NEXTVAL FROM dual; -- 27
 SELECT test_seq.NEXTVAL FROM dual; -- 29 (MAXVALUE = 30)
 SELECT test_seq.NEXTVAL FROM dual; -- 0
 
--- ÇöÀç ÀÏ·Ã¹øÈ£ È®ÀÎÇÏ±â
+-- í˜„ìž¬ ì¼ë ¨ë²ˆí˜¸ í™•ì¸í•˜ê¸°
 SELECT test_seq.CURRVAL FROM dual;
 
--- ¿¹Á¦¿¡ Àû¿ë½ÃÅ°±â À§ÇØ¼­ ¼³Á¤
-SELECT * FROM order_info; -- È®ÀÎ
-DROP SEQUENCE order_seq; -- ½ÃÄö½º »èÁ¦
-CREATE SEQUENCE order_seq -- ½ÃÄö½º Àç»ý¼º (ÀÏ·Ã¹øÈ£ 4ºÎÅÍ ½ÃÀÛ)
+-- ì˜ˆì œì— ì ìš©ì‹œí‚¤ê¸° ìœ„í•´ì„œ ì„¤ì •
+SELECT * FROM order_info; -- í™•ì¸
+DROP SEQUENCE order_seq; -- ì‹œí€€ìŠ¤ ì‚­ì œ
+CREATE SEQUENCE order_seq -- ì‹œí€€ìŠ¤ ìž¬ìƒì„± (ì¼ë ¨ë²ˆí˜¸ 4ë¶€í„° ì‹œìž‘)
 START WITH 4;
 
--- ÁÖ¹® ±âº» Á¤º¸ Ãß°¡
+-- ì£¼ë¬¸ ê¸°ë³¸ ì •ë³´ ì¶”ê°€
 INSERT INTO order_info(order_no, order_id) 
-VALUES(order_seq.NEXTVAL, 'A'); -- order_no¿¡ sequence °´Ã¼ »ç¿ëÇÔ!
+VALUES(order_seq.NEXTVAL, 'A'); -- order_noì— sequence ê°ì²´ ì‚¬ìš©í•¨!
 
--- ÁÖ¹® »ó¼¼ Á¤º¸ Ãß°¡
+-- ì£¼ë¬¸ ìƒì„¸ ì •ë³´ ì¶”ê°€
 INSERT INTO order_line(order_line_no, order_prod_no, order_quantity) 
 VALUES(order_seq.CURRVAL, 'C0001', 1);
 
 INSERT INTO order_line(order_line_no, order_prod_no, order_quantity) 
 VALUES(order_seq.CURRVAL, 'F0001', 2);
 
--- ·Ñ¹éÇØº¸±â
+-- ë¡¤ë°±í•´ë³´ê¸°
 ROLLBACK;
 
 SELECT * FROM order_info;
-SELECT * FROM order_line; -- È®ÀÎ
+SELECT * FROM order_line; -- í™•ì¸
 -- -------------------------------
--- #2. Æ®·£Àè¼Ç: ÀÛ¾÷´ÜÀ§
--- °èÁÂÀÌÃ¼ÀÛ¾÷
--- 1) A°èÁÂ¿¡¼­ 100¿øÀÌ Ãâ±Ý
-UPDATE account set balance = balance - 100 WHERE no = 'A'; -- 1°ÇÃ³¸®
--- 2) 100¿øÀÌ B°èÁÂ·Î ÀÔ±Ý
-UPDATE account set balance = balance + 100 WHERE no = 'B'; -- 0°ÇÃ³¸®
--- DDL(CREATE, ALTER, DROP)Àº Æ®·£Àè¼Ç ÀÚµ¿Á¾·á ?
--- DML(INSERT, UPDATE, DELETE)Àº Æ®·£Àè¼Ç ÀÚµ¿Á¾·á ? ¡æ ¼öµ¿Á¾·á°¡ ÇÊ¿äÇÔ
---  - ¼öµ¿Á¾·á#1: º¹±¸(¿ø»óÅÂ·Î º¹±¸ÇÏ´Â °Í) - ROLLBACK
---  - ¼öµ¿Á¾·á#2: ¿Ï·á - COMMIT
+-- #2. íŠ¸ëžœìž­ì…˜: ìž‘ì—…ë‹¨ìœ„
+-- ê³„ì¢Œì´ì²´ìž‘ì—…
+-- 1) Aê³„ì¢Œì—ì„œ 100ì›ì´ ì¶œê¸ˆ
+UPDATE account set balance = balance - 100 WHERE no = 'A'; -- 1ê±´ì²˜ë¦¬
+-- 2) 100ì›ì´ Bê³„ì¢Œë¡œ ìž…ê¸ˆ
+UPDATE account set balance = balance + 100 WHERE no = 'B'; -- 0ê±´ì²˜ë¦¬
+-- DDL(CREATE, ALTER, DROP)ì€ íŠ¸ëžœìž­ì…˜ ìžë™ì¢…ë£Œ ?
+-- DML(INSERT, UPDATE, DELETE)ì€ íŠ¸ëžœìž­ì…˜ ìžë™ì¢…ë£Œ ? â†’ ìˆ˜ë™ì¢…ë£Œê°€ í•„ìš”í•¨
+--  - ìˆ˜ë™ì¢…ë£Œ#1: ë³µêµ¬(ì›ìƒíƒœë¡œ ë³µêµ¬í•˜ëŠ” ê²ƒ) - ROLLBACK
+--  - ìˆ˜ë™ì¢…ë£Œ#2: ì™„ë£Œ - COMMIT
 
 
 commit;
