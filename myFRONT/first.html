@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<!-- 해당 html 파일을 렌더링 엔진에 요청하여 결과를 반환!  -->
+
+<html>
+    <head>
+        <title>FIRST HTML</title>
+    </head>
+
+    <body>
+        <h1 style="color: darkorange; width: 100px; height: 100px;">WELCOME!</h1>
+        <h3 style="color: cadetblue; background-color: beige; height: 100px;">
+            This is sengna's First HTML :-p
+        </h3>
+        <p style="color: pink; font-weight: bold;">단락1: <br> 찬석이</p>
+        <p style="color: hotpink; font-weight: bold;">단락2: 돼지</p>
+    
+        <!-- 표에 관련된 태그! -->
+        <!-- <thead>, <tbody>, <tfoot> 생략하면 해당 내용을 모두 <tbody> 내부에 넣어버림 -->
+        <!-- <table border="1" width="300px" height="200px"> -->
+        <table style="width: 300px; height: 200px; border: 3px dashed paleturquoise;">
+            <!-- 테이블의 머리말 -->
+            <thead>
+                <tr>
+                    <th> 종류 </th>
+                    <th> 상품 번호 </th>
+                    <th> 상품명 </th>
+                    <th> 가격 </th>
+                </tr>
+            </thead>
+
+            <!-- 테이블 실제 데이터 -->
+            <tbody>
+                <tr>
+                    <td rowspan="2"> 와와햄 </td> 
+                    <td> C0001 </td>
+                    <td> 찬돌이 </td>
+                    <td> 1,000원 </td> 
+                </tr>
+                <tr>
+                    <td> C0002 </td>
+                    <td> 오찬석 </td>
+                    <td> 1,500원 </td>
+                </tr>
+            </tbody>
+            
+            <!-- 테이블의 맺음말 -->
+            <tfoot>
+                <tr>
+                    <!-- colspan으로 3개의 cell을 합침! -->
+                    <td colspan="3">합계: 2,500원</td>
+                </tr>
+            </tfoot>
+        </table>
+
+        <!-- unordered list -->
+        <ul>
+            
+        </ul>
+
+    </body>
+</html>
