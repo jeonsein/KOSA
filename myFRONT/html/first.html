@@ -7,7 +7,7 @@
     </head>
 
     <body>
-        <h1 style="color: darkorange; width: 100px; height: 100px;">WELCOME!</h1>
+        <h1 id="top" style="color: darkorange; width: 100px; height: 100px;">WELCOME!</h1>
         <h3 style="color: cadetblue; background-color: beige; height: 100px;">
             This is sengna's First HTML :-p
         </h3>
@@ -53,11 +53,30 @@
         </table>
 
         <!-- ul = unordered list_동그라미, ol = orderd list_숫자 붙음 -->
+        <ul>
+            <li>셍나는</li>
+            <li>짱이다.</li>
+        </ul>
         <ol>
             <li>오찬석#1</li>
             <li>오찬석#2</li>
             <li>오찬석#3</li>
         </ol>
+
+        <!-- img 태그, src는 외부 자원으로 이미지 파일명 적어주기! 이때, 경로 주의!
+            alt는 외부 리소스 파일에 대한 간단 설명! = 웹 접근성을 높임 -->
+        <img src="../images/hamster.jpg" alt="hamster" width="500px">
+        <img src="https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAyMjEwMzFfMjI4%2FMDAxNjY3MTQ1ODA2MDQ2.aMmhMRTIvWeEetKxQopz6JrKOVgG3mIAZ7OwoORiT7Qg.qdo-onhFTpQAgUChJm8yG_poOOQhjxpespEr5DrEvVkg.JPEG.pooi3649%2FIMG_5396.jpg&type=a340" >
+        <img src="../images/hamster3.png" style="width:200px";> <!-- 높이 자동 조절 -->
+        <img src="../images/hamster2.jpg" style="width:200px; height:200px" >
+        <hr> <!-- 구분선 -->
+
+        <!-- anker tag, hyper text -->
+        <a href = https://www.google.com/>구글</a>
+        <a href="./form.html">다른 문서</a>
+        <a href="#top">처음위치로</a> <!-- id 속성값이 top인 위치로 이동 -->
+        <a href="#">#</a> <!-- 아무 의미 없음! 문서 다시 요청!  -->
+
 
     </body>
 </html>
