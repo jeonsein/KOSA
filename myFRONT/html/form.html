@@ -16,7 +16,8 @@
             <!-- placeholder = 입력란에 설명을 추가할 수 있음 -->
             <!-- maxlength = 최대 입력글자 설정 가능 -->
             <label>
-                TEXT : <input type="text" placeholder="아이디를 입력하세요." maxlength="6">
+                <!-- required 속성으로 해당 값을 반드시 입력하도록 할 수 있음 -->
+                TEXT : <input type="text" placeholder="아이디를 입력하세요." maxlength="6" required>
             </label>
             <br>
 
@@ -51,6 +52,12 @@
             <label>
                 DATE : <input type="date">
             </label>
+            <br>
+            
+            <!-- 데이터를 쉽게 지워야 할 항목이 존재할 경우 사용! -->
+            <label>
+                SEARCH : <input type="search">
+            </label>
 
             <fieldset> <!-- 묶음 처리 -->
                 <legend>다중선택</legend> <!-- fieldset의 title을 지정 -->
@@ -79,7 +86,14 @@
             <br>&nbsp;
 
             <!-- 여러 줄 입력란 -->
-            <textarea rows="3" cols="100" name="ta"></textarea>
+            <!-- readonly 속성으로 읽기 전용으로 바꿀 수 있음! 입력 X 읽기만 할 수 있음 -->
+            <textarea rows="3" cols="100" name="ta" readonly>여러 줄 입력란입니다.</textarea>
+
+            <!-- 화면에 보이지 않지만, 전송 시에 해당 자료를 전달할 수 있음 -->
+            <input type="hidden" name="h" value="hValue">
+
+            <!-- 파일첨부! 여러 파일 첨부하고 싶다면 multiple 속성 지정 -->
+            파일첨부 : <input type="file" name="f" multiple> <!-- 파일 첨부는 무조건 요청방식 POST로!! -->
 
             <fieldset>
                 <legend>버튼들</legend>
