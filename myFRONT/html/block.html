@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>블럭 요소/인라인 요소</title>
+    </head>
+    
+    <body>
+        블럭요소: line 하나를 모두 사용하는 요소들(h1~h6, p, table, ul, li, ol), 상하마진 유지!, 가로/세로 크기 지정 가능
+        <br>
+        인라인요소: line 하나를 모두 사용하지 못하는 요소들(span), 상하마진 유지안됨!, 가로/세로 크기 지정 불가능(요소 body의 크기에 따라 자동 결정됨)
+        <br>
+        인라인블럭요소: 인라인(line 하나를 모두 사용하지 못하는 요소)+블럭(가로/세로 크기 지정가능)요소들 (input, select, img, a) = 인라인요소가 우선이기 때문에, 줄바꿈 X
+        <hr>
+        <div style="width: 100px; height: 100px; border: 2px solid darkorange; margin: 20px; text-align: center;">DIV1</div>
+        <div style="width: 100px; height: 100px; border: 2px solid darkcyan; margin: 20px; line-height: 100px;">DIV2</div>
+        <span style="width: 100px; height: 100px; border: 2px solid darkorange; margin: 20px;">SPAN1</span>
+        <span style="width: 100px; height: 100px; border: 2px solid darkcyan; margin: 20px;">SPAN2</span>
+        <input type="text" style="width: 100px; height: 80px; border: 2px solid darkolivegreen; margin: 20px;">
+        <input type="text" style="width: 100px; height: 80px; border: 2px solid darkolivegreen; margin: 20px;">
+
+        <!-- 요소의 유형을 변경 display-->
+        <div style="display:inline; width:100px; border:2px solid darkorange;">DIV3</div>
+        <span style="display:block; width:100px; height:20px; border:2px solid darkcyan; ">SPAN3</span>
+
+        <span style="display:inline-block; width:100px; height:20px; border:2px solid darkolivegreen; ">SPAN4</span>
+        <span style="display:inline-block; width:100px; height:20px; border:2px solid darkolivegreen; ">SPAN5</span>
+
+        <!-- 실습 -->
+        <!-- 블럭요소에서 인라인 요소로 변경 -->
+        <ul>
+            <li><a href="#">메뉴1</a></li>
+            <li><a href="#">메뉴1</a></li>
+            <li><a href="#">메뉴1</a></li>
+        </ul>
+        <ul>
+            <li style="display: inline;"><a href="#">메뉴1</a></li>
+            <li style="display: inline;"><a href="#">메뉴1</a></li>
+            <li style="display: inline;"><a href="#">메뉴1</a></li>
+        </ul>
+        <ul style="padding-left: 0;">
+            <li style="display: inline-block;"><a href="#">메뉴1</a></li>
+            <li style="display: inline-block;"><a href="#">메뉴1</a></li>
+            <li style="display: inline-block;"><a href="#">메뉴1</a></li>
+        </ul>
+
+    </body>
+</html>

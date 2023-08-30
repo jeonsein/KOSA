@@ -30,8 +30,11 @@ bin/
 ### Mac OS ###
 .DS_Store
 
-# Ignore the SW directory
+# 학원에서 쓰는 컴 설정, 설치 파일들 무시
 SW/
+Servers/
+oop/doc/
+libs/
 
 # Eclipse m2e generated files
 # Eclipse Core

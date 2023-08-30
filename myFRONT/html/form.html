@@ -8,7 +8,8 @@
     <body>
         <!-- form태그의 action 속성 = 사용자의 입력값을 원하는 곳으로 값을 보낼 수 있도록 해줌 -->
         <!-- form태그의 method 속성으로 요청방식 선택이 가능! 생략하면 default는 GET -->
-        <form method="post" action="http://www.naver.com">
+        <!-- <form method="post" action="www.naver.com"> -->
+        <form method="post" action="http://localhost:8888/back/form">
             <h1>&#128055;찬석's FORM&#128055;</h1>
 
             <!-- input은 end tag가 따로 없음! -->
@@ -97,11 +98,20 @@
 
             <fieldset>
                 <legend>버튼들</legend>
+                <p> input type="~" </p>
                 <input type="button" value="일반버튼">
                 <!-- 서버로 값을 보냄, 전송 위치를 지정하지 않았으면 사용중인 url로 값을 보냄 -->
                 <!-- 전송 위치 지정을 위해서는 form의 action 태그 사용 -->
                 <input type="submit" value="전송버튼">
                 <input type="reset" value="리셋버튼">
+
+                <p> button type="~" </p>
+                <!-- 위와 동일하게 이렇게도 가능함! 하지만 type 생략하면 default로 submit 버튼이 됨! -->
+                <!-- => form 태그 내부의 button의 default type은 submit임! -->
+                <!-- => form 태그 외부의 button의 default type은 button임! -->
+                <button type="button">일반버튼</button>
+                <button type="submit">전송버튼</button>
+                <button type="reset">리셋버튼</button>
             </fieldset>
         </form>
     </body>
