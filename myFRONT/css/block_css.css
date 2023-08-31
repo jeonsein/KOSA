@@ -1,0 +1,7 @@
+* {
+    color: darkslateblue;
+}
+
+div, span, input {
+    width: 200px; border: 3px dotted;
+}
