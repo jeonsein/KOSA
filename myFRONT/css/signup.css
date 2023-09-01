@@ -1,0 +1,63 @@
+a {
+    text-decoration: none;
+}
+
+.form_wrapper {
+    width: 400px;
+    height: 280px;
+    border: 1px solid black;
+    background-color: rgb(248, 244, 238);
+}
+
+/* 아이디, 비밀번호 입력창 영역 */
+div.id_wrapper, div.pwd_wrapper1, div.pwd_wrapper2, div.name_wrapper {
+    margin-left: 20px;
+    display: flex;
+    align-items: center;
+}
+
+/* 아이디 입력창 */
+.id_wrapper>input{
+    height: 20px;
+    margin-top: 4px;
+    margin-left: 25px;
+}
+
+/* 중복확인 버튼 */
+.idDuplicateCheck {
+    margin-top: 4px;
+    margin-left: 17px;
+}
+
+/* 비번 입력창 */
+.pwd_wrapper1>input{
+    height: 20px;
+    margin-left: 11px;
+}
+.pwd_wrapper2>input{
+    height: 20px;
+    margin-left: 5px;
+}
+
+/* 이름 입력창 */
+.name_wrapper>input{
+    height: 20px;
+    margin-left: 45px;
+}
+
+/* 가입하기 버튼 영역 */
+.signupBtn_wrapper{
+    margin-top: 15px;
+    margin-left: 20px;
+}
+
+/* 가입하기 버튼 */
+.signupBtn{
+    display: none;
+}
+
+/* 가입하기 버튼 호버 효과 */
+button.signupBtn:hover {
+    background-color: rgb(0, 102, 51);
+    color:white;
+}
