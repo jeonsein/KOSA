@@ -26,7 +26,7 @@
                 console.log(inputObj.value); // value = 0
 
                 // document.querySelector('button') // 돔 트리에서 객체를 하나만 찾아옴!
-                const buttons = document.querySelectorAll('button') // 변수명만 적으면 됨! 배열타입으로 반환!
+                const buttons = document.querySelectorAll('div.click > button') // 변수명만 적으면 됨! 배열타입으로 반환!
                 // 자바처럼 [] 사용 XX
                 // console.log(buttons); // Nodelist(13)
 
@@ -134,7 +134,7 @@
 
 // ------------------------------------------------------------------------------------------
 
-            // # 입력 예제 #
+            // # 입력 예제_1 #
 
             // 돔트리에서 name 속성값이 id인 input 객체 찾기
             const inputIdObj = document.querySelector("div.input > input[name='id']")
@@ -155,6 +155,53 @@
 
 // ------------------------------------------------------------------------------------------
 
+            // # 입력 예제_2 #
+
+            // 돔트리에서 form 객체 찾기
+            const formObj = document.querySelector('form')
+            const btObj1 = document.querySelector('form > button')
+
+            // 돔트리에서 비밀번호 객체 찾기
+            // 셍나가 한거
+            // const pwd1 = document.querySelector("form > input[name='p']")
+            // const pwd2 = document.querySelector("form > input[name='p2']")
+            // 강사님
+            const passwordArr = document.querySelectorAll('form>input[type=password]')
+
+            // ----------- btObj1 객체에서 click 이벤트가 발생했을 때 할 일 START -----------
+            btObj1.addEventListener('click', function(){
+                alert("btObj1 click event invoked.")
+            }); // btObj1.addEventListener()
+            // ----------- btObj1 객체에서 click 이벤트가 발생했을 때 할 일 END -----------
+
+            // 전송되기 전 할 일을 처리하기 위해서는 form의 submit 이벤트 핸들러로 처리하기!
+            // ----------- formObj 객체에서 submit 이벤트가 발생했을 때 할 일 START -----------
+            formObj.addEventListener('submit', function(e){
+                alert("formObj submit event invoked.")
+
+                // 두 비밀번호 값이 서로 일치하는지 확인하기_셍나
+                // if(pwd1.value === pwd2.value) {
+                //     alert('비밀번호가 일치합니다.')
+                // } else {
+                //     alert('비밀번호가 일치하지 않습니다.')
+                // } // if-else
+
+                // 두 비밀번호 값이 서로 일치하는지 확인하기_강사님 
+                if(passwordArr[0].value == passwordArr[1].value) {
+                    alert('비밀번호가 일치합니다.')
+                } else {
+                    alert('비밀번호가 일치하지 않습니다.')
+
+                    // 주소 url로 기본전송하지 않게 기본 submit 이벤트 막기!
+                    alert('전송을 중지합니다.')
+                    e.preventDefault(); // 기본 이벤트 핸들러를 prevent!
+                } // if-else
+
+            }); // formObj.addEventListener()
+            // ----------- formObj 객체에서 submit 이벤트가 발생했을 때 할 일 END -----------
+
+// ------------------------------------------------------------------------------------------
+
         }); // window.addEventListener()
 
         </script>
@@ -162,6 +209,7 @@
 
     <!-- <body onload="f1"> #3 -->
     <body>
+
         <div class="click">
             <input type="text" value="0" readonly><br>
             <!--<button onclick="">7</button>-->
@@ -172,7 +220,7 @@
             <button>+</button><button>-</button><button>=</button>
         </div>
 
-        <hr>
+        <hr> <!-- ------------------------------------------------------------------- -->
 
         <div class="checkbox">
             <input type="checkbox">ALL<br>
@@ -181,7 +229,7 @@
             <input type="checkbox">THREE&nbsp;&nbsp;&nbsp;
         </div>
 
-        <hr>
+        <hr> <!-- ------------------------------------------------------------------- -->
 
         <div class="select">
             <select class="category1">
@@ -194,12 +242,26 @@
             <select class="category2"></select>
         </div>
 
-        <hr>
+        <hr> <!-- ------------------------------------------------------------------- -->
 
         <div class="input">
             <input type="text" name="id" placeholder="아이디를 입력하세요.">
             <input type="text" name="name" placeholder="이름을 입력하세요.">
         </div>
+
+        <hr> <!-- ------------------------------------------------------------------- -->
+
+        <form method="post" action="http://localhost:8888/back/form">
+
+            <input type="text" name="t" placeholder="아이디를 입력하세요.">
+            <input type="password" name="p" placeholder="비밀번호를 입력하세요.">
+            <input type="password" placeholder="비밀번호를 다시 한 번 입력하세요.">
+            <!-- <input type="password" name="p2" placeholder="비밀번호를 다시 한 번 입력하세요."> -->
+            
+            <!-- form 태그의 하위 태그로 버튼을 만들면 type="submit"이 자동설정됨! -->
+            <button>전송</button>
+        </form>
+        <!-- form 태그와 관련없는 버튼을 만들면 type="button"이 자동설정됨!  -->
 
     </body>
 </html>
