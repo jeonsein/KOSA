@@ -1,9 +1,19 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <style>
+            div.select > select.category2{
+                display: none;
+            }
+        </style>
+
         <script>
             // 돔 트리가 완성됐다가 기다렸다가 이벤트 처리를 해야 하기 때문에,
             // <head> 내부에 스크립트 태그를 사용!
+
+// ------------------------------------------------------------------------------------------
+
+            // # 버튼 태그 예제 #
 
             // #1
             // 매개변수 -> (이벤트종류,해당이벤트가발생했을때할일)
@@ -56,6 +66,8 @@
 
 // ------------------------------------------------------------------------------------------
 
+            // # 체크박스 예제 #
+
             // All checkbox 객체를 돔트리에서 찾기
             // const chkboxAll = document.querySelector('div.cehckbox > input[type=checkbox]');
             // 위아래 동일 (첫 번째 요소만 뽑는 작업임!)
@@ -64,15 +76,85 @@
 
             console.log('ALL 체크박스 선택여부: ', chkboxAll.checked);
 
-            // # forEach문
             // ------------ ALL checkbox 객체에서 클릭이벤트가 발생했을 때 할 일 START ------------
             chkboxAll.addEventListener('click', function() {
                 for(let i = 0; i < chkboxArr.length; i++) {
                     chkboxArr[i].checked = chkboxAll.checked;
+                    console.log('ALL 체크박스 선택여부: ', chkboxAll.checked);
                 } // for
             }) // chkboxAll.addEventListener()
             // ------------ ALL checkbox 객체에서 클릭이벤트가 발생했을 때 할 일 END ------------
         
+// ------------------------------------------------------------------------------------------
+
+            // # 선택옵션 예제 #
+
+            // 돔트리에서 class 속성값이 category1인 select 객체 찾기
+            const selectObj = document.querySelector("div.select > select.category1")
+
+            // ------------ select 객체에서 클릭 이벤트가 발생했을 때 할 일 START ------------
+            selectObj.addEventListener('click', function(){
+                console.log('click', selectObj.value) // 선택된 옵션값이 value가 됨!
+            });
+            // ------------ select 객체에서 클릭 이벤트가 발생했을 때 할 일 END ------------
+
+            // 돔트리에서 class 속성값이 category2인 select 객체 찾기
+            const selectObj2 = document.querySelector("div.select > select.category2")
+
+            // ------------ select 객체에서 체인지 이벤트가 발생했을 때 할 일 START ------------
+            selectObj.addEventListener('change', function(){
+                
+                console.log('change', selectObj.value) // 선택된 옵션값이 value가 됨!
+
+                // 2차 카테고리
+                switch(selectObj.value) {
+                    case 'sedan':
+                        selectObj2.innerHTML = '<option>뉴아반테</option>'
+                        selectObj2.innerHTML += '<option>그랜져</option>'
+                        selectObj2.style.display = 'inline-block'
+                        break;
+                    case 'suv':
+                        selectObj2.innerHTML = '<option>산타페</option>'
+                        selectObj2.innerHTML += '<option>투산</option>'
+                        selectObj2.innerHTML += '<option>펠리세이드</option>'
+                        selectObj2.style.display = 'inline-block'
+                        break;
+                    case 'truck':
+                        selectObj2.innerHTML = '<option>마이티</option>'
+                        selectObj2.style.display = 'inline-block'
+                        break;
+                    default:
+                        selectObj2.innerHTML = ''
+                        selectObj2.style.display = 'none'
+                        break;
+                } // switch
+
+            }); // selectObj.addEventListener()
+            // ------------ select 객체에서 체인지 이벤트가 발생했을 때 할 일 END ------------
+
+// ------------------------------------------------------------------------------------------
+
+            // # 입력 예제 #
+
+            // 돔트리에서 name 속성값이 id인 input 객체 찾기
+            const inputIdObj = document.querySelector("div.input > input[name='id']")
+            const inputNameObj = document.querySelector("div.input > input[name='name']")
+
+            // ------------ name 속성값이 id인 input 객체에서 Keyup 이벤트가 발생했을 때 할 일 START ------------
+            inputIdObj.addEventListener("keyup", function(e) {
+                // console.log(this.value) // 이벤트가 발생된 객체 = this!
+                console.log(e.target.value) // 이벤트가 전달된 객체!
+            }); // inputIdObj.addEventListener()
+            // ------------ name 속성값이 id인 input 객체에서 Keyup 이벤트가 발생했을 때 할 일 END ------------
+            
+            // ------------ name 속성값이 name인 input 객체에서 Keyup 이벤트가 발생했을 때 할 일 START ------------
+            inputNameObj.addEventListener("keyup", function() {
+                console.log(this.value)
+            }); // inputNameObj.addEventListener()
+            // ------------ name 속성값이 name인 input 객체에서 Keyup 이벤트가 발생했을 때 할 일 END ------------
+
+// ------------------------------------------------------------------------------------------
+
         }); // window.addEventListener()
 
         </script>
@@ -98,5 +180,26 @@
             <input type="checkbox">TWO&nbsp;&nbsp;&nbsp;
             <input type="checkbox">THREE&nbsp;&nbsp;&nbsp;
         </div>
+
+        <hr>
+
+        <div class="select">
+            <select class="category1">
+                <option value="">분류를 선택하세요.</option>
+                <option value="sedan">승용차</option>
+                <option value="suv">SUV</option>
+                <option value="truck">트럭</option>
+            </select>
+
+            <select class="category2"></select>
+        </div>
+
+        <hr>
+
+        <div class="input">
+            <input type="text" name="id" placeholder="아이디를 입력하세요.">
+            <input type="text" name="name" placeholder="이름을 입력하세요.">
+        </div>
+
     </body>
 </html>
