@@ -21,48 +21,82 @@
                 // console.log(buttons); // Nodelist(13)
 
                 // # for문
-                // for(let i = 0; i < buttons.length; i++) {
-                //     const btObj = buttons[i];
+                for(let i = 0; i < buttons.length; i++) {
+                    const btObj = buttons[i];
 
-                //     // 요소의 컨텐츠를 의미함! 즉, 시작태그와 마무리태그 사이의 내용을 의미!
-                //     console.log(btObj.innerHTML);
+                    // 요소의 컨텐츠를 의미함! 즉, 시작태그와 마무리태그 사이의 내용을 의미!
+                    console.log(btObj.innerHTML);
 
-                //     // 돔 트리의 버튼 객체에서 클릭 이벤트가 발생했을 때, 할 일을 미리 (자스 해석기에)등록한다!
+                    // ------------ button 객체에서 클릭이벤트가 발생했을 때 할 일 START ------------
+                    // 돔 트리의 버튼 객체에서 클릭 이벤트가 발생했을 때, 할 일을 미리 (자스 해석기에)등록한다!
+                    btObj.addEventListener('click', function(){
+                        // 버튼 클릭되었을 때 할 일을 기술하면 됨!
+                        // alert(btObj.innerHTML)
+                        alert(this.innerHTML) // 일반적인 콜백 함수 내의 this = 이벤트가 발생한 곳
+                    })
+                    // ------------ button 객체에서 클릭이벤트가 발생했을 때 할 일 END ------------
+                } // for
+
+                // ↕️ 위아래동일!!! 
+
+                // # forEach문
+                // buttons.forEach(function(btObj, i){
+                // ------------ button 객체에서 클릭이벤트가 발생했을 때 할 일 START ------------
                 //     btObj.addEventListener('click', function(){
                 //         // 버튼 클릭되었을 때 할 일을 기술하면 됨!
                 //         alert(btObj.innerHTML)
                 //     })
-                // } // for
-
-                // ↕️ 위아래동일!!! 
-                
-                // # forEach문
-                buttons.forEach(function(btObj, i){
-                    btObj.addEventListener('click', function(){
-                        // 버튼 클릭되었을 때 할 일을 기술하면 됨!
-                        alert(btObj.innerHTML)
-                    })
-                });
-
-            }); // window.addEventListener()
+                // ------------ button 객체에서 클릭이벤트가 발생했을 때 할 일 END ------------
+                // });
 
             // #2
             // window.onload = function(){};
             // #3
             // function f1(){};
 
+// ------------------------------------------------------------------------------------------
+
+            // All checkbox 객체를 돔트리에서 찾기
+            // const chkboxAll = document.querySelector('div.cehckbox > input[type=checkbox]');
+            // 위아래 동일 (첫 번째 요소만 뽑는 작업임!)
+            const chkboxArr = document.querySelectorAll('div.checkbox > input[type=checkbox]');
+            const chkboxAll = chkboxArr[0];
+
+            console.log('ALL 체크박스 선택여부: ', chkboxAll.checked);
+
+            // # forEach문
+            // ------------ ALL checkbox 객체에서 클릭이벤트가 발생했을 때 할 일 START ------------
+            chkboxAll.addEventListener('click', function() {
+                for(let i = 0; i < chkboxArr.length; i++) {
+                    chkboxArr[i].checked = chkboxAll.checked;
+                } // for
+            }) // chkboxAll.addEventListener()
+            // ------------ ALL checkbox 객체에서 클릭이벤트가 발생했을 때 할 일 END ------------
+        
+        }); // window.addEventListener()
+
         </script>
     </head>
 
     <!-- <body onload="f1"> #3 -->
     <body>
-        <div>
+        <div class="click">
             <input type="text" value="0" readonly><br>
+            <!--<button onclick="">7</button>-->
             <button onclick="">7</button><button>8</button><button>9</button><br>
             <button>4</button><button>5</button><button>6</button><br>
             <button>1</button><button>2</button><button>3</button><br>
             <button>0</button><br>
             <button>+</button><button>-</button><button>=</button>
+        </div>
+
+        <hr>
+
+        <div class="checkbox">
+            <input type="checkbox">ALL<br>
+            <input type="checkbox">ONE&nbsp;&nbsp;&nbsp;
+            <input type="checkbox">TWO&nbsp;&nbsp;&nbsp;
+            <input type="checkbox">THREE&nbsp;&nbsp;&nbsp;
         </div>
     </body>
 </html>
