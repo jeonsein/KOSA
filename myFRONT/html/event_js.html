@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <script>
+            // 돔 트리가 완성됐다가 기다렸다가 이벤트 처리를 해야 하기 때문에,
+            // <head> 내부에 스크립트 태그를 사용!
+
+            // #1
+            // 매개변수 -> (이벤트종류,해당이벤트가발생했을때할일)
+            window.addEventListener('load', function(){
+                 // id 속성값을 이용해서 객체를 찾음! 태그들에 아이디 속성이 존재해야 함. return 자료형
+                // document.getElementById()
+
+                // 굳이 id 속성이 아니어도 다른 선택자를 이용해서 객체를 찾을 수 있음!
+                const inputObj = document.querySelector('input[type=text]') // 매개변수가 문자열이어야 함
+                console.log(inputObj.value); // value = 0
+
+                // document.querySelector('button') // 돔 트리에서 객체를 하나만 찾아옴!
+                const buttons = document.querySelectorAll('button') // 변수명만 적으면 됨! 배열타입으로 반환!
+                // 자바처럼 [] 사용 XX
+                // console.log(buttons); // Nodelist(13)
+
+                // # for문
+                // for(let i = 0; i < buttons.length; i++) {
+                //     const btObj = buttons[i];
+
+                //     // 요소의 컨텐츠를 의미함! 즉, 시작태그와 마무리태그 사이의 내용을 의미!
+                //     console.log(btObj.innerHTML);
+
+                //     // 돔 트리의 버튼 객체에서 클릭 이벤트가 발생했을 때, 할 일을 미리 (자스 해석기에)등록한다!
+                //     btObj.addEventListener('click', function(){
+                //         // 버튼 클릭되었을 때 할 일을 기술하면 됨!
+                //         alert(btObj.innerHTML)
+                //     })
+                // } // for
+
+                // ↕️ 위아래동일!!! 
+                
+                // # forEach문
+                buttons.forEach(function(btObj, i){
+                    btObj.addEventListener('click', function(){
+                        // 버튼 클릭되었을 때 할 일을 기술하면 됨!
+                        alert(btObj.innerHTML)
+                    })
+                });
+
+            }); // window.addEventListener()
+
+            // #2
+            // window.onload = function(){};
+            // #3
+            // function f1(){};
+
+        </script>
+    </head>
+
+    <!-- <body onload="f1"> #3 -->
+    <body>
+        <div>
+            <input type="text" value="0" readonly><br>
+            <button onclick="">7</button><button>8</button><button>9</button><br>
+            <button>4</button><button>5</button><button>6</button><br>
+            <button>1</button><button>2</button><button>3</button><br>
+            <button>0</button><br>
+            <button>+</button><button>-</button><button>=</button>
+        </div>
+    </body>
+</html>
