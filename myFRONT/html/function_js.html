@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <script>
+            // # 이름있는 함수
+            // syntax: functin 함수이름(매개변수) {}
+
+            // 자스에서는 매개변수, return 타입을 결정 XX
+            function fa(param1, param2){
+                return param1 + param2;
+            }
+
+            // param1에 5, param2에 7 전달!
+            var result = fa(5, 7);
+            console.log(result); // 12
+
+            // param1에 5 전달하고 param2는 전달 X
+            console.log(fa(5)); // NaN
+            // param1, param2에 각각 5, 3 전달하고 1은 무시됨!
+            console.log(fa(5,3,1)); // 8
+
+            // 반환값이 없는 함수!
+            function fb(){
+            }
+            result = fb();
+            console.log(result); // undefined
+
+            // # 이름없는 함수
+            // syntax: function(){}
+            
+            // #1
+            // 함수 이름이 없기 때무넹 호출하기 위해서는 변수에 담아줘야함!
+            var f1 = function(param1, param2) {
+                return param1 + param2;
+            }
+            console.log(f1(5,7)); // 12
+
+            // #2-1
+            // f1 함수의 결과를 인자로 f2함수(param1)에 전달해서 호출함!
+            // 인자 전달이 이루어지지 않았기 때문에 f1함수의 param1과 param2가 undefined가 됨!
+            var f2 = function(param1) {
+                console.log(param1()) // NaN
+            }
+            f2(f1);
+
+            // #2-2
+            var f2 = function(param1, param2, param3) {
+                console.log(param1(param2, param3)) // 12
+            }
+            f2(f1, 5, 7); // f1함수 자체를 인자로 사용!
+            // f2(f1(), 5, 7); XXX 해당 코드는 f1()의 결과값을 인자로 사용하겠다는 의미!
+
+            // #2-3
+            f2(function (param1, param2) {
+                return param1 + param2
+            }, 5, 7) // 12
+
+            // #2-4
+            // 5초 후에 첫번째 인자로 사용한 콜백함수를 호출!
+            var f2 = function(param1, param2, param3) {
+                window.setTimeout(function() {
+                    console.log(param1(param2, param3))
+                }, 5*1000)
+                console.log(param1(param2, param3)) // 12
+            }
+            f2(f1, 5, 7);
+            
+        </script>
+    </head>
+</html>

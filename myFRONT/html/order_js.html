@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <script>
+            alert("in head");
+        </script>
+        <script>
+            window.addEventListener(
+                'load',
+                function(){
+                    alert("in head last")
+                }
+            )
+        </script>
+    </head>
+    <body>
+        <script>
+            alert("in body1");
+        </script>
+        <h1>자바스크립트 처리순서</h1>
+        <script>
+            alert("in body2");
+        </script>
+    </body>
+</html>

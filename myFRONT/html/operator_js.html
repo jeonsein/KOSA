@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <script>
+            // 산술연산자: +, -, *, /, %
+            console.log(7/2); // 3.5 (자스는 정수/정수 해도 실수값이 나옴)
+            console.log(7/0); // Infinity
+            console.log(7/0 + 1); // Infinity
+            
+            var a;
+            console.log(a+1); // undefined + 1 => NaN(Nat a Number)
+
+            // 비교연산자: >, >=, <, <=, ==, ===, !=, !==
+            var a; // 위에 a 변수 선언했어도, 자스에서는 덮어쓰기가 됨!
+            var b;
+            a = 1; // number
+            b = 2; // number
+
+            console.log( a == b ); // false
+            console.log( a != b ); // true
+
+            b = '1'; // string
+
+            console.log( a == b ); // 1 == 1 => true (자동으로 형변환되기 때문에 true)
+            console.log( a === b ); // 1 === '1' => false (자료형까지 비교를 하기 때문에 false)
+
+            // 대입연산자: +=, -=, *=, /=, %=
+            // 단항연산자(증감연산자): ++, --
+            // 논리연산자: &&, ||, !
+            // 삼항연산자: ? :
+
+            // 문자열 결합연산자: + 
+            console.log('hello ' + b + ' sengna'); // hello 1 sengna
+            // number -> string으로 자동형변환
+            console.log('hello ' + a) // string + number => string이 반환됨 // hello 1
+            console.log(a + '1'); // number + string => string이 반환됨 // '11'
+            
+            // number와 boolean 연산 시, boolean true는 number형 1로 변환! false는 0으로 변환됨!
+            console.log(a + true) // number + boolean(true) => number(1) + number(1) = 2
+            console.log(a + false) // number + boolean(false) => number(1) + number(0) = 1
+        </script>
+    </head>
+</html>

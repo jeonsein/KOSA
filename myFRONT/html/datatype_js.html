@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <script>
+            // 자바 스크립트는 변수 선언 시 자료형을 미리 결정하지 않음!
+            var a; // 변수 선언
+
+            // (값이 대입되지 않은 변수인 경우 undefined 자료형이 됨)
+            console.log(typeof a);  // undefined 자료형
+
+            a = 1;
+            console.log(typeof a);  // number 자료형
+
+            a = true;
+            console.log(typeof a);  // boolean 자료형
+
+            // 자스에는 단일문자 자료형은 없음! string형만 존재함
+            a = 'sengna';
+            console.log(typeof a);  // string 자료형
+
+            a = {}  // {} = 객체
+            console.log(typeof a);  // object 자료형
+
+            a = function(){} // 함수 자료형
+            console.log(typeof a);  // function 자료형
+        </script>
+    </head>
+</html>
