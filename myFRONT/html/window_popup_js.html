@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>window_popup_js.html</title>
+        <style>
+            div.list{
+                width: 500px;
+                border: 1px solid black;
+                border-radius: 5px;
+            }
+            div.list>div:hover{
+                background-color: darkturquoise;
+            }
+        </style>
+        <script>
+            window.addEventListener('load', () => {
+                const divArr = document.querySelectorAll('div.list > div')
+                // divObj = div 객체 하나하나를 의미함!
+                divArr.forEach((divObj, index) => {
+
+                    // 〓〓〓 div.list > div 객체에서 click 이벤트가 발생했을 때 할 일 START 〓〓〓
+                    divObj.addEventListener('click', (e) => {
+                        // e.target의 부모를 찾기!
+                        const divObj1 = e.target.parentNode // div 객체를 찾음! divObj = divObj1
+                        const zipcodeObj = divObj1.firstChild
+                        const doroObj = divObj1.lastChild
+                        // console.log(zipcodeObj)
+                        // console.log(doroObj)
+                        
+                        // 현재 창 닫기
+                        const mainWindow = self.opener // self 창을 띄운 부모창 접근
+                        const resultObj = mainWindow.document.querySelector('div.result') // 부모창의 돔트리에 result 영역 등록!
+                        resultObj.innerHTML = zipcodeObj.innerHTML + ':' + doroObj.innerHTML // 팝업창의 내용을 result영역에 채워줌 
+                        self.close() // self = 현재 window 객체를 의미함
+                    }) // divObj.addEventListener()
+                    // 〓〓〓 div.list > div 객체에서 click 이벤트가 발생했을 때 할 일 END 〓〓〓
+
+                }) // divArr.forEach()
+
+            }); //  window.addEventListener()
+        </script>
+    </head>
+
+    <body>
+        <h1>우편번호 검색(도로명 주소 검색)</h1>
+        <input type="text" placeholder="도로명 주소를 입력하세요.">
+        <button>우편번호 검색</button><br>&nbsp;
+        <div class="list">
+            <div><span class="zipcode">&nbsp;25347&nbsp;</span>
+                <span class="doro">강원특별자치도 평창군 대관령면 올림픽로 6-5</span></div>
+            <div><span class="zipcode">&nbsp;25347&nbsp;</span>
+                <span class="doro">강원특별자치도 평창군 대관령면 올림픽로 8</span></div>
+            <div><span class="zipcode">&nbsp;25347&nbsp;</span>
+                <span class="doro">강원특별자치도 평창군 대관령면 올림픽로 24</span></div>
+        </div>
+    </body>
+</html>

@@ -132,12 +132,60 @@
 
             }); // selectObj.addEventListener()
             */
+            // 🔼 위 코드 appendChild()로 변경하기 🔽
+            selectObj.addEventListener('change', function(){
 
-            
+                selectObj2.replaceChildren(); 
+                // 해당 메소드로 appendChild로 추가된 거 지우고 카테고리에 맞는 자식요소들만 출력함
 
+                // 2차 카테고리
+                let option, text // case절마다 다른 변수를 사용해야 하기 때문에 선언
+                switch(selectObj.value) {
+                    case 'sedan':
+                        option = document.createElement("option")
+                        text = document.createTextNode("뉴아반테")
+                        option.appendChild(text)
+                        selectObj2.appendChild(option) // selectObj2에 뉴아반테를 담고있는 옵션 객체를 생성
 
+                        option = document.createElement("option")
+                        text = document.createTextNode("그랜져")
+                        option.appendChild(text)
+                        selectObj2.appendChild(option)
 
+                        selectObj2.style.display = 'inline-block'
+                        break;
+                    case 'suv':
+                        option = document.createElement("option")
+                        text = document.createTextNode("산타페")
+                        option.appendChild(text)
+                        selectObj2.appendChild(option)
 
+                        option = document.createElement("option")
+                        text = document.createTextNode("투산")
+                        option.appendChild(text)
+                        selectObj2.appendChild(option)
+
+                        option = document.createElement("option")
+                        text = document.createTextNode("펠리세이드")
+                        option.appendChild(text)
+                        selectObj2.appendChild(option)
+
+                        selectObj2.style.display = 'inline-block'
+                        break;
+                    case 'truck':
+                        option = document.createElement("option")
+                        text = document.createTextNode("마이티")
+                        option.appendChild(text)
+                        selectObj2.appendChild(option)
+
+                        selectObj2.style.display = 'inline-block'
+                        break;
+                    default:
+                        selectObj2.style.display = 'none'
+                        break;
+                } // switch
+
+            }); // selectObj.addEventListener()
             // ------------ select 객체에서 체인지 이벤트가 발생했을 때 할 일 END ------------
 
 // ------------------------------------------------------------------------------------------

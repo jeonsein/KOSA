@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <script>
+            window.addEventListener('load', () => {
+                // DOM Tree에서 class 속성값이 open인 객체 찾기
+                const btOpen = document.querySelector('.open')
+
+                // 〓〓〓〓〓〓〓〓 open 객체에서 click 이벤트가 발생했을 때 할 일 START 〓〓〓〓〓〓〓〓
+                btOpen.addEventListener('click', () => {
+                    // let url = 'http://www.naver.com'
+                    let url = './window_popup_js.html'
+                    let target = 'sengna'
+                    let feat =  'width=800 height=800' // 상태값! 새 창의 크기나 속성 등을 지정
+
+                    // window.open(url, '', feat) // 새 창 띄우기 할 때마다 새로 팝업창이 뜸!
+                    window.open(url, target, feat) // 새 창 띄우기 할 때마다 동일 창에서!
+                }) // btOpen.addEventListener()
+                // 〓〓〓〓〓〓〓〓 open 객체에서 click 이벤트가 발생했을 때 할 일 END 〓〓〓〓〓〓〓〓
+
+                // 〓〓〓 class 속성값이 timeout인 button 객체에서 click 이벤트가 발생했을 때 할 일 START 〓〓〓
+                document.querySelector('button.timeout').addEventListener('click', () => {
+                    // 🔽 (function() , 1000분의 1초 단위의 값 후에 callback 함수 처리)
+                    window.setTimeout( () => {
+                        const resultObj = document.querySelector('div.result')
+
+                        let now = new Date()
+                        let y = now.getFullYear()
+                        let m = now.getMonth() // 1월은 0! 12월은 11값 반환함!
+                        let d = now.getDate()
+                        let h = now.getHours()
+                        let mi = now.getMinutes()
+                        let s = now.getSeconds()
+
+                        resultObj.innerHTML = y + "/" + (m+1) + "/" + d + " " + h + ":" + mi + ":" + s
+                        
+                    } , 1000) // window.setTimeout()
+
+                }) // document.querySelector('button.timeout').addEventListener() 
+                // 〓〓〓 class 속성값이 timeout인 button 객체에서 click 이벤트가 발생했을 때 할 일 END 〓〓〓
+            
+            }); // window.addEventListener()
+        </script>
+    </head>
+    <body>
+        <!-- 새창에서 클릭된 정보가 main창의 div 영역에 나타나게 하기! -->
+        <div class="result"></div>
+
+        <button class="open">새 창 띄우기</button>
+        <button class="timeout">타이머</button>
+        <button class="interval">1초마다</button>
+    </body>
+</html>
