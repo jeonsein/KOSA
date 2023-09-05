@@ -24,7 +24,7 @@ div.id_wrapper, div.pwd_wrapper1, div.pwd_wrapper2, div.name_wrapper {
 }
 
 /* 중복확인 버튼 */
-.idDuplicateCheck {
+.idDuplicateCheckBtn {
     margin-top: 4px;
     margin-left: 17px;
 }

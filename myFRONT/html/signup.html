@@ -2,24 +2,25 @@
     <head>
         <title>Signup</title>
         <link rel="stylesheet" href="../css/signup.css">
+        <script type="text/javascript" src="../js/signup.js"></script>
     </head>
     <body>
-        <form method="post" action="http://localhost:8888/back/login">
+        <form class="signup" method="post" action="http://localhost:8888/back/login">
             <div class="form_wrapper">
 
                 <!-- 아이디 -->
                 <div class="id_wrapper">
                     <p>아이디: </p><input type="text" placeholder="아이디를 입력하세요." id="id" name="id" required>
-                    <button class="idDuplicateCheck" type="submit">중복확인</button>
+                    <button class="idDuplicateCheckBtn" type="button">중복확인</button>
                 </div>
                     
                 <!-- 비밀번호1 -->
                 <div class="pwd_wrapper1">
-                    <p>비밀번호: </p><input type="password" placeholder="비밀번호를 입력하세요." id="pwd1" name="pwd" required>
+                    <p>비밀번호: </p><input type="password" placeholder="비밀번호를 입력하세요." id="p" name="pwd" required>
                 </div>
                 <!-- 비밀번호2 -->
                 <div class="pwd_wrapper2">
-                    <p>비밀번호1: </p><input type="password" placeholder="비밀번호를 입력하세요." id="pwd2" required>
+                    <p>비밀번호1: </p><input type="password" placeholder="비밀번호를 입력하세요." id="p1" required>
                 </div>
                 
                 <!-- 이름 -->
