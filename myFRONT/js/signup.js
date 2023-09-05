@@ -60,6 +60,8 @@ window.addEventListener('load', function(){
 		// 비밀번호 객체 따로 받아와서 비교하기
 		if(pwd1.value !== pwd2.value) {
 			alert('비밀번호를 다시 입력하세요.');
+			pwd1.focus()	// focus 이동시키기
+			pwd1.select()	// 이후 입력된 항목 선택되게 하기!
 			e.preventDefault(); // 기본 이벤트 막기!
 		}; // if
 
@@ -67,3 +69,47 @@ window.addEventListener('load', function(){
     // ------------ 폼객체에서 submit 이벤트가 발생했을 때 할 일 END ------------
 
 }); // window.addEventListener()
+
+// -------------------------------------------------------------------------------------------- 
+// 화살표 함수로 변경!
+/*
+window.addEventListener('load', function(){
+
+    const inputIdObj = document.querySelector('#id'); // ('input[name="id"]'), ('#id'), ('form.signup>input[name=id]')
+    
+	inputIdObj.addEventListener('focus', () => {
+		signupBtnObj.style.display = 'none'
+	}) // inputIdObj.addEventListener()
+	
+    const duplicateBtnObj = document.querySelector('button.idDuplicateCheckBtn') // (form.signup>button[type=button])
+    const signupBtnObj = document.querySelector('button.signupBtn')
+
+    duplicateBtnObj.addEventListener('click', () => {
+        if(inputIdObj.value == 'admin') {
+            alert('이미 사용중인 아이디입니다.')
+        } else {
+            alert('사용 가능한 아이디입니다.')
+            signupBtnObj.style.display = 'inline-block'
+        } // if-else
+    }); // btnObj.addEventListener()    
+
+    // DOM Tree에서 폼객체 찾기
+    const formObj = document.querySelector('form.signup')
+
+	// DOM Tree에서 비밀번호 객체 찾기
+	const pwd1 = document.querySelector('#p');
+	const pwd2 = document.querySelector('#p1');
+
+    formObj.addEventListener('submit', (e) => {
+
+		if(pwd1.value !== pwd2.value) {
+			alert('비밀번호를 다시 입력하세요.');
+			pwd1.focus()	// focus 이동시키기
+			pwd1.select()	// 이후 입력된 항목 선택되게 하기!
+			e.preventDefault(); // 기본 이벤트 막기!
+		}; // if
+
+    }); // formObj.addEventListener()
+
+}); // window.addEventListener()
+*/

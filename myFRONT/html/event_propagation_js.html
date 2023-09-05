@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <meta charset="UTF-8">
+        <title>Document</title>
+
+        <script>
+            window.addEventListener(
+                'load',
+                function(){
+                    // DOM트리애서 div객체 찾기
+                    // querySelector의 매개변수에는 문자열의 형태로 선택자에 해당하는 객체를 찾음
+                    const divObj = document.querySelector("div")
+                    // DOM트리에서 a객체 찾기
+                    const aObj = document.querySelector("div>a")
+
+                    // ----- div객체에서 click 이벤트가 발생했을 때 할 일 START -----
+                    divObj.addEventListener("click", function(e){
+                        // divObj.style.backgroundColor = 'gray' // divObj객체의 style의 backgroundColor속성을 gray로 변경
+                        this.style.backgroundColor = 'gray' // 이벤트가 발생된 객체
+                        // console.log(e.target)
+                        // e.target.style.backgroundColor = 'gray' // e.target = 정확히 이벤트가 발생한 지점
+                        // 이벤트가 발생한 곳(origin)을 찾아가고 싶다면: e.target
+                        // != 
+                        // 이벤트가 발생한 현재 객체를 찾고 싶다면: this
+                    })
+                    // ----- div객체에서 click 이벤트가 발생했을 때 할 일 END -----
+
+                    
+                    // ----- a객체에서 click 이벤트가 발생했을 때 할 일 START -----
+                    /*aObj.addEventListener("click", function(e){
+                        // aObj.style.backgroundColor = 'yellow' // divObj객체의 style의 backgroundColor속성을 gray로 변경
+                        // a태그에는 default event hanlde가 있으므로 a태그의 google로 가고싶지 않으면
+                        
+                        // this.style.backgroundColor = 'yellow'
+                        console.log(e.target)
+                        e.target.style.backgroundColor = 'yellow'
+
+                        e.preventDefault()
+                        // e.stopPropagation // 부모태그로 이벤트 전파 막기
+                    })*/
+                    // ↕️ arrow function으로 변환!
+                    aObj.addEventListener('click', (e)=> {
+                        // console.log(this) // 화살표 함수 내에서의 this는 window 객체임!!!
+                        
+                        // aObj.style.backgroundColor = 'yellow'
+                        e.target.style.backgroundColor = 'yellow'
+                        // this.style.backgroundColor = 'yellow' // window객체는 스타일을 하지 못함!
+                        e.preventDefault()
+                    });
+                    // ----- a객체에서 click 이벤트가 발생했을 때 할 일 END -----
+                } // function
+            ) // window
+        </script>
+
+    </head>
+    <body>
+
+        <div style="width:300px; height:300px; padding:20px;">
+            <!-- a태그는 default event handler가 있다 -->
+            <a href="http://google.com">구글</a>
+        
+        </div>
+        
+    </body>
+</html>
