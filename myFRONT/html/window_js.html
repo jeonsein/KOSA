@@ -39,6 +39,37 @@
                 }) // document.querySelector('button.timeout').addEventListener() 
                 // 〓〓〓 class 속성값이 timeout인 button 객체에서 click 이벤트가 발생했을 때 할 일 END 〓〓〓
             
+
+                // 〓〓〓 class 속성값이 interval인 button 객체에서 click 이벤트가 발생했을 때 할 일 START 〓〓〓
+                let windowID; // setInterval()을 구별해내는 식별자값을 주기 위한 변수값
+
+                document.querySelector('button.interval').addEventListener('click', () => {
+                    // 🔽 (function() , 1000분의 1초 단위의 값 후에 callback 함수 처리)
+                    windowID = window.setInterval( () => {
+                        const resultObj = document.querySelector('div.result')
+
+                        let now = new Date()
+                        let y = now.getFullYear()
+                        let m = now.getMonth() // 1월은 0! 12월은 11값 반환함!
+                        let d = now.getDate()
+                        let h = now.getHours()
+                        let mi = now.getMinutes()
+                        let s = now.getSeconds()
+
+                        resultObj.innerHTML = y + "/" + (m+1) + "/" + d + " " + h + ":" + mi + ":" + s
+                        
+                    } , 1000) // window.setTimeout()
+
+                }) // document.querySelector('button.timeout').addEventListener() 
+                // 〓〓〓 class 속성값이 interval인 button 객체에서 click 이벤트가 발생했을 때 할 일 END 〓〓〓
+            
+                
+                // 〓〓〓 class 속성값이 clear인 button 객체에서 click 이벤트가 발생했을 때 할 일 START 〓〓〓
+                document.querySelector('button.clear').addEventListener('click', () => {
+                    window.clearInterval(windowID)
+                }) // document.querySelector('button.clear').addEventListener()
+                // 〓〓〓 class 속성값이 clear인 button 객체에서 click 이벤트가 발생했을 때 할 일 END 〓〓〓
+
             }); // window.addEventListener()
         </script>
     </head>
@@ -49,5 +80,6 @@
         <button class="open">새 창 띄우기</button>
         <button class="timeout">타이머</button>
         <button class="interval">1초마다</button>
+        <button class="clear">1초마다 실행한 일 중지</button>
     </body>
 </html>
