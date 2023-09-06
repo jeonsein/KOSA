@@ -1,9 +1,11 @@
 window.addEventListener('load', () => {
+    alert("▷▷▷▷▷▷▷login용 window load event handler")
     const savedId = localStorage.getItem('savedId')
     // console.log(savedId) // null
+
     if(savedId != null) { // id 저장이 되어있는 상태
         document.querySelector('input[name=id]').value = savedId
-    }
+    } // if
 
     // 〓〓〓 form 객체에서 submit이벤트가 발생했을 때 할 일 START 〓〓〓
         // DOM Tree에서 form 객체 찾기
@@ -17,39 +19,32 @@ window.addEventListener('load', () => {
             localStorage.removeItem('savedId') // 저장된 아이디 제거
         } // if-else
 
+        const xhttp = new XMLHttpRequest()
+
+        xhttp.addEventListener('readystatechange', function() {
+            if(this.readyState == 4) {
+                if(this.status == 200) {
+                    alert(this.responseText + ":" + this.responseText)
+                } else {
+                    alert(this.status + ":" + this.responseText)
+                } // if-else
+            } // if
+        }) // xhttp.addEventListener
+        xhttp.open('post', 'http://localhost:8888/back/login')
+        xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded") // 헤더 설정
+        // xhttp.send('id=a&pwd=b')
+        // 사용자 입력값으로 send하기 🔽
+        const idValue = document.querySelector('input[name=id]').value
+        const pwdValue = document.querySelector('input[name=pwd]').value
+        // const data = 'id=' + idValue + '&pwd=' + pwdValue // data = 요청시 전달할 데이터
+        // 표준화 -> 백틱 연산자 사용 🔽
+        const data = `id=${idValue}&pwd=${pwdValue}`
+        console.log(data)
+        xhttp.send(data)
+
         e.preventDefault()
+        // 〓〓〓 form 객체에서 submit이벤트가 발생했을 때 할 일 END 〓〓〓
+
     }) // document.querySelector('form').addEventListener()
-    // 〓〓〓 form 객체에서 submit이벤트가 발생했을 때 할 일 END 〓〓〓
 
 }); // window.addEventListener()
-
-/*
-<form method="post" action="http://localhost:8888/back/login">
-    <div class="form_wrapper">
-
-        <!-- 아이디 -->
-        <div class="id_wrapper">
-            <p>아이디: </p>
-            <input type="text" placeholder="아이디를 입력하세요." id="id" name="id" required>
-        </div>
-
-        <!-- 비밀번호 -->
-        <div class="pwd_wrapper">
-            <p>비밀번호: </p>
-            <input type="password" placeholder="비밀번호를 입력하세요." id="pwd" name="pwd" required>
-        </div>
-
-        <!-- 아이디 저장 - 체크박스 -->
-        <div class="id_stored_wrapper">
-            <input type="checkbox" checked> 
-            <p>아이디저장</p>
-        </div>
-    
-        <!-- 로그인 버튼 -->
-        <div class="loginBtn_wrapper">
-            <button class="loginBtn" type="submit">로그인</button>
-        </div>
-
-    </div>
-</form>
-*/
