@@ -22,30 +22,38 @@ function ajaxHandler(method, u, target) {
     xhttp.open(method, url)
     xhttp.send()
     */
-     // 🔽 🔼
-    $.ajax({
-        url: u, // 매개변수의 값을 property의 값으로 사용함!
-        method: method,
-        success: (responseText) => {
-            //  요청이 성공적으로 응답되었을 때 할 일을 기술!
-            target.html(responseText)
-        },
-        error: () => {
-            alert('응답실패')
-        }
-    })
+     // △ ▽
+    // $.ajax({
+    //     url: u, // 매개변수의 값을 property의 값으로 사용함!
+    //     method: method,
+    //     success: (responseText) => {
+    //         //  요청이 성공적으로 응답되었을 때 할 일을 기술!
+    //         target.html(responseText)
+    //     },
+    //     error: () => {
+    //         alert('응답실패')
+    //     }
+    // })
+
+    if(method == 'GET') {
+        target.load(u, function(response, status, xhr ) { // jQuery용 메소드 load()
+            if(status == "error") {
+                alert(xhr.status + ShadowRoot.statusText)
+            } // inner-if
+        })  // .load()
+    } // outer-if
 
 } // ajaxHandler
 
 // js -> jQuery 사용해서 코드 수정!
 // window.addEventListener('load', () => {
 // $(document).ready()
-// 🔽 🔼
+// △ ▽
 $(() => {
     // DOM Tree에서 section 객체 찾기
     const sectionObj = document.querySelector('section')
-    // 🔽 🔼
-    const $sectionObj = $('section')
+    // △ ▽
+    const $sectionObj = $(`section`)
     console.log("----- 자바스크립트 객체 -----")
     console.log(sectionObj)
 
@@ -55,9 +63,9 @@ $(() => {
     console.log(sectionObj === $sectionObj.get(0))
 
     // DOM Tree에서 nav>ul>li>a 객체들 찾기
-    const menus = document.querySelectorAll('nav>ul>li>a')
-    // 🔽 🔼
-    const $menus = $('nav>ul>li>a')
+    // const menus = document.querySelectorAll('nav>ul>li>a')
+    // △ ▽
+    const $menus = $(`nav>ul>li>a`)
 
     /*
     menus.forEach((menu, index) => {
@@ -89,7 +97,7 @@ $(() => {
 
     }) // menus.forEach()
     */
-    // 🔽 🔼
+    // △ ▽
     // 〓〓 메뉴 객체에서 클릭이벤트가 발생했을 때 할 일 START 〓〓
     $menus.click((e) => {
         console.log(e.target.className)
@@ -107,6 +115,7 @@ $(() => {
             case 'productlist':
                 ajaxHandler('GET', './productlist.html', $sectionObj)
                 break;
+
             case 'cartlist': break;
             case 'orderlist': break;
         } // switch(e.target.class)()

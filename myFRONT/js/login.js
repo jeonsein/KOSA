@@ -7,13 +7,13 @@ $(() => {
 
     if (savedId != null) { // id 저장이 되어있는 상태
         // document.querySelector('input[name=id]').value = savedId
-        savedId = $(`input[name=id]`).val()
+        $(`input[name=id]`).val(savedId)
     } // if
 
     // 〓〓〓 form 객체에서 submit이벤트가 발생했을 때 할 일 START 〓〓〓
     // DOM Tree에서 form 객체 찾기
     // document.querySelector('form').addEventListener('submit', (e) => {
-    $(`form`).submit((e) => {
+    $('form').submit((e) => {
         alert("ajax-0")
         // checkbox 객체의 checked 속성값을 확인
         // jQuery용 메소드: $('input[type=checkbox]').prop('checked')
@@ -35,14 +35,15 @@ $(() => {
         $.ajax({
             url: 'http://localhost:8888/back/login',
             method: 'post',
-            success: (responseText) => {
+            success: (responseText)=>{
                 alert(responseText)
             },
-            error: (jqXHR, textStatus) => {
+            error: (jqXHR, textStatus)=>{ //( jqXHR jqXHR, String textStatus, String errorThrown )
+                // alert(textStatus) //error
+                // console.log(jqXHR)
                 alert(jqXHR.readyState + ":" + jqXHR.status + ":" + jqXHR.statusText)
-                alert('에러발생')
             }
-        })
+        }) // ajax()
         alert("ajax-5")
         e.preventDefault()
         // 〓〓〓 form 객체에서 submit이벤트가 발생했을 때 할 일 END 〓〓〓
