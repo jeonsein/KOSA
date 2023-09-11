@@ -1,78 +1,67 @@
-<!DOCTYPE html>
-<html lang="ko">
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 
 <head>
-    <title>Starbucks Korea</title>
-    <style>
-        /* common */
-        body {
-            /* width: px; */
-        }
+<style>
+body {
+    /* width: px; */
+}
+a {
+    text-decoration: none;
+    color:black;
+    font-weight: 500;
+}
 
-        a {
-            text-decoration: none;
-            color: black;
-            font-weight: 500;
-        }
+header>img {
+    width: 45px;
+    height: 45px;
+    display: inline-block;
+    float: left;
+    margin-top: 5px;
+    margin-left: 13px;
+}
 
-        /* 헤더 */
-        /* 로고 */
-        header>img {
-            width: 45px;
-            height: 45px;
-            display: inline-block;
-            float: left;
-            margin-top: 5px;
-            margin-left: 13px;
-        }
+nav {
+    width: 590px;
+    display:inline-block;
+    background-color: rgb(246, 245, 239);
+    margin-left: 37px;
+    padding-bottom: 25px;
+    padding-right: 25px;
+}
 
-        /* nav바 */
-        nav {
-            width: 590px;
-            display: inline-block;
-            background-color: rgb(246, 245, 239);
-            margin-left: 37px;
-            padding-bottom: 25px;
-            padding-right: 25px;
-        }
+nav>ul>li {
+    float: left;
+    list-style-type: none; /*ul요소의 점 제거*/
+    text-align: left;
+    margin-left: 10px;
+    margin-right: 20px;
 
-        /* nav바 메뉴 */
-        nav>ul>li {
-            float: left;
-            list-style-type: none;
-            /*ul요소의 점 제거*/
-            text-align: left;
-            margin-left: 10px;
-            margin-right: 20px;
+}
 
-        }
+nav>ul>li>a:hover{
+    color:rgb(102, 153, 0);
+    font-weight: bold;
+    text-decoration: underline;
+}
 
-        /* nav바 호버 */
-        nav>ul>li>a:hover {
-            color: rgb(102, 153, 0);
-            font-weight: bold;
-            text-decoration: underline;
-        }
+section {
+    /* width: 710px; */
+    height: 300px;
+    background-color: rgb(243, 243, 233);
+}
 
-        /* 메인 */
-        section {
-            /* width: 710px; */
-            height: 300px;
-            background-color: rgb(243, 243, 233);
-        }
-
-        /* 푸터 */
-        footer {
-            /* width: 710px; */
-            height: 50px;
-            text-align: center;
-            font-size: 12px;
-            color: rgb(153, 153, 153);
-            padding-top: 20px;
-            background-color: rgb(44, 42, 41);
-        }
-    </style>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+footer {
+    /* width: 710px; */
+    height: 50px;
+    text-align: center;
+    font-size: 12px;
+    color:rgb(153, 153, 153);
+    padding-top: 20px;
+    background-color: rgb(44, 42, 41);
+}
+</style>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
     <script>
         // function ajaxHandler(method, url, target) {
         function ajaxHandler(method, u, target) {
@@ -203,38 +192,16 @@
         });
     </script>
 </head>
-
-<body>
-    <!-- 로고 -->
-    <header>
-        <img src="../images/logo.png" alt="로고">
-    </header>
-
-    <!-- 메뉴바 -->
-    <nav>
-        <ul>
-            <li><a href="#" class="login">로그인</a></li>
-            <li><a href="#" class="signup">가입</a></li>
-            <li><a href="#" class="logout">로그아웃</a></li>
-            <li><a href="#" class="productlist">상품목록</a></li>
-            <li><a href="#" class="casrtlist">장바구니목록</a></li>
-            <li><a href="#" class="orderlist">주문목록</a></li>
-        </ul>
-    </nav>
-
-    <!-- 실제 데이터 영역 -->
-    <section>
-        <!-- <article></article> 동일 카테고리의 여러 아티클 -->
-        <!-- 해당 영역은 section 태그의 innerHTML영역임 -->
-        MAIN입니다.
-    </section>
-
-    <!-- 맺음말 -->
-    <footer>
-        사업자등록번호 : 201-81-21515 주식회사 에스씨케이컴퍼니 대표이사 : 손정현 TEL : 1522-3232 개인정보 책임자 : 이찬우
-        <br>ⓒ 2023 Starbucks Coffee Company. All Rights Reserved.
-    </footer>
-
-</body>
-
-</html>
+<header>
+	<img src="./images/hamster.jpg" alt="hamster">
+</header>
+<nav>
+	<ul>
+		<li><a href="#" class="login">로그인</a></li>
+        <li><a href="#" class="signup">가입</a></li>
+        <li><a href="#" class="logout">로그아웃</a></li>
+        <li><a href="#" class="productlist">상품목록</a></li>
+        <li><a href="#" class="cartlist">장바구니목록</a></li>
+        <li><a href="#" class="orderlist">주문목록</a></li>
+	</ul>
+</nav>
