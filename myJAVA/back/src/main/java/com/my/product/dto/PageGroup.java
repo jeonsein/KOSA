@@ -33,13 +33,16 @@ public class PageGroup <T> {
 		// TODO 총 페이지 수 계산
 		this.totalPage = (int) Math.ceil((float) totalCnt / CNT_PER_PAGE);
 	    
-		// TODO 시작, 끝 페이지 수 계산
-	    this.startPage = ((currentPage - 1) / CNT_PER_PAGEGROUP) * CNT_PER_PAGEGROUP + 1;
-	    this.endPage = startPage + CNT_PER_PAGEGROUP - 1;
-		
-		if(endPage > totalPage) {
-			endPage = totalPage;
-		} // if
+		if(currentPage < totalPage) {
+			// TODO 시작, 끝 페이지 수 계산
+		    this.startPage = ((currentPage - 1) / CNT_PER_PAGEGROUP) * CNT_PER_PAGEGROUP + 1;
+		    this.endPage = startPage + CNT_PER_PAGEGROUP - 1;
+		    
+			if(endPage > totalPage) {
+				endPage = totalPage;
+			} // inner-if
+			
+		} // outer-if
 		
 	} // constructor
 	
@@ -47,8 +50,8 @@ public class PageGroup <T> {
 	
 	// Test용 main()
 	public static void main(String[] args) {
-		int cp = 2; // currentPage (현재 보려는 페이지)
-		int tc = 10; // totalCnt (총 상품 수)
+		int cp = 5; // currentPage (현재 보려는 페이지)
+		int tc = 14; // totalCnt (총 상품 수)
 		
 		PageGroup pg = new PageGroup(null, cp, tc);
 		

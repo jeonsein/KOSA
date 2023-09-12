@@ -38,6 +38,7 @@ public class ProductListServlet extends HttpServlet {
 //			List<Product> list = service.findAll(cp);
 //			request.setAttribute("list", list);
 			PageGroup<Product> pb = service.findAll(cp);
+			request.setAttribute("pb", pb);
 		} catch (FindException e) {
 			path = "fail.jsp"; // 실패의 경우, 이동할 경로
 			request.setAttribute("msg", e.getMessage());

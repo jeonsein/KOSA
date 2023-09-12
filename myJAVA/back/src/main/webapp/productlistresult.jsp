@@ -1,3 +1,4 @@
+<%@ page import="com.my.product.dto.PageGroup"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page import="com.my.product.dto.Product" %>
@@ -36,16 +37,41 @@
 </style>
 </head>
 <body>
-<% List<Product> list = (List)request.getAttribute("list");
-	for(Product p : list) {
+<div class="productlist">
+<h3>상품목록</h3>
+<%
+PageGroup<Product> pb = (PageGroup)request.getAttribute("pb");
+// List<Product> list = (List)request.getAttribute("list");
+List<Product> list = pb.getList();
+for(Product p : list) {
 %>
-<div>
-	<ul>
-		<li><img src="./images/<%=p.getProdNo()%>.jpg"></li>
-		<li><%=p.getProdName()%></li>
-	</ul>
+	<div class="product">
+		<ul>
+			<li><img src="./images/<%=p.getProdNo()%>.jpg"></li>
+			<li><%=p.getProdName()%></li>
+		</ul>
+	</div>
+<%	}%>
+	<div class="pagegroup">
+		<%
+		int startPage = pb.getStartPage();
+		int endPage = pb.getEndPage();
+		int totalPage = pb.getTotalPage();
+		
+		if(startPage > 1) {
+		%> [<span class="pg<%=startPage-1 %>">PREV</span>]&nbsp;&nbsp;&nbsp;	
+		<%}
+		
+		for(int i = startPage; i <= endPage; i++) {
+		%> [<span class="pg<%=i%>"><%=i%></span>]&nbsp;&nbsp;&nbsp;	
+		<%}
+		
+		if(endPage != totalPage) {
+			// endPage < totalPage
+		%> [<span class="pg<%=endPage+1%>">NEXT</span>]
+		<%}
+		%>
+	</div>
 </div>
-<%	}
-%>
 </body>
 </html>
