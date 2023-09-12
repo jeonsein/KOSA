@@ -111,7 +111,7 @@ footer {
 
                     case 'logout': break;
                     case 'productlist':
-                        ajaxHandler('GET', './productlist.html', $sectionObj)
+                        ajaxHandler('GET', './productlist', $sectionObj)
                         break;
 
                     case 'cartlist': break;
