@@ -35,6 +35,14 @@
 		margin: 10px auto;
 	}
 </style>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+<script>
+$(() => {
+	$('.productlist>.pagegroup>span').click((e) => {
+		alert($(e.target).html() + ": " + $(e.target).attr('class') + " 페이지가 클릭되었습니다.")
+	})
+})
+</script>
 </head>
 <body>
 <div class="productlist">
