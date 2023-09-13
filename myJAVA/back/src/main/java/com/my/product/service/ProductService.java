@@ -44,6 +44,10 @@ public class ProductService {
 		
 	} // findAll()
 	
+	public Product findByProdNo(String prodNo) throws FindException {
+		return repository.selectByProdNo(prodNo);
+	} // findByProdNo()
+	
 } // end class
 
 /* PageGourp의 생성자가 대신해줄 것임

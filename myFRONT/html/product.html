@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Product</title>
+        <style>
+
+        </style>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+        <script>
+            $(() => {
+                console.log(location.search) // ?prodno=C0001
+
+                const queryStr = location.search.substr(1) // prodno=C0001
+
+                $.ajax({
+                    url : "http://localhost:8888/back/productjson",
+                    method: 'get',
+                    data: queryStr,
+
+                    success: (responseJSONObj) => {
+
+                        if(responseJSONObj.msg != undefined) {   // 상품 조회 실패의 경우
+                            alert(responseJSONObj.msg)
+                        } else {                                 // 상품 조회 성공의 경우
+                            $('div.product>img').attr('src', `../images/${responseJSONObj.prodNo}.jpg`)
+                            $('div.product>div>ul>li>span.prodname').html(responseJSONObj.prodName)
+                            $('div.product>div>ul>li>span.prodno').html(responseJSONObj.prodNo)
+                            $('div.product>div>ul>li>span.prodprice').html(responseJSONObj.prodPrice)
+                        } // if-else
+                    }, // success
+
+                    error: (jqxhr) => {
+                        console.log(jqxhr.state()) // rejected
+                        console.log(jqxhr.status)  // 500
+                    } // error
+
+                }) // .ajax({})
+
+            }) // (() => {})
+        </script>
+    </head>
+
+    <body>
+
+        <div class="product">
+            <img src="../images/hamster.jpg">
+            <div>
+                <ul>
+                    <li>상품 이름: <span class="prodname"> </span></li>
+                    <li>상품 번호: <span class="prodno"> </span></li>
+                    <li>상품 가격: <span class="prodprice"> </span></li>
+                    <li>수량: <input type="number" class="quantity" value="1" max="10" min="1"></li>
+                    <li><button>장바구니 넣기</button></li>
+                </ul>
+            </div>
+        </div>
+
+    </body>
+</html>
