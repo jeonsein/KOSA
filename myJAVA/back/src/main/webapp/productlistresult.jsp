@@ -39,7 +39,12 @@
 <script>
 $(() => {
 	$('.productlist>.pagegroup>span').click((e) => {
-		alert($(e.target).html() + ": " + $(e.target).attr('class') + " 페이지가 클릭되었습니다.")
+		// alert($(e.target).html() + ": " + $(e.target).attr('class') + " 페이지가 클릭되었습니다.")
+		const pg = $(e.target).attr('class') //pg1, pg2, ...
+		const currentPage = pg.substr(2)     //1, 2, ...
+		const url = './productlist?currentPage='+currentPage
+		const $section = $('section')
+		$section.load(url)
 	})
 })
 </script>
