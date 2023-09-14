@@ -1,3 +1,34 @@
-ul {
-    list-style:none;
+@import url('base.css');
+
+div.product {
+    width: 230px;
+    display: inline-block;
+}
+
+/*부모의 product 클래스 하위의 자식요소 ul에 반영*/
+div.product>ul {
+    list-style-type: none;
+    /*ul요소의 점 제거*/
+}
+
+div.product>ul>li>img {
+    /* div.product{}에서 가로 길이를 지정해줌! 해당 길이 내에서의 % */
+    width: 100%;
+    border: 1px rgb(19, 63, 36);
+    border-style: dotted solid dashed;
+}
+
+div.product>ul>li>span {
+    width: 100%;
+    display: inline-block;
+    text-align: center;
+    font-weight: bold;
+}
+
+.productlist>h3 {
+    background: rgb(49, 80, 62);
+    width: 200px;
+    color: white;
+    text-align: right;
+    margin: 10px auto;
 }

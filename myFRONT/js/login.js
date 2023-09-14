@@ -1,4 +1,3 @@
-// window.addEventListener('load', () => {
 $(() => {
     alert("▷▷▷▷▷▷▷login용 window load event handler")
 
@@ -35,10 +34,10 @@ $(() => {
         $.ajax({
             url: 'http://localhost:8888/back/login',
             method: 'post',
-            success: (responseText)=>{
+            success: (responseText) => {
                 alert(responseText)
             },
-            error: (jqXHR, textStatus)=>{ //( jqXHR jqXHR, String textStatus, String errorThrown )
+            error: (jqXHR, textStatus) => { //( jqXHR jqXHR, String textStatus, String errorThrown )
                 // alert(textStatus) //error
                 // console.log(jqXHR)
                 alert(jqXHR.readyState + ":" + jqXHR.status + ":" + jqXHR.statusText)

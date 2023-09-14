@@ -1,3 +1,5 @@
+@import url('base.css');
+
 /* 공통 속성 */
 a {
     text-decoration: none;
@@ -19,14 +21,17 @@ p {
 }
 
 /* 아이디, 비밀번호 입력창 영역 */
-div.id_wrapper, div.pwd_wrapper1, div.pwd_wrapper2, div.name_wrapper {
+div.id_wrapper,
+div.pwd_wrapper1,
+div.pwd_wrapper2,
+div.name_wrapper {
     margin-left: 20px;
     display: flex;
     align-items: center;
 }
 
 /* 아이디 입력창 */
-.id_wrapper>input{
+.id_wrapper>input {
     height: 20px;
     margin-top: 4px;
     margin-left: 25px;
@@ -43,34 +48,35 @@ button.idDuplicateCheckBtn:hover {
     border: 1px solid rgb(0, 102, 51);
     border-radius: 5px;
     background-color: rgb(0, 102, 51);
-    color:white;
+    color: white;
     font-weight: bold;
 }
 
 /* 비번 입력창 */
-.pwd_wrapper1>input{
+.pwd_wrapper1>input {
     height: 20px;
     margin-left: 11px;
 }
-.pwd_wrapper2>input{
+
+.pwd_wrapper2>input {
     height: 20px;
     margin-left: 5px;
 }
 
 /* 이름 입력창 */
-.name_wrapper>input{
+.name_wrapper>input {
     height: 20px;
     margin-left: 45px;
 }
 
 /* 가입하기 버튼 영역 */
-.signupBtn_wrapper{
+.signupBtn_wrapper {
     margin-top: 15px;
     margin-left: 20px;
 }
 
 /* 가입하기 버튼 */
-.signupBtn{
+.signupBtn {
     display: none;
 }
 
@@ -79,6 +85,6 @@ button.signupBtn:hover {
     border: 1px solid rgb(0, 102, 51);
     border-radius: 5px;
     background-color: rgb(0, 102, 51);
-    color:white;
+    color: white;
     font-weight: bold;
 }
