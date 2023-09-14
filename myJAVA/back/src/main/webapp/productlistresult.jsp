@@ -44,7 +44,11 @@ $(() => {
 		const currentPage = pg.substr(2)     //1, 2, ...
 		const url = './productlist?currentPage='+currentPage
 		const $section = $('section')
-		$section.load(url)
+		if($section.length != 0){ //section용 jquery객체 존재 여부는 length로 비교
+			$section.load(url)
+		}else{
+			$('body').load(url)
+		}
 	})
 })
 </script>
@@ -53,36 +57,43 @@ $(() => {
 <div class="productlist">
 <h3>상품목록</h3>
 <%
-PageGroup<Product> pb = (PageGroup)request.getAttribute("pb");
+PageGroup<Product> pg = (PageGroup)request.getAttribute("pb");
 // List<Product> list = (List)request.getAttribute("list");
-List<Product> list = pb.getList();
+List<Product> list = pg.getList();
 for(Product p : list) {
 %>
 	<div class="product">
 		<ul>
-			<li><img src="./images/<%=p.getProdNo()%>.jpg"></li>
+			<li><img src="./images/<%=p.getProdNo()%>.jpg" alt="<%=p.getProdName()%>"></li>
 			<li><%=p.getProdName()%></li>
 		</ul>
 	</div>
 <%	}%>
 	<div class="pagegroup">
 		<%
-		int startPage = pb.getStartPage();
-		int endPage = pb.getEndPage();
-		int totalPage = pb.getTotalPage();
+		int startPage = pg.getStartPage();
+		int endPage = pg.getEndPage();
+		int totalPage = pg.getTotalPage();
+		int currentPage = pg.getCurrentPage();
 		
-		if(startPage > 1) {
-		%> [<span class="pg<%=startPage-1 %>">PREV</span>]&nbsp;&nbsp;&nbsp;	
-		<%}
+		if(startPage > 1){
+			%>[<span class="nocurr pg<%=startPage-1%>">PREV</span>]&nbsp;&nbsp;&nbsp;	
+			<%}
 		
-		for(int i = startPage; i <= endPage; i++) {
-		%> [<span class="pg<%=i%>"><%=i%></span>]&nbsp;&nbsp;&nbsp;	
-		<%}
+		for(int i=startPage; i<=endPage; i++){
+			
+			if(i == currentPage){
+				%>[<span class="curr pg<%=i%>"><%=i%></span>]&nbsp;&nbsp;&nbsp;	
+				<%
+			} else {
+				%>[<span class="nocurr pg<%=i%>"><%=i%></span>]&nbsp;&nbsp;&nbsp;		
+				<%		
+			}
+		}
 		
-		if(endPage != totalPage) {
-			// endPage < totalPage
-		%> [<span class="pg<%=endPage+1%>">NEXT</span>]
-		<%}
+		if(endPage != totalPage){ //endPage < totalPage
+			%>[<span class="nocurr pg<%=endPage+1%>">NEXT</span>]	
+			<%}
 		%>
 	</div>
 </div>

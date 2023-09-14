@@ -1,47 +1,71 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <title>Product</title>
-        <style>
 
-        </style>
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
-        <script>
-            $(() => {
-                console.log(location.search) // ?prodno=C0001
+<head>
+    <title>Product</title>
+    <style>
 
-                const queryStr = location.search.substr(1) // prodno=C0001
+    </style>
 
-                $.ajax({
-                    url : "http://localhost:8888/back/productjson",
-                    method: 'get',
-                    data: queryStr,
+    <link rel="stylesheet" href="../css/header.css">
+    <link rel="stylesheet" href="../css/section.css">
+    <link rel="stylesheet" href="../css/footer.css">
 
-                    success: (responseJSONObj) => {
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <script src="../js/header.js"></script>
+    <script>
+        $(() => {
+            console.log(location.search) // ?prodno=C0001
 
-                        if(responseJSONObj.msg != undefined) {   // 상품 조회 실패의 경우
-                            alert(responseJSONObj.msg)
-                        } else {                                 // 상품 조회 성공의 경우
-                            $('div.product>img').attr('src', `../images/${responseJSONObj.prodNo}.jpg`)
-                            $('div.product>div>ul>li>span.prodname').html(responseJSONObj.prodName)
-                            $('div.product>div>ul>li>span.prodno').html(responseJSONObj.prodNo)
-                            $('div.product>div>ul>li>span.prodprice').html(responseJSONObj.prodPrice)
-                        } // if-else
-                    }, // success
+            const queryStr = location.search.substr(1) // prodno=C0001
 
-                    error: (jqxhr) => {
-                        console.log(jqxhr.state()) // rejected
-                        console.log(jqxhr.status)  // 500
-                    } // error
+            $.ajax({
+                url: "http://localhost:8888/back/productjson",
+                method: 'get',
+                data: queryStr,
 
-                }) // .ajax({})
+                success: (responseJSONObj) => {
 
-            }) // (() => {})
-        </script>
-    </head>
+                    if (responseJSONObj.msg != undefined) {   // 상품 조회 실패의 경우
+                        alert(responseJSONObj.msg)
+                    } else {                                 // 상품 조회 성공의 경우
+                        $('div.product>img').attr('src', `../images/${responseJSONObj.prodNo}.jpg`)
+                        $('div.product>div>ul>li>span.prodname').html(responseJSONObj.prodName)
+                        $('div.product>div>ul>li>span.prodno').html(responseJSONObj.prodNo)
+                        $('div.product>div>ul>li>span.prodprice').html(responseJSONObj.prodPrice)
+                    } // if-else
+                }, // success
 
-    <body>
+                error: (jqxhr) => {
+                    console.log(jqxhr.state()) // rejected
+                    console.log(jqxhr.status)  // 500
+                } // error
 
+            }) // .ajax({})
+
+        }) // (() => {})
+    </script>
+</head>
+
+<body>
+    <!-- 로고 -->
+    <header>
+        <img src="../images/logo.png" alt="로고">
+    </header>
+
+    <!-- 메뉴바 -->
+    <nav>
+        <ul>
+            <li><a href="#" class="login">로그인</a></li>
+            <li><a href="#" class="signup">가입</a></li>
+            <li><a href="#" class="logout">로그아웃</a></li>
+            <li><a href="#" class="productlist">상품목록</a></li>
+            <li><a href="#" class="casrtlist">장바구니목록</a></li>
+            <li><a href="#" class="orderlist">주문목록</a></li>
+        </ul>
+    </nav>
+
+    <section>
         <div class="product">
             <img src="../images/hamster.jpg">
             <div>
@@ -54,6 +78,13 @@
                 </ul>
             </div>
         </div>
+    </section>
 
-    </body>
+    <!-- 맺음말 -->
+    <footer>
+        사업자등록번호 : 201-81-21515 주식회사 에스씨케이컴퍼니 대표이사 : 손정현 TEL : 1522-3232 개인정보 책임자 : 이찬우
+        <br>ⓒ 2023 Starbucks Coffee Company. All Rights Reserved.
+    </footer>
+</body>
+
 </html>

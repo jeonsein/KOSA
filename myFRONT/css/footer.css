@@ -1,0 +1,11 @@
+@import url('base.css');
+
+/* 푸터 */
+footer {
+    height: 70px;
+    text-align: center;
+    font-size: 12px;
+    color: rgb(153, 153, 153);
+    padding-top: 20px;
+    background-color: rgb(44, 42, 41);
+}
