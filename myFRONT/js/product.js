@@ -27,4 +27,26 @@ $(() => {
 
     }) // .ajax({})
 
+    //----장바구니넣기 버튼객체에서 클릭이벤트가 발생했을 때 할 일 START----
+    $('div.product>div>ul>li>button').click(()=>{
+        const prodno = $('div.product span.prodno').html()  // 상품번호값
+        const quantity = $('div.product input.quantity').val() // 수량
+        $.ajax({
+            xhrFields: {
+                withCredentials: true // 인증서를 가지고 .ajax를 요청! (쿠키가 따라갈 수 있도록)
+            }, // 이후 서버쪽에서 해당 인증을 받아주는 과정도 추가해야 함!
+            url: 'http://192.168.1.21:8888/back/addcart',//'http://localhost:8888/back/addcart',
+            method : 'get',
+            data : `prodNo=${prodno}&quantity=${quantity}`,
+            success: ()=>{
+
+            },
+            error : (jqxhr)=>{
+                alert(jqxhr.status)
+            }   
+
+        }) // .ajax({})
+    })
+    //----장바구니넣기 버튼객체에서 클릭이벤트가 발생했을 때 할 일 END----
+
 }) // (() => {})

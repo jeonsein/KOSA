@@ -34,7 +34,7 @@ public class ProductJsonServlet extends HttpServlet {
 		response.setContentType("application/json;charset=utf-8");
 		
 		// CORS 문제 해결
-		response.setHeader("Access-Control-Allow-Origin", "http://127.0.0.1:5500");
+		response.setHeader("Access-Control-Allow-Origin", "http://192.168.1.21:5500");
 		
 		// 응답 출력 스트림 얻기
 		PrintWriter out = response.getWriter();
