@@ -20,7 +20,7 @@ $(() => {
 
                 const $copyTrObj = $originTrObj.clone() // 복제본
                 $copyTrObj.empty()
-                
+
                 const p = element.product // 상품
                 const q = element.quantity // 수량
 
@@ -49,5 +49,24 @@ $(() => {
         } // success
 
     }) // .ajax
+
+    //----주문하기 버튼객체에서 클릭이벤트가 발생했을 때 할 일 START----
+    $('div.cartlist>button').click(() => {
+        $.ajax({
+            xhrFields: {
+                withCredentials: true
+            },
+            url: 'http://192.168.1.21:8888/back/addorder',
+            method: 'get',
+            success: (responseJSONObj) => {
+                if (responseJSONObj.status == 0) { // 주문실패
+                    alert(responseJSONObj.msg)
+                } else {
+                    $('nav>ul>li>a.orderlist').click()
+                }
+            }
+        })
+    })
+    //----주문하기 버튼객체에서 클릭이벤트가 발생했을 때 할 일 END----
 
 }) // $(() => {}

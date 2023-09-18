@@ -15,7 +15,7 @@ public class ProductService {
 	
 	public ProductService() {
 		repository =new ProductOracleRepository();
-	} // ProductService(0
+	} // ProductService
 	
 	// 만약 DTO 타입으로 리턴하지 못한다면, MAP 타입으로 만들어서 리턴하면 됨!
 	public PageGroup<Product> findAll(int currentPage) throws FindException {

@@ -13,7 +13,7 @@ $(() => {
     // DOM Tree에서 form 객체 찾기
     // document.querySelector('form').addEventListener('submit', (e) => {
     $('form').submit((e) => {
-        alert("ajax-0")
+        // alert("ajax-0")
         // checkbox 객체의 checked 속성값을 확인
         // jQuery용 메소드: $('input[type=checkbox]').prop('checked')
         if ($(`input[type=checkbox]`).prop('checked')) { // checkd == true이면
@@ -54,7 +54,7 @@ $(() => {
                 alert(jqXHR.readyState + ":" + jqXHR.status + ":" + jqXHR.statusText)
             }
         }) // ajax()
-        alert("ajax-5")
+        // alert("ajax-5")
         e.preventDefault()
         // 〓〓〓 form 객체에서 submit이벤트가 발생했을 때 할 일 END 〓〓〓
 

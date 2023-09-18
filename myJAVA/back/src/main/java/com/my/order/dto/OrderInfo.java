@@ -18,7 +18,7 @@ import lombok.Setter;
 public class OrderInfo {
 
 	private Integer orderNo;
-	private String orderid;
+	private String orderId;
 	private Date orderDt;
 	private List<OrderLine> lines;
 	
