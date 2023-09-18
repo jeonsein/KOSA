@@ -1,5 +1,5 @@
 $(() => {
-    alert("▷▷▷▷▷▷▷login용 window load event handler")
+    // alert("▷▷▷▷▷▷▷login용 window load event handler")
 
     const savedId = localStorage.getItem('savedId')
     // console.log(savedId) // null
@@ -24,18 +24,29 @@ $(() => {
             localStorage.removeItem('savedId') // 저장된 아이디 제거
         } // if-else
 
-        alert("ajax-1")
-        const idValue = $(`input[name=id]`).val()
-        alert("ajax-2")
-        const pwdValue = $(`input[name=pwd]`).val()
-        alert("ajax-3")
+        // alert("ajax-1")
+        const idValue = $('input[name=id]').val()
+        // alert("ajax-2")
+        const pwdValue = $('input[name=pwd]').val()
+        // alert("ajax-3")
         const data = `id=${idValue}&pwd=${pwdValue}`
-        alert("ajax-4" + data)
+        // alert("ajax-4" + data)
+
         $.ajax({
-            url: 'http://localhost:8888/back/login',
+            xhrFields: {
+                withCredentials: true 
+            },
+            url: 'http://192.168.1.21:8888/back/login',
             method: 'post',
-            success: (responseText) => {
-                alert(responseText)
+            data: data,
+            success: (responseJSONObj) => { // success의 응답내용은 로그인 실패 혹은 로그인 성공!
+                // alert(responseText)
+                if(responseJSONObj.status == 0) {   // 로그인 실패 케이스 (status = 0)
+                    alert(responseJSONObj.msg)  // 응답내용의 msg를 alert!
+                } else if(responseJSONObj.status == 1) {   // 로그인 성공 케이스 (status = 1)
+                    localStorage.setItem('loginedId', idValue)
+                    location.href="./main.html" // 메인으로 이동시키기
+                } // if-else
             },
             error: (jqXHR, textStatus) => { //( jqXHR jqXHR, String textStatus, String errorThrown )
                 // alert(textStatus) //error

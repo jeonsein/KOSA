@@ -12,20 +12,24 @@ function ajaxHandler(method, u, target) {
 
 } // ajaxHandler
 
-// js -> jQuery 사용해서 코드 수정!
 $(() => {
+
+    const loginedId = localStorage.getItem("loginedId")
+    
+    if(loginedId == null) {  // 로그인이 안된 경우
+        // 로그인, 가입 메뉴를 보여주기 (로그아웃 메뉴는 보여주지 않음!)
+        $('nav>ul>li>a.login').parent().show()
+        $('nav>ul>li>a.signup').parent().show()
+        $('nav>ul>li>a.logout').parent().hide()
+    } else {                 // 로그인이 된 경우
+        // 로그아웃 메뉴 보여주기 (로그인, 가입 메뉴는 보여주지 않음!)
+        $('nav>ul>li>a.login').parent().hide()
+        $('nav>ul>li>a.signup').parent().hide()
+        $('nav>ul>li>a.logout').parent().show()
+    } // if-else
+
     // DOM Tree에서 section 객체 찾기
-    const sectionObj = document.querySelector('section')
-    // △ ▽
     const $sectionObj = $(`section`)
-    console.log("----- 자바스크립트 객체 -----")
-    console.log(sectionObj)
-
-    console.log("----- 제이쿼리 객체 -----")
-    console.log($sectionObj)
-    console.log(sectionObj === $sectionObj)
-    console.log(sectionObj === $sectionObj.get(0))
-
     // DOM Tree에서 nav>ul>li>a 객체들 찾기
     const $menus = $(`nav>ul>li>a`)
 
@@ -42,7 +46,18 @@ $(() => {
                 ajaxHandler('GET', './signup.html', $sectionObj)
                 break;
 
-            case 'logout': break;
+            case 'logout': 
+                $.ajax({
+                    xhrFields: {
+                        withCredentials: true 
+                    },
+                    url: 'http://192.168.1.21:8888/back/logout',
+                    success: () => {
+                        localStorage.removeItem('loginedId')
+                        location.href='./main.html'
+                    } // success
+                })
+            break;
             case 'productlist':
                 // 방법#1
                 ajaxHandler('GET', './productlist.html', $sectionObj)

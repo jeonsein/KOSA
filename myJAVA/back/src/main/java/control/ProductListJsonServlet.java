@@ -34,7 +34,8 @@ public class ProductListJsonServlet extends HttpServlet {
 		
 		// 헤더 설정
 		response.setHeader("Access-Control-Allow-Origin", "http://192.168.1.21:5500");
-		
+		response.setHeader("Access-Control-Allow-Credentials", "true");
+
 		// 응답 출력 스트림 얻기
 		PrintWriter out = response.getWriter();
 		

@@ -10,6 +10,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.my.customer.service.CustomerService;
@@ -29,9 +30,10 @@ public class LoginController extends HttpServlet {
 	protected void doPost(HttpServletRequest req, HttpServletResponse res) 
 			throws ServletException, IOException {
 		
-		res.setHeader("Access-Control-Allow-Origin", "http://127.0.0.1:5500");
+		res.setHeader("Access-Control-Allow-Origin", "http://192.168.1.21:5500");
+		res.setHeader("Access-Control-Allow-Credentials", "true");
 		
-		res.setContentType("application;charset=utf-8");
+		res.setContentType("application/json;charset=utf-8");
 		
 		PrintWriter out = res.getWriter();
 //		out.print("로그인 성공!");
@@ -40,9 +42,14 @@ public class LoginController extends HttpServlet {
 		ObjectMapper mapper = new ObjectMapper();
 		Map<String, Object> map = new HashMap<>();
 		
+		HttpSession session = req.getSession();
+		session.removeAttribute("loginedId"); // 초기화
+		
+		
 		// id랑 pwd값 얻어오기
 		String id = req.getParameter("id");
 		String pwd = req.getParameter("pwd");
+		System.out.println(id+" : "+pwd);
 		
 		try {						// 로그인 성공!
 			
@@ -50,6 +57,8 @@ public class LoginController extends HttpServlet {
 			
 			map.put("status", 1);
 			map.put("msg", "로그인 성공");
+			
+			session.setAttribute("loginedId", id);
 			
 		} catch (FindException e) { // 로그인 실패!
 			e.printStackTrace();
