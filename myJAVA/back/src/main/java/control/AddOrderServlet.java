@@ -52,7 +52,7 @@ public class AddOrderServlet extends HttpServlet {
 		
 		if(loginedId == null) {		// 로그인 XX
 			map.put("status", 0);
-			map.put("msg", "로그인하세요.");
+			map.put("msg", "로그인 하세요.");
 		} else {					// 로그인 OO
 			Map<String, Integer> cart = (Map)session.getAttribute("cart");
 			
