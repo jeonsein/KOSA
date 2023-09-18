@@ -65,7 +65,9 @@ $(() => {
                 // ajaxHandler('GET', 'http://localhost:8888/back/productlistjson', $sectionObj)
                 break;
 
-            case 'cartlist': break;
+            case 'cartlist':
+                ajaxHandler('GET', './cartlist.html', $sectionObj)
+                break;
             case 'orderlist': break;
         } // switch(e.target.class)()
         e.preventDefault()

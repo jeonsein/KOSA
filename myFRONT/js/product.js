@@ -4,7 +4,7 @@ $(() => {
     const queryStr = location.search.substr(1) // prodno=C0001
 
     $.ajax({
-        url: "http://localhost:8888/back/productjson",
+        url: "http://192.168.1.21:8888/back/productjson",
         method: 'get',
         data: queryStr,
 

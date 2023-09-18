@@ -45,7 +45,6 @@ public class LoginController extends HttpServlet {
 		HttpSession session = req.getSession();
 		session.removeAttribute("loginedId"); // 초기화
 		
-		
 		// id랑 pwd값 얻어오기
 		String id = req.getParameter("id");
 		String pwd = req.getParameter("pwd");
