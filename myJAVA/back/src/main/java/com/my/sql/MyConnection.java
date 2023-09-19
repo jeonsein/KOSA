@@ -14,6 +14,8 @@ public class MyConnection {
 	 * @throws Exception 드라이버 클래스를 찾지 못하거나, DB와의 연결 실패 시 예외 발생함.
 	 */
 	public static Connection getConnection() throws Exception {
+		
+		
 		// JDBC 드라이버 로드
 		Class.forName("oracle.jdbc.OracleDriver");
 		
@@ -22,6 +24,18 @@ public class MyConnection {
 		String user ="hr";
 		String password = "hr";
 		return DriverManager.getConnection(url, user, password);
+		
+		/*
+		// Building SqlSessionFactory from XML
+		String resource = "com/my/sql/mybatis-config.xml";
+		InputStream inputStream = Resources.getResourceAsStream(resource);
+		SqlSessionFactory sqlSessionFactory =
+								new SqlSessionFactoryBuilder().build(inputStream);
+		
+		// Acquiring a SqlSession from SqlSessionFactory
+		SqlSession session = sqlSessionFactory.openSession();
+		return session.getConnection();
+		*/
 		
 	} // getConnection()
 	

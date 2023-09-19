@@ -3,7 +3,7 @@ package com.my.product.service;
 import java.util.List;
 
 import com.my.exception.FindException;
-import com.my.product.dao.ProductOracleRepository;
+import com.my.product.dao.ProductOracleMybatisRepository;
 import com.my.product.dao.ProductRepository;
 import com.my.product.dto.PageGroup;
 import com.my.product.dto.Product;
@@ -14,7 +14,8 @@ public class ProductService {
 	private ProductRepository repository;
 	
 	public ProductService() {
-		repository =new ProductOracleRepository();
+//		repository = new ProductOracleRepository();
+		repository = new ProductOracleMybatisRepository();
 	} // ProductService
 	
 	// 만약 DTO 타입으로 리턴하지 못한다면, MAP 타입으로 만들어서 리턴하면 됨!
