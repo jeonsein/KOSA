@@ -70,11 +70,6 @@ $(() => {
 
     ajaxHandler(1) // 함수 호출
 
-    /* 선택자 사용해서 <span> 객체들 찾아주기 */
-    // $('div.pagegroup > span').click(() => {
-    //     alert("클릭됨")
-    // })
-    // ▽▽▽▽▽
     /* 'div.pagegroup' = 현재 돔 트리에 존재하는 객체 */
     /* span 객체가 현재는 존재하지 않지만, 미리 span 객체가 생성되었을 때 할 일을 등록하는 것 */
     $('div.pagegroup').on('click', 'span', (e) => {

@@ -68,7 +68,10 @@ $(() => {
             case 'cartlist':
                 ajaxHandler('GET', './cartlist.html', $sectionObj)
                 break;
-            case 'orderlist': break;
+                
+            case 'orderlist':
+                ajaxHandler('GET', './orderlist.html', $sectionObj)
+                break;
         } // switch(e.target.class)()
         e.preventDefault()
 

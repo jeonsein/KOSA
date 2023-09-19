@@ -1,6 +1,9 @@
 package com.my.order.dao;
 
+import java.util.List;
+
 import com.my.exception.AddException;
+import com.my.exception.FindException;
 import com.my.order.dto.OrderInfo;
 
 
@@ -12,5 +15,13 @@ public interface OrderRepository {
 	 * @throws AddException
 	 */
 	void insert(OrderInfo info) throws AddException;
+	
+	/**
+	 * 로그인된 아이디로 목록을 조회한다.
+	 * @param orderId
+	 * @return
+	 * @throws FindException
+	 */
+	List<OrderInfo> selectById(String orderId) throws FindException;
 	
 } // end interface

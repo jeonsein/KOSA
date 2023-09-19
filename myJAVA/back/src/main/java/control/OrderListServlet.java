@@ -2,7 +2,6 @@ package control;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -16,17 +15,17 @@ import javax.servlet.http.HttpSession;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.my.exception.FindException;
-import com.my.product.dto.Product;
-import com.my.product.service.ProductService;
+import com.my.order.dto.OrderInfo;
+import com.my.order.service.OrderService;
 
 
-@WebServlet("/cartlist")
-public class CartListServlet extends HttpServlet {
+@WebServlet("/orderlist")
+public class OrderListServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private ProductService service;
 	
-	public CartListServlet() {
-		service = new ProductService();
+	private OrderService service;
+	public OrderListServlet() {
+		service = new OrderService();
 	}
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) 
@@ -42,43 +41,34 @@ public class CartListServlet extends HttpServlet {
 		PrintWriter out = response.getWriter();
 		ObjectMapper mapper = new ObjectMapper();
 		
-		// 세션 생성
 		HttpSession session = request.getSession();
+		System.out.println("in orderlist: " + session.getId());
+
+		String loginedId = (String)session.getAttribute("loginedId");
 		
-		// session 객체의 Attribute값 얻기 (이름: "cart")
-		Map<String, Integer> cart = (Map<String, Integer>)session.getAttribute("cart");	
+		Map<String, Object> map = new HashMap<>();
 		
-		List list = new ArrayList<>();
-		
-		if(cart == null) {
-			cart = new HashMap<String, Integer>();
-			session.setAttribute("cart", cart);
-		} // if
-		
-		Product p;
-		for(String prodNo : cart.keySet()) {
-			int quantity = cart.get(prodNo);
+		if(loginedId == null) {			// 로그인 XX
+			map.put("status", 0);
+			map.put("msg", "로그인하세요");
+		} else {						// 로그인 OO
 			
 			try {
-				p = service.findByProdNo(prodNo);
-				Map map = new HashMap<>();
+				List<OrderInfo> list = service.findById(loginedId);
 				
-				map.put("product", p);
-				map.put("quantity", quantity);
-				
-				list.add(map);
+				map.put("status", 1);
+				map.put("list", list);				
 			} catch (FindException e) {
 				e.printStackTrace();
-			} // try-catch
+				map.put("status", 0);
+				map.put("msg", e.getMessage());
+			} // try-catch	
 			
-		} // for
-			
-		// JSON 문자열 응답
-		String jsonStr = mapper.writeValueAsString(list);
-//		System.out.println(jsonStr);
-		out.print(jsonStr);
+		} // if-else
+		
+		// JSON 응답
+		out.print( mapper.writeValueAsString(map));
 		
 	} // doGet()
-
 
 } // end class

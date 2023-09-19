@@ -27,7 +27,7 @@ public class ProductOracleRepository implements ProductRepository {
 			conn = MyConnection.getConnection();
 		} catch (Exception e) {
 			throw new FindException(e.getMessage());
-		} // try-cahtch
+		} // try-catch
 		
 		String selectAllSQL = "SELECT *\r\n"
 				+ "		FROM ( SELECT rownum rn, a.*\r\n"
@@ -44,7 +44,7 @@ public class ProductOracleRepository implements ProductRepository {
 			pstmt = conn.prepareStatement(selectAllSQL);
 			pstmt.setInt(1, startRow);
 			pstmt.setInt(2, endRow);
-			rs =pstmt.executeQuery();
+			rs = pstmt.executeQuery();
 			
 			while(rs.next()) {
 				String prodNo = rs.getString("PROD_NO");
