@@ -157,6 +157,38 @@ public class OrderOracleMybatisRepository implements OrderRepository {
 	
 	public List<OrderInfo> selectById(String orderId) throws FindException {
 		
+		SqlSession session = null;
+		
+		try {
+			
+			List<OrderInfo> list = new ArrayList<>();
+			session = sqlSessionFactory.openSession();
+			
+			list = session.selectList("com.my.order.OrderMapper.selectById", orderId);
+			
+			System.out.println("주문 기본(OrderInfo) 객체 수: " + list.size());
+			for(OrderInfo info : list) {
+				System.out.println(info.getOrderNo() + " : " + info.getOrderDt());
+				for(OrderLine line : info.getLines()) {
+					System.out.println("주문 상세: 상품 번호 - " + line.getOrderP().getProdNo() + ", 수량 - " + line.getOrderQuantity());
+				} // inner-for
+				System.out.println(" --------------------- ");
+			} // outer-for
+			
+			return list;
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new FindException(e.getMessage());
+		} finally {
+			
+			if(session != null) {
+				session.close();
+			} // if
+			
+		} // try-catch-finally
+		
+		/* MyBatis 변경 전
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -228,6 +260,7 @@ public class OrderOracleMybatisRepository implements OrderRepository {
 		} finally {
 			MyConnection.close(conn, pstmt, rs);
 		} // try-catch-finally
+		*/
 		
 	} // selectById()
 	
