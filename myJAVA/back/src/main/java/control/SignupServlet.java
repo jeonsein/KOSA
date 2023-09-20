@@ -13,19 +13,21 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.my.customer.dto.Customer;
 import com.my.customer.service.CustomerService;
+import com.my.exception.AddException;
 
 
-@WebServlet("/iddupchk")
-public class IdDupChkServlet extends HttpServlet {
+@WebServlet("/signup")
+public class SignupServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	private CustomerService service;
-	public IdDupChkServlet() {
+	CustomerService service;
+	public SignupServlet() {
 		service = new CustomerService();
 	} // constructor
 	
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) 
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) 
 			throws ServletException, IOException {
 		
 		// 서블릿이 응답할 형식 지정하기
@@ -43,20 +45,22 @@ public class IdDupChkServlet extends HttpServlet {
 		
 		Map<String, Object> map = new HashMap<>();
 		
-		/*
 		try {
-			service.idDupChk(id);
-			// 고객이 있는 경우
-			map.put("status", 0);
-		} catch (FindException e) {
-			// 고객이 없는 경우
+			Customer c = new Customer("id", "pwd", "name", null);
+			// 요청 전달 데이터로 초기화된 고객 객체
+			service.signup(c);
+			
 			map.put("status", 1);
+			map.put("msg", "가입성공");
+			
+		} catch(AddException e) {
+			map.put("status", 0);
+			map.put("msg", e.getMessage());
 		} // try-catch
-		*/
 		
-		// JSON 응답
-//		out.print( mapper.writeValueAsString());
+		// JSON 문자열 응답
+		out.print(mapper.writeValueAsString(map));
 		
-	} // doGet()
+	} // doPost()
 
-}
+} // end class

@@ -3,6 +3,7 @@ package com.my.customer.service;
 import com.my.customer.dao.CustomerOracleMybatisRepository;
 import com.my.customer.dao.CustomerRepository;
 import com.my.customer.dto.Customer;
+import com.my.exception.AddException;
 import com.my.exception.FindException;
 
 public class CustomerService {
@@ -48,5 +49,16 @@ public class CustomerService {
 	public void idDupChk(String id) throws FindException {
 		repository.selectById(id);
 	} // idDupChk
+	
+//	-------------------------------------------------	
+	
+	/**
+	 * Customer 객체로 회원을 가입.
+	 * @param c
+	 */
+	public void signup(Customer c) throws AddException {
+		repository.insert(c);
+	} // signup()
+	
 	
 } // end class

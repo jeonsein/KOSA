@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import com.my.customer.dto.Customer;
+import com.my.exception.AddException;
 import com.my.exception.FindException;
 import com.my.sql.MyConnection;
 
@@ -51,4 +52,7 @@ public class CustomerOracleRepository implements CustomerRepository {
 		
 	} // selectById()
 
+	@Override
+	public void insert(Customer c) throws AddException {;;}
+	
 } // end class

@@ -1,6 +1,5 @@
 package com.my.customer.dao;
 
-import java.io.IOException;
 import java.io.InputStream;
 
 import org.apache.ibatis.io.Resources;
@@ -9,6 +8,7 @@ import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 
 import com.my.customer.dto.Customer;
+import com.my.exception.AddException;
 import com.my.exception.FindException;
 
 public class CustomerOracleMybatisRepository implements CustomerRepository {
@@ -28,13 +28,14 @@ public class CustomerOracleMybatisRepository implements CustomerRepository {
 	
 	} // constructor
 	
+//	------------------------------------------------
+	
 	@Override
 	public Customer selectById(String id) throws FindException {
 		
 		SqlSession session = null;
 		
 		try {
-
 			session = sqlSessionFactory.openSession();
 			Customer c = 
 					(Customer)session.selectOne("com.my.customer.CustomerMapper.selectById", id); // selectOne(문자열, id);
@@ -57,5 +58,30 @@ public class CustomerOracleMybatisRepository implements CustomerRepository {
 		} // try-catch-finally
 		
 	} // selectById()
+	
+	@Override
+	public void insert(Customer c) throws AddException {
+	
+		SqlSession session = null;
+		
+		try {
+			session = sqlSessionFactory.openSession();
+			session.insert("com.my.customer.CustomerMapper.insert", c);
+			
+			session.commit();
+		} catch (Exception e) {
+			session.rollback();
+			
+			e.printStackTrace();
+			throw new AddException(e.getMessage());
+		} finally {
+			
+			if(session != null) {
+				session.close();
+			} // if
+			
+		} // try-catch-finally
+		
+	} // insert()
 
 } // end class

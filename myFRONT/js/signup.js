@@ -56,6 +56,9 @@ $(() => {
             // console.log($('form').serialize()) // id=1&pwd=1&name=1
 
             $.ajax({
+                xhrFields: {
+                    withCredentials: true
+                },
                 url:'http://192.168.1.21:8888/back/signup',
                 methid:'post',
                 data : 
@@ -66,7 +69,11 @@ $(() => {
                     // 방법3) 폼 객체
                     $('form').serialize(), // .serialize() = post 방식의 요청일 때에만 효과가 남!
                 success: (responseJSONObj) => {
+                    alert(responseJSONObj.msg);
 
+                    if(responseJSONObj.status == 1) {
+                        location.href = './main.html'
+                    }
                 },
                 error: (jqxhr) => {
                     alert(jqxhr.status) // 정상처리가 되지 않으면 status = 0
