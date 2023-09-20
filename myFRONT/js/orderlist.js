@@ -3,7 +3,7 @@ $(()=>{
         xhrFields: {
             withCredentials: true
         },
-        url: "http://192.168.1.21:8888/back/orderlist",
+        url: 'http://192.168.1.21:8888/back/orderlist',
         method: 'get',
         success: (responseJSONObj) => {
             if(responseJSONObj.status == 0){
@@ -23,7 +23,7 @@ $(()=>{
                 const $originLineDivObj = $copyInfoDivObj.find('div.line')
                 const $LinesDivObj = $originLineDivObj.parent()
 
-                lines.forEach(line=>{
+                lines.forEach(line => {
                     const $copyLineDivObj = $originLineDivObj.clone();
                     $copyLineDivObj.find("div.prodNo").html(line.orderP.prodNo)
                     $copyLineDivObj.find("div.prodName").html(line.orderP.prodName)

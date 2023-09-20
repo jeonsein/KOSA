@@ -38,4 +38,15 @@ public class CustomerService {
 		
 	} // login()
 	
+//	-------------------------------------------------
+	
+	/**
+	 * id에 해당하는 고객이 존재하지 않으면 FindException 발생한다.
+	 * @param id
+	 * @throws FindException
+	 */
+	public void idDupChk(String id) throws FindException {
+		repository.selectById(id);
+	} // idDupChk
+	
 } // end class

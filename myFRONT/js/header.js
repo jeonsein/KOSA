@@ -58,6 +58,7 @@ $(() => {
                     } // success
                 })
             break;
+            
             case 'productlist':
                 // 방법#1
                 ajaxHandler('GET', './productlist.html', $sectionObj)

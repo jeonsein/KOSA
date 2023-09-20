@@ -2,9 +2,6 @@ package control;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -14,19 +11,17 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.my.exception.FindException;
-import com.my.order.dto.OrderInfo;
-import com.my.order.service.OrderService;
+import com.my.customer.service.CustomerService;
 
 
-@WebServlet("/orderlist")
-public class OrderListServlet extends HttpServlet {
+@WebServlet("/iddupchk")
+public class IdDupChkServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	
-	private OrderService service;
-	public OrderListServlet() {
-		service = new OrderService();
-	}
+
+	private CustomerService service;
+	public IdDupChkServlet() {
+		service = new CustomerService();
+	} // constructor
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) 
 			throws ServletException, IOException {
@@ -42,33 +37,12 @@ public class OrderListServlet extends HttpServlet {
 		ObjectMapper mapper = new ObjectMapper();
 		
 		HttpSession session = request.getSession();
-		System.out.println("in orderlist: " + session.getId());
-
-		String loginedId = (String)session.getAttribute("loginedId");
 		
-		Map<String, Object> map = new HashMap<>();
 		
-		if(loginedId == null) {			// 로그인 XX
-			map.put("status", 0);
-			map.put("msg", "로그인하세요");
-		} else {						// 로그인 OO
-			
-			try {
-				List<OrderInfo> list = service.findById(loginedId);
-				
-				map.put("status", 1);
-				map.put("list", list);				
-			} catch (FindException e) {
-				e.printStackTrace();
-				map.put("status", 0);
-				map.put("msg", e.getMessage());
-			} // try-catch	
-			
-		} // if-else
 		
 		// JSON 응답
-		out.print(mapper.writeValueAsString(map));
+//		out.print( mapper.writeValueAsString());
 		
 	} // doGet()
 
-} // end class
+}

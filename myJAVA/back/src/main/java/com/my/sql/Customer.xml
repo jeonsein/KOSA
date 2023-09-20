@@ -6,4 +6,9 @@
   <select id="selectById" resultType="Customer">
     SELECT * FROM customer WHERE id = #{B}
   </select>
+  
+  <insert id="insert" parameterType="Customer">
+    INSERT INTO customer(id, pwd, name)
+    VALUES (#{id}, #{pwd}, #{name})
+  </insert>
 </mapper>
