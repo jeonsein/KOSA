@@ -131,7 +131,13 @@ public class ProductOracleMybatisRepository implements ProductRepository {
 		try {
 			session = sqlSessionFactory.openSession();
 			int count = session.selectOne("com.my.product.ProductMapper.selectCount");
-			
+			// .selectOne() = pstmt.executeQuery()
+			// .selectList() = rs = pstmt.executeQuery();
+			//					if(rs.next()) {
+			//						rs.get("~");
+			//					} else {
+			//						return ~;
+			//					}
 			return count;
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -185,7 +191,7 @@ public class ProductOracleMybatisRepository implements ProductRepository {
 		try {
 			
 			session = sqlSessionFactory.openSession();
-			Product p = session.selectOne("com.my.product.dto.Product.selectByProdNo", prodNo);
+			Product p = session.selectOne("com.my.product.ProductMapper.selectByProdNo", prodNo);
 			
 			if(p != null) {
 				return p;
@@ -243,7 +249,6 @@ public class ProductOracleMybatisRepository implements ProductRepository {
 	} // selectByProdNo()
 	
 //	-------------------------------------------------------------------
-	
 
 	// Test를 위해서 main문 작성(톰캣과는 무관하고 main()으로 테스트를 함)
 	public static void main(String[] args) {

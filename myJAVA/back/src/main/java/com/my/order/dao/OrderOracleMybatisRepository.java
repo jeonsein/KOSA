@@ -1,11 +1,16 @@
 package com.my.order.dao;
 
+import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+
+import org.apache.ibatis.io.Resources;
+import org.apache.ibatis.session.SqlSession;
+import org.apache.ibatis.session.SqlSessionFactory;
+import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 
 import com.my.exception.AddException;
 import com.my.exception.FindException;
@@ -14,10 +19,47 @@ import com.my.order.dto.OrderLine;
 import com.my.product.dto.Product;
 import com.my.sql.MyConnection;
 
-public class OrderOracleRepository implements OrderRepository {
+public class OrderOracleMybatisRepository implements OrderRepository {
 
+	private SqlSessionFactory sqlSessionFactory;
+	
+	public OrderOracleMybatisRepository() {
+		String resource = "com/my/sql/mybatis-config.xml";
+		InputStream inputStream;
+		
+		try {
+			inputStream = Resources.getResourceAsStream(resource);
+			sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
+		} catch(Exception e) {
+			e.printStackTrace();
+		} // try-catch
+	
+	} // constructor
+	
 	@Override
 	public void insert(OrderInfo info) throws AddException {
+		
+		SqlSession session = null;
+		try {
+			session = sqlSessionFactory.openSession();
+			
+			insertInfo(session, info.getOrderId());
+			insertLine(session, info.getLines());
+			
+			session.commit();
+		} catch(Exception e) {
+			session.rollback();
+			
+			throw new AddException(e.getMessage());
+		} finally {
+			
+			if(session != null) {
+				session.close();
+			} // if
+			
+		} // try-finally
+		
+		/* MyBatis 변경 전
 		Connection conn = null;
 		
 		try {
@@ -33,13 +75,23 @@ public class OrderOracleRepository implements OrderRepository {
 		} finally {
 			MyConnection.close(conn, null, null);
 		} // try-finally
+		*/
 	
 	} // insert()
 	
 //	----------------------------------------------------------------
 	
-	public void insertInfo(Connection conn, String id) throws AddException {
+	// public void insertInfo(Connection conn, String id) throws AddException { /* MyBatis 변경 전*/
+	public void insertInfo(SqlSession session, String id) throws AddException {
 		
+		try {
+			session.insert("com.my.order.OrderMapper.insertInfo", id);
+		} catch(Exception e) {
+			e.printStackTrace();
+			throw new AddException(e.getMessage());
+		} // try-catch
+		
+		/* MyBatis 변경 전
 		PreparedStatement pstmt = null;
 		String insertInfoSQL = "INSERT INTO order_info(order_no, order_id, order_dt) "
 							 + "VALUES (order_seq.NEXTVAL, ?, SYSDATE)";
@@ -54,13 +106,27 @@ public class OrderOracleRepository implements OrderRepository {
 		} finally {
 			MyConnection.close(null, pstmt, null); // Connection은 close 안함!
 		} // try-catch-finally
+		*/
 		
 	} // insertInfo()
 	
 //	----------------------------------------------------------------
 	
-	public void insertLine(Connection conn, List<OrderLine> lines) throws AddException {
+//	public void insertLine(Connection conn, List<OrderLine> lines) throws AddException { /* MyBatis 변경 전*/
+	public void insertLine(SqlSession session, List<OrderLine> lines) throws AddException {
 	
+		try {
+			
+			for(OrderLine line : lines) {
+				session.insert("com.my.order.OrderMapper.insertLine", line);
+			} // for
+			
+		} catch(Exception e) {
+			e.printStackTrace();
+			throw new AddException(e.getMessage());
+		} // try-catch
+		
+		/* MyBatis 변경 전
 		PreparedStatement pstmt = null;
 		String insertLineSQL = "INSERT INTO order_line(order_line_no, order_prod_no, order_quantity) "
 							 + "VALUES (order_seq.CURRVAL, ?,  ?)";
@@ -83,6 +149,7 @@ public class OrderOracleRepository implements OrderRepository {
 			MyConnection.close(null, pstmt, null); // Connection은 close 안함!
 			// Connection은 insert()에서 닫아줄거임!
 		} // try-catch-finally
+		*/
 		
 	} // insertLine()
 	

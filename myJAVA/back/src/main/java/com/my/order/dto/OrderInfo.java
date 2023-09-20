@@ -3,8 +3,6 @@ package com.my.order.dto;
 import java.util.Date;
 import java.util.List;
 
-import com.my.order.dto.OrderLine.OrderLine;
-
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

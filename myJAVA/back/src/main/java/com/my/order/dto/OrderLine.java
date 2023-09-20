@@ -1,4 +1,4 @@
-package com.my.order.dto.OrderLine;
+package com.my.order.dto;
 
 import com.my.product.dto.Product;
 
