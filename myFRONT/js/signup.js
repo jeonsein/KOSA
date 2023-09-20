@@ -25,14 +25,26 @@ $(() => {
     //----중복확인버튼객체에서 클릭이벤트 발생했을때 할 일 START----
     // btDupchkObj.addEventListener('click', ()=>{
     $btDupchkObj.click(() => {
-        // if('admin' == idObj.value){
-        if ('admin' == $idObj.val()) {
-            alert('이미 사용중인 아이디입니다')
-        } else {
-            alert('사용가능한 아이디입니다')
-            // btSignupObj.style.display = 'inline-block'
-            $btSignupObj.show()
-        } // if-else
+        $.ajax({
+            xhrFields: {
+                withCredentials: true
+            },
+            url:'http://192.168.1.21:8888/back/iddupchk',
+            method:'get',
+            data : `id=${$idObj.val()}`,
+            success : (responseJSONObj) => {
+                if (responseJSONObj.status == 0) {
+                    alert('이미 사용중인 아이디입니다')
+                } else {
+                    alert('사용가능한 아이디입니다')
+                    // btSignupObj.style.display = 'inline-block'
+                    $btSignupObj.show()
+                } // if-else
+            },
+            error: (jqxhr) => {
+                alert(jqxhr.status) // 정상처리가 되지 않으면 status = 0
+            }
+        })
     }) // .click()
     //----중복확인버튼객체에서 클릭이벤트 발생했을때 할 일 END----
 
@@ -60,7 +72,7 @@ $(() => {
                     withCredentials: true
                 },
                 url:'http://192.168.1.21:8888/back/signup',
-                methid:'post',
+                method:'post',
                 data : 
                     // 방법1) 문자열 
                     // `id=${$idObj.val()}&pwd=${$pwdArr.eq(0).val()}&name=${$nameObj.val()}`,

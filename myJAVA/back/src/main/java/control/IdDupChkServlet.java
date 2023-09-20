@@ -14,6 +14,7 @@ import javax.servlet.http.HttpSession;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.my.customer.service.CustomerService;
+import com.my.exception.FindException;
 
 
 @WebServlet("/iddupchk")
@@ -40,10 +41,10 @@ public class IdDupChkServlet extends HttpServlet {
 		
 		// 세션 생성
 		HttpSession session = request.getSession();
+		String id = request.getParameter("id");
 		
 		Map<String, Object> map = new HashMap<>();
-		
-		/*
+
 		try {
 			service.idDupChk(id);
 			// 고객이 있는 경우
@@ -52,10 +53,9 @@ public class IdDupChkServlet extends HttpServlet {
 			// 고객이 없는 경우
 			map.put("status", 1);
 		} // try-catch
-		*/
 		
 		// JSON 응답
-//		out.print( mapper.writeValueAsString());
+		out.print( mapper.writeValueAsString(map));
 		
 	} // doGet()
 

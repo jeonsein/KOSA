@@ -43,10 +43,14 @@ public class SignupServlet extends HttpServlet {
 		// 세션 생성
 		HttpSession session = request.getSession();
 		
+		String id = request.getParameter("id");
+		String pwd = request.getParameter("pwd");
+		String name = request.getParameter("name");
+		
 		Map<String, Object> map = new HashMap<>();
 		
 		try {
-			Customer c = new Customer("id", "pwd", "name", null);
+			Customer c = new Customer(id, pwd, name, null);
 			// 요청 전달 데이터로 초기화된 고객 객체
 			service.signup(c);
 			
