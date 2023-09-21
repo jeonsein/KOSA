@@ -1,9 +1,12 @@
 package control;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.net.URLEncoder;
 
 import javax.servlet.ServletException;
+import javax.servlet.ServletOutputStream;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -18,6 +21,18 @@ public class DownloadServlet extends HttpServlet {
 	// 다운로드는 전달할 데이터가 없기때문에 doGet()
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) 
 			throws ServletException, IOException {
+		
+		response.setContentType("application/octet-stream;charset=UTF-8");
+		
+		response.setHeader("Access-Control-Allow-Origin", "http://192.168.1.21:5500");
+		response.setHeader("Access-Control-Allow-Credentials", "true");
+		
+//		PrinterWriter out = response.getWriter();
+//		-> 문자 단위의 출력 스트림임! 현재는 바이너리로 파일 내용을 그대로 응답하고
+//		싶기 때문에 사용하지 않음!
+		
+		// 대신 출력 스트림으로 이걸 사용함!
+		ServletOutputStream sos = response.getOutputStream();
 		
 		String id = request.getParameter("id");
 		
@@ -34,6 +49,17 @@ public class DownloadServlet extends HttpServlet {
 			// "id + _profile_"로 시작하는 파일이 있는지 비교
 			if(existFileName.startsWith(fileName)) {
 				System.out.println(existFileName + "파일입니다.");
+				System.out.println("파일 크기: " + file.length());
+				response.setHeader("Content-Disposition",
+						"attachment;filename=" + URLEncoder.encode(existFileName, "UTF-8"));
+				
+				FileInputStream fis = new FileInputStream(file);
+				int readValue = -1;
+				
+				while((readValue = fis.read()) != -1) {
+					sos.write(readValue);
+				}
+				sos.close();
 				return;
 			} // if
 		} // enhanced-for

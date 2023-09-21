@@ -131,4 +131,22 @@ $(() => {
     })
     //----파일업로드용 테스트 폼 객체에서 submit이벤트 발생했을때 할 일 END----
 
+    //----파일다운로드 테스트 버튼에서 클릭이벤트 발생했을때 할 일 sTART----
+    $('div.download>button').click(()=>{
+        const $img = $('div.download>img')
+        $.ajax({
+            xhrFields: {
+                responseType: "blob",
+            },
+            url: 'http://192.168.1.21:8888/back/download',
+            data: 'id=012',
+            success: (responseData)=>{
+                const url = URL.createObjectURL(responseData)
+                $img.attr('src', url)
+            }
+        })
+        
+    })
+    //----파일다운로드 테스트 버튼에서 클릭이벤트 발생했을때 할 일 END----
+
 })
