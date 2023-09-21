@@ -18,7 +18,7 @@ import com.my.customer.service.CustomerService;
 import com.my.exception.AddException;
 
 
-@WebServlet("/signup")
+//@WebServlet("/signup")
 public class SignupServlet_origin extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 

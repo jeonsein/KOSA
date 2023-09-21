@@ -74,6 +74,8 @@ $(() => {
                 },
                 url:'http://192.168.1.21:8888/back/signup',
                 method:'post',
+                contentType: false, // ajax 이용시 파일 첨부에 필요한 property
+                processData: false, // ajax 이용시 파일 첨부에 필요한 property
                 data : 
                     // 방법1) 문자열 
                     // `id=${$idObj.val()}&pwd=${$pwdArr.eq(0).val()}&name=${$nameObj.val()}`,
