@@ -18,6 +18,7 @@ public class UploadServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		
+		/*
 		// post 방식의 요청인 경우 요청 바디의 default 형식은 
 		// application/x-www-form-urlencoded 임!
 //		String tValue = request.getParameter("t");
@@ -32,6 +33,7 @@ public class UploadServlet extends HttpServlet {
 		while(sc.hasNextLine()) {
 			System.out.println(sc.nextLine());
 		} // while
+		*/
 		
 	} // doPost()
 
