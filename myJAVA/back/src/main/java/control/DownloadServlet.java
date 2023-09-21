@@ -1,0 +1,44 @@
+package control;
+
+import java.io.File;
+import java.io.IOException;
+
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+
+@WebServlet("/download")
+public class DownloadServlet extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+       
+
+	// 다운로드는 전달할 데이터가 없기때문에 doGet()
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) 
+			throws ServletException, IOException {
+		
+		String id = request.getParameter("id");
+		
+		// 파일 내용 자체가 그대로 응답되어야 하기 때문에 우선 파일을 찾아줌
+		String attachesDir = "C:\\KOSA202307\\attaches";
+		String fileName = id + "_profile_";
+		
+		File dir = new File(attachesDir);
+		
+		// 디렉토리에 내가 찾고자 하는 파일(fileName)이 있는지 탐색!
+		for(File file : dir.listFiles()) {
+			String existFileName = file.getName();
+			
+			// "id + _profile_"로 시작하는 파일이 있는지 비교
+			if(existFileName.startsWith(fileName)) {
+				System.out.println(existFileName + "파일입니다.");
+				return;
+			} // if
+		} // enhanced-for
+		System.out.println(id + "의 프로필 파일이 없습니다.");
+		
+	} // doGet()
+
+} // end class
