@@ -64,8 +64,9 @@ $(() => {
             $pwdArr.eq(0).focus()
             $pwdArr.eq(0).select()
         } else {
-            
             // console.log($('form').serialize()) // id=1&pwd=1&name=1
+
+            const fd = new FormData(e.target)
 
             $.ajax({
                 xhrFields: {
@@ -79,7 +80,8 @@ $(() => {
                     // 방법2) 자스 객체로 이용
                     // { id: $idObj.val(), pwd: $pwdArr.eq(0).val(), name: $nameObj.val() },
                     // 방법3) 폼 객체
-                    $('form').serialize(), // .serialize() = post 방식의 요청일 때에만 효과가 남!
+                    // $('form').serialize(), // .serialize() = post 방식의 요청일 때에만 효과가 남!
+                    fd,
                 success: (responseJSONObj) => {
                     alert(responseJSONObj.msg);
 
@@ -92,7 +94,7 @@ $(() => {
                 }
             })
 
-        }// if-else
+        } // if-else
 
         // e.preventDefault()
 
@@ -100,6 +102,31 @@ $(() => {
         // e.preventDefault() + e.stopPropagation()
 
     }) // .submit()
-    //----폼객체에서 submit이벤트 발생했을때 할 일 END----
+    //----폼 객체에서 submit이벤트 발생했을때 할 일 END----
+
+    //----파일업로드용 테스트 폼 객체에서 submit이벤트 발생했을때 할 일 START----
+    const $uploadForm = $('form.form1') // 객체 찾기
+    
+    $uploadForm.submit( (e)=> {
+        const fd = new FormData(e.target)
+        fd.forEach((value, key) => {
+            console.log(key)
+            console.log(value)
+            console.log("--------------")
+        })
+
+        $.ajax ({
+            url: 'http://192.168.1.21:8888/back/upload',
+            method: 'post',
+            contentType: false, // ajax 이용시 파일 첨부에 필요한 property
+            processData: false, // ajax 이용시 파일 첨부에 필요한 property
+            data: fd,             // 요청전달데이터
+            success: ()=>{},
+            error: ()=>{}
+        })
+        
+        return false // 기본 이벤트 처리를 막아줌
+    })
+    //----파일업로드용 테스트 폼 객체에서 submit이벤트 발생했을때 할 일 END----
 
 })

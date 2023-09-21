@@ -21,6 +21,9 @@
         <label for="n">이름 :</label> <input type="text" name="name" id="n" required>
         <br>
 
+        <label for="f1">프로필: </label><input type="file" name="f1" id="f1"><br>
+        <label for="f2">자기소개: </label><input type="file" name="f2" id="f2">
+
         <button type="submit">가입하기</button>
     </form>
 
@@ -28,6 +31,13 @@
 
     <!-- 프로필 사진 -->
     <form method="post" enctype="multipart/form-data" action="http://192.168.1.21:8888/back/upload">
+        <input type="file" multiple name="f1">
+        <input type="text" name="t" value="tValue"><br>
+        <button type="submit">첨부</button>
+    </form>
+    <hr>
+    <!-- ajax로 바꿔보기 -->
+    <form class="form1">
         <input type="file" multiple name="f1">
         <input type="text" name="t" value="tValue"><br>
         <button type="submit">첨부</button>
