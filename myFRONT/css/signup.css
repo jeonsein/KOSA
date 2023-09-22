@@ -88,3 +88,7 @@ button.signupBtn:hover {
     color: white;
     font-weight: bold;
 }
+
+form.signup img.profile {
+    width: 150px;
+}

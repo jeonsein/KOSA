@@ -44,3 +44,7 @@ nav>ul>li>a:hover {
     font-weight: bold;
     text-decoration: underline;
 }
+
+nav>ul>li>img.profile {
+    width: 100px;
+}

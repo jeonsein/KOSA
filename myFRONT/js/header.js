@@ -15,16 +15,37 @@ function ajaxHandler(method, u, target) {
 $(() => {
 
     const loginedId = localStorage.getItem("loginedId")
-    
+    const $img = $('nav>ul>li>img.profile')
+    $img.parent().hide() // img 가려놓고 시작
+
     if(loginedId == null) {  // 로그인이 안된 경우
-        // 로그인, 가입 메뉴를 보여주기 (로그아웃 메뉴는 보여주지 않음!)
+        // 로그인, 가입 메뉴를 보여주기 (자소서, 프로필 이미지, 로그아웃 메뉴는 보여주지 않음!)
         $('nav>ul>li>a.login').parent().show()
         $('nav>ul>li>a.signup').parent().show()
+        $('nav>ul>li>a.intro').parent().hide()
         $('nav>ul>li>a.logout').parent().hide()
     } else {                 // 로그인이 된 경우
-        // 로그아웃 메뉴 보여주기 (로그인, 가입 메뉴는 보여주지 않음!)
+        $.ajax({
+            xhrFields: {
+                responseType: "blob",
+            },
+            url: 'http://192.168.1.21:8888/back/download',
+            data: 'id='+loginedId + "&opt=profile",
+            success: (responseData)=>{
+                if(responseData.size > 0){
+                    const url = URL.createObjectURL(responseData)
+                    $img.attr('src', url)
+                    $img.parent().show() // 프로필 보여줌!
+                }
+            },
+            error: (jqxhr)=>{
+                
+            }
+        })
+        // 자소서, 로그아웃 메뉴 보여주기 (로그인, 가입 메뉴는 보여주지 않음!)
         $('nav>ul>li>a.login').parent().hide()
         $('nav>ul>li>a.signup').parent().hide()
+        $('nav>ul>li>a.intro').parent().show()
         $('nav>ul>li>a.logout').parent().show()
     } // if-else
 
@@ -72,6 +93,10 @@ $(() => {
                 
             case 'orderlist':
                 ajaxHandler('GET', './orderlist.html', $sectionObj)
+                break;
+
+            case 'intro':
+                location.href='http://192.168.1.21:8888/back/download?id=' + loginedId + '&opt=intro'
                 break;
         } // switch(e.target.class)()
         e.preventDefault()

@@ -35,10 +35,11 @@ public class DownloadServlet extends HttpServlet {
 		ServletOutputStream sos = response.getOutputStream();
 		
 		String id = request.getParameter("id");
+		String opt = request.getParameter("opt");	
 		
 		// 파일 내용 자체가 그대로 응답되어야 하기 때문에 우선 파일을 찾아줌
 		String attachesDir = "C:\\KOSA202307\\attaches";
-		String fileName = id + "_profile_";
+		String fileName = id + "_" + opt + "_";
 		
 		File dir = new File(attachesDir);
 		
