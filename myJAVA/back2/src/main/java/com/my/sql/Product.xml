@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.my.product.ProductMapper">
+
+  <select id="selectByProdNo" resultType="Product">
+    SELECT * FROM product WHERE prod_no= #{prod_no}
+  </select>
+  
+  <select id="selectAll" resultType="Product" parameterType="java.util.HashMap">
+    SELECT * 
+	FROM (SELECT rownum rn, a.* 
+			FROM (SELECT * 
+				  FROM product 
+				  ORDER BY prod_no
+		 		  ) a
+		  )
+	WHERE rn BETWEEN #{start} AND #{end}
+  </select>
+  
+  <!-- resultType = 참조형으로 사용해야 함(MyBatis에서는 다 참조형으로) -->
+  <select id="selectCount" resultType="java.lang.Integer">
+    SELECT COUNT(*) FROM product
+  </select>
+</mapper>

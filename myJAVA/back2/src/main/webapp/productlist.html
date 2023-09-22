@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Product</title>
+        <style>
+            div.product{
+                width:200px;
+                display: inline-block;
+            }
+            /*부모의 product 클래스 하위의 자식요소 ul에 반영*/
+            div.product>ul{
+                list-style-type: none; /*ul요소의 점 제거*/
+            }
+            div.product>ul>li>img{
+                /* div.product{}에서 가로 길이를 지정해줌! 해당 길이 내에서의 % */
+                width:90%;
+                border: 1px rgb(19, 63, 36);
+                border-style: dotted solid dashed;
+            }
+            div.product>ul>li>span{
+                width:90%;
+                display:inline-block;
+                text-align: center;
+                font-weight: bold;
+            }
+            .productlist>h3{
+                background: rgb(49, 80, 62);
+                width:200px;
+                color:white;
+                text-align: right;
+                margin: 10px auto;
+            }
+        </style>        
+    </head>
+
+    <body>
+        <div class="productlist">
+            <h3>상품목록</h3>
+            <div class="product">
+                <ul>
+                    <li><img src="./images/C0001.jpg" alt="아메리카노"></li>
+                    <li><span>아메리카노</span></li>
+                </ul>
+                
+            </div>
+
+            <div class="product">
+                <ul>
+                    <li><img src="./images/C0002.jpg" alt="아이스 아메리카노"></li>
+                    <li><span>아이스 아메리카노</span></li>
+                </ul>
+            </div>
+
+            <div class="product">
+                <ul>
+                    <li><img src="./images/C0003.jpg" alt="카푸치노"></li>
+                    <li><span>카푸치노</span></li>
+                </ul>
+            </div>
+
+            <div class="product">
+                <ul>
+                    <li><img src="./images/F0001.jpg" alt="바나나"></li>
+                    <li><span>바나나</span></li>
+                </ul>
+            </div>
+        </div>
+    </body>
+
+</html>
