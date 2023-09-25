@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.lang.reflect.Method;
 import java.util.Properties;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -47,6 +48,10 @@ public class DispatcherServlet extends HttpServlet {
 	protected void service(HttpServletRequest request, HttpServletResponse response) 
 			throws ServletException, IOException {
 		
+		// 여기 헤더를 설정해놓으면 각 컨트롤러에서 굳이 따로 설정해줄 필요가 없음!!
+		response.setHeader("Access-Control-Allow-Origin", "http://192.168.1.21:5500");
+		response.setHeader("Access-Control-Allow-Credentials", "true");
+		
 		System.out.println("request.getServletPath()=" + request.getServletPath());
 		
 		/*
@@ -59,6 +64,7 @@ public class DispatcherServlet extends HttpServlet {
 		} 
 		*/
 		
+		/*
 		String className = env.getProperty(request.getServletPath());
 		try {
 			// 클래스 이름에 해당하는 .class 파일을 찾아서 JVM으로 로드
@@ -74,6 +80,33 @@ public class DispatcherServlet extends HttpServlet {
 		} catch (Exception e) {
 			e.printStackTrace();
 		} // try-catch
+		*/
+		
+		
+		// 컨트롤러를 싱글톤 패턴으로 변경한 이후!
+		System.out.println("request.getServletPath()=" + request.getServletPath());
+		
+		String className = env.getProperty(request.getServletPath());
+		
+		try {
+			Class<?> clazz = Class.forName(className);//클래스이름에 해당하는 .class파일 찾아서 JVM으로 로드
+			
+			Controller controller;
+			try {
+				Method method = clazz.getMethod("getInstance");
+				controller = (Controller)method.invoke(null);//static인 getInstance()메서드호출
+			}catch(NoSuchMethodException e) {			
+				controller = (Controller)clazz.getDeclaredConstructor().newInstance();
+			}
+			String path = controller.execute(request, response);
+			if(path!=null) {
+				RequestDispatcher rd = request.getRequestDispatcher(path);
+				rd.forward(request, response);
+			}
+			controller.execute(request, response);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		
 	} // service()
 

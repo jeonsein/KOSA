@@ -1,3 +1,6 @@
+const backURL = 'http://192.168.1.21:8888/back'
+const frontURL = 'http://192.168.1.21:5500/html'
+
 // function ajaxHandler(method, url, target) {
 function ajaxHandler(method, u, target) {
     console.log(u)
@@ -96,7 +99,8 @@ $(() => {
                 break;
 
             case 'intro':
-                location.href='http://192.168.1.21:8888/back/download?id=' + loginedId + '&opt=intro'
+                // location.href='http://192.168.1.21:8888/back/download?id=' + loginedId + '&opt=intro'
+                location.href= backURL+ '/download?id=' + loginedId + '&opt=intro'
                 break;
         } // switch(e.target.class)()
         e.preventDefault()

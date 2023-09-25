@@ -1,4 +1,4 @@
-package com.my.product.dto;
+package com.my.util;
 
 import java.util.List;
 

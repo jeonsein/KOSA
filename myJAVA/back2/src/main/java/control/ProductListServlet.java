@@ -10,9 +10,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.my.exception.FindException;
-import com.my.product.dto.PageGroup;
 import com.my.product.dto.Product;
 import com.my.product.service.ProductService;
+import com.my.util.PageGroup;
 
 @WebServlet("/productlist")
 public class ProductListServlet extends HttpServlet {
