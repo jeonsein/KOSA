@@ -92,18 +92,23 @@ public class DispatcherServlet extends HttpServlet {
 			Class<?> clazz = Class.forName(className);//클래스이름에 해당하는 .class파일 찾아서 JVM으로 로드
 			
 			Controller controller;
+			
 			try {
 				Method method = clazz.getMethod("getInstance");
 				controller = (Controller)method.invoke(null);//static인 getInstance()메서드호출
-			}catch(NoSuchMethodException e) {			
+			} catch (NoSuchMethodException e) {			
 				controller = (Controller)clazz.getDeclaredConstructor().newInstance();
 			}
+			
 			String path = controller.execute(request, response);
+			
 			if(path!=null) {
 				RequestDispatcher rd = request.getRequestDispatcher(path);
 				rd.forward(request, response);
 			}
-			controller.execute(request, response);
+			
+			// controller.execute(request, response);
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
