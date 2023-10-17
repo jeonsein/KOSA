@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd 
+	http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd
+	">
+	
+	<bean id="a" class="com.my.di.dto.A">
+		<!-- <constructor-arg value="welcome"></constructor-arg> -->
+		<property name="msg" value="하이하이"></property>
+	</bean>
+	
+	<bean id="b" class="com.my.di.dto.B">
+		<property name="no" value="123"></property>
+		<property name="a" ref="a"></property>
+	</bean>
+	
+	<bean id="productDAO" class="com.my.product.dao.ProductOracleRepository"></bean>
+	
+	<bean id="productService" class="com.my.product.service.ProductService">
+		<property name="repository" ref="productDAO"></property>
+	</bean>
+	
+</beans>
