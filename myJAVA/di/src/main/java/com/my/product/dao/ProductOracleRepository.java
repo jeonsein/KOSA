@@ -7,15 +7,22 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.sql.DataSource;
+
 import com.my.exception.FindException;
 import com.my.product.dto.Product;
 import com.my.sql.MyConnection;
 
-import lombok.extern.log4j.Log4j2;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-
+@Setter @Getter @NoArgsConstructor @AllArgsConstructor
 public class ProductOracleRepository implements ProductRepository {
 
+	private DataSource ds;
+	
 	@Override
 	public List<Product> selectAll(int startRow, int endRow) throws FindException {
 		Connection conn = null;
@@ -23,7 +30,8 @@ public class ProductOracleRepository implements ProductRepository {
 		ResultSet rs = null;
 		
 		try {
-			conn = MyConnection.getConnection();
+			// conn = MyConnection.getConnection();
+			conn = ds.getConnection();
 		} catch (Exception e) {
 			throw new FindException(e.getMessage());
 		} // try-catch

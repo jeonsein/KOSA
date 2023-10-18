@@ -1,10 +1,6 @@
 package com.my.product.dao;
 
 import java.io.InputStream;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -17,27 +13,17 @@ import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 
 import com.my.exception.FindException;
 import com.my.product.dto.Product;
-import com.my.sql.MyConnection;
 
-import lombok.extern.log4j.Log4j2;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 
+@Getter @Setter @NoArgsConstructor @AllArgsConstructor
 public class ProductOracleMybatisRepository implements ProductRepository {
 
 	private SqlSessionFactory sqlSessionFactory;
-	
-	public ProductOracleMybatisRepository() {
-		String resource = "com/my/sql/mybatis-config.xml";
-		InputStream inputStream;
-		
-		try {
-			inputStream = Resources.getResourceAsStream(resource);
-			sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
-		} catch(Exception e) {
-			e.printStackTrace();
-		} // try-catch
-	
-	} // constructor
 	
 	@Override
 	public List<Product> selectAll(int startRow, int endRow) throws FindException {

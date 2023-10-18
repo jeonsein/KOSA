@@ -5,6 +5,9 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import com.my.di.dto.A;
 import com.my.di.dto.B;
+import com.my.exception.FindException;
+import com.my.product.dao.ProductRepository;
+import com.my.product.service.ProductService;
 
 public class ContainerStart {
 
@@ -34,6 +37,21 @@ public class ContainerStart {
 		B b = ctx.getBean("b", com.my.di.dto.B.class);
 		
 		System.out.println("b.getNo(): " + b.getNo());
+		
+		// -----------------------------
+		
+		ProductRepository r1 = 
+				ctx.getBean("productDAO", com.my.product.dao.ProductRepository.class);
+		System.out.println(r1);
+		
+		ProductService s1 = 
+				ctx.getBean("productService", com.my.product.service.ProductService.class);
+		
+		try {
+			System.out.println(s1.findAll(1));
+		} catch (FindException e) {
+			e.printStackTrace();
+		} // try-catch
 		
 	} // end main
 
