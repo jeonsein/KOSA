@@ -24,7 +24,6 @@ public class ProductListJsonController extends ProductController {
 		//응답형식
 		response.setContentType("application/json;charset=utf-8");
 		
-		
 		//응답출력스트림얻기
 		PrintWriter out = response.getWriter();
 		

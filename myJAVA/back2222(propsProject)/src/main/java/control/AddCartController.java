@@ -20,8 +20,8 @@ public class AddCartController implements Controller {
 	public String execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String prodNo = request.getParameter("prodNo");
 		int quantity = Integer.parseInt(request.getParameter("quantity"));
-		
-		
+
+
 		HttpSession session = request.getSession();
 		System.out.println("in addcart: " + session.getId());
 		Map<String, Integer> cart = (Map)session.getAttribute("cart");
@@ -29,7 +29,7 @@ public class AddCartController implements Controller {
 			cart = new HashMap<>();
 			session.setAttribute("cart", cart);
 		}
-		
+
 		Integer oldQuantity = cart.get(prodNo);
 		if(oldQuantity != null) {
 			quantity += oldQuantity;

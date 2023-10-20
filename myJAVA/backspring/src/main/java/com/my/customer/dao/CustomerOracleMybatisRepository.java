@@ -20,21 +20,6 @@ public class CustomerOracleMybatisRepository implements CustomerRepository {
 	@Autowired
 	private SqlSessionFactory sqlSessionFactory;
 	
-	/*
-	public CustomerOracleMybatisRepository() {
-		String resource = "com/my/sql/mybatis-config.xml";
-		
-		InputStream inputStream;
-		
-		try {
-			inputStream = Resources.getResourceAsStream(resource);
-			sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
-		} catch(Exception e) {
-			e.printStackTrace();
-		}
-	}
-	*/
-	
 	@Override
 	public Customer selectById(String id) throws FindException {
 		SqlSession session = null;
@@ -44,7 +29,7 @@ public class CustomerOracleMybatisRepository implements CustomerRepository {
 					(Customer)session.selectOne("com.my.customer.CustomerMapper.selectById",  id);
 			if(c != null) { 
 				return c;
-			}else {
+			} else {
 				throw new FindException("고객이 없습니다");
 			}
 
@@ -58,6 +43,7 @@ public class CustomerOracleMybatisRepository implements CustomerRepository {
 		}
 		
 	}
+	
 	@Override
 	public void insert(Customer c) throws AddException {
 		SqlSession session = null;

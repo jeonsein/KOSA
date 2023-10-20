@@ -36,7 +36,7 @@ $(() => {
             xhrFields: {
                 withCredentials: true 
             },
-            url: 'http://192.168.1.21:8888/back/login',
+            url: 'http://192.168.1.21:8888/backspring/login',
             method: 'post',
             data: data,
             success: (responseJSONObj) => { // success의 응답내용은 로그인 실패 혹은 로그인 성공!
@@ -49,7 +49,7 @@ $(() => {
                 } // if-else
             },
             error: (jqXHR, textStatus) => { //( jqXHR jqXHR, String textStatus, String errorThrown )
-                // alert(textStatus) //error
+                alert(textStatus) //error
                 // console.log(jqXHR)
                 alert(jqXHR.readyState + ":" + jqXHR.status + ":" + jqXHR.statusText)
             }

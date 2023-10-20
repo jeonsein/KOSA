@@ -29,7 +29,7 @@ $(() => {
             xhrFields: {
                 withCredentials: true
             },
-            url:'http://192.168.1.21:8888/back/iddupchk',
+            url:'http://192.168.1.21:8888/backspring/iddupchk',
             method:'get',
             data : `id=${$idObj.val()}`,
             success : (responseJSONObj) => {
@@ -72,7 +72,7 @@ $(() => {
                 xhrFields: {
                     withCredentials: true
                 },
-                url:'http://192.168.1.21:8888/back/signup',
+                url:'http://192.168.1.21:8888/backspring/signup',
                 method:'post',
                 contentType: false, // ajax 이용시 파일 첨부에 필요한 property
                 processData: false, // ajax 이용시 파일 첨부에 필요한 property
@@ -85,11 +85,12 @@ $(() => {
                     // $('form').serialize(), // .serialize() = post 방식의 요청일 때에만 효과가 남!
                     fd,
                 success: (responseJSONObj) => {
-                    alert(responseJSONObj.msg);
+                    // alert(responseJSONObj.msg);
 
-                    if(responseJSONObj.status == 1) {
-                        location.href = './main.html'
-                    }
+                    // if(responseJSONObj.status == 1) {
+                    //     location.href = './main.html'
+                    // }
+                    location.href = './main.html'
                 },
                 error: (jqxhr) => {
                     alert(jqxhr.status) // 정상처리가 되지 않으면 status = 0
@@ -118,7 +119,7 @@ $(() => {
         })
 
         $.ajax ({
-            url: 'http://192.168.1.21:8888/back/upload',
+            url: 'http://192.168.1.21:8888/backspring/upload',
             method: 'post',
             contentType: false, // ajax 이용시 파일 첨부에 필요한 property
             processData: false, // ajax 이용시 파일 첨부에 필요한 property
@@ -138,7 +139,7 @@ $(() => {
             xhrFields: {
                 responseType: "blob",
             },
-            url: 'http://192.168.1.21:8888/back/download',
+            url: 'http://192.168.1.21:8888/backspring/download',
             data: 'id=012',
             success: (responseData) => { // responseData = 프로필 사진
                 console.log(responseData)

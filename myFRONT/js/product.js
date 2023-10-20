@@ -4,7 +4,7 @@ $(() => {
     const queryStr = location.search.substr(1) // prodno=C0001
 
     $.ajax({
-        url: "http://192.168.1.21:8888/back/productjson",
+        url: "http://192.168.1.21:8888/backspring/productjson",
         method: 'get',
         data: queryStr,
 
@@ -35,7 +35,7 @@ $(() => {
             xhrFields: {
                 withCredentials: true // 인증서를 가지고 .ajax를 요청! (쿠키가 따라갈 수 있도록)
             }, // 이후 서버쪽에서 해당 인증을 받아주는 과정도 추가해야 함!
-            url: 'http://192.168.1.21:8888/back/addcart',//'http://localhost:8888/back/addcart',
+            url: 'http://192.168.1.21:8888/backspring/addcart',//'http://localhost:8888/back/addcart',
             method : 'get',
             data : `prodNo=${prodno}&quantity=${quantity}`,
             success: ()=>{

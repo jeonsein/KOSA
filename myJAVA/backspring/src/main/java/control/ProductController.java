@@ -1,5 +1,8 @@
 package control;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -19,7 +22,7 @@ public class ProductController {
 	private ProductService service;
 	
 	@GetMapping("/productlistjson")
-	public PageGroup<Product> list(@RequestParam(name = "currentPage",
+	public PageGroup<Product> ProductList(@RequestParam(name = "currentPage",
 												required = false,
 												defaultValue = "1")
 									int cp) {
@@ -32,6 +35,21 @@ public class ProductController {
 			return null;
 		} //  try-catch
 		
-	} // list()
+	} // ProductList()
 	
+	@GetMapping("productjson")
+	public Product productJson(String prodno) {
+		
+		try {
+			Product p = service.findByProdNo(prodno);
+			
+			return p;
+		} catch (FindException e) {
+			e.printStackTrace();
+			Map<String, String> map = new HashMap<>();
+			map.put("msg", e.getMessage());
+		} // try-catch
+		return null;
+	}  // productJson
+
 } // end class

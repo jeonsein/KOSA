@@ -37,26 +37,12 @@
 		<!-- Idle = 유휴(사용되지 않은, 놀고있는) -->
 	</bean>
 	
-	<bean id="hikariConfig84" class="com.zaxxer.hikari.HikariConfig">
-		<property name="driverClassName" value="net.sf.log4jdbc.sql.jdbcapi.DriverSpy"/>
-		<property name="jdbcUrl"  value="jdbc:log4jdbc:oracle:thin:@192.168.1.84:1521:xe"/>
-		<property name="username" value="hr"/>
-		<property name="password" value="hr"/>
-		<property name="minimumIdle"  value="3" />
-		<!-- Idle = 유휴(사용되지 않은, 놀고있는) -->
-	</bean>
-	
 	<!-- <bean id="dataSourceHikari" class="com.zaxxer.hikari.HikariDataSource">
 		<constructor-arg ref="hikariConfig"/>
 	</bean> -->
 	
 	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
 		<property name="dataSource" ref="dataSourceHikari"/>
-		<property name="configLocation" value="classpath:mybatis-config.xml"/>
-	</bean>
-	
-	<bean id="sqlSessionFactory84" class="org.mybatis.spring.SqlSessionFactoryBean">
-		<property name="dataSource" ref="dataSourceHikari84"/>
 		<property name="configLocation" value="classpath:mybatis-config.xml"/>
 	</bean>
 	
@@ -77,10 +63,6 @@
 	
 	<bean id="dataSourceHikari" class="com.zaxxer.hikari.HikariDataSource">
 		<constructor-arg ref="hikariConfig"/>
-	</bean>
-	
-	<bean id="dataSourceHikari84" class="com.zaxxer.hikari.HikariDataSource">
-		<constructor-arg ref="hikariConfig84"/>
 	</bean>
 	
 </beans>

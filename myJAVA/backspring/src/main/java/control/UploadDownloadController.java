@@ -8,6 +8,8 @@ import java.net.URLEncoder;
 import java.nio.file.Files;
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -24,7 +26,6 @@ import net.coobird.thumbnailator.Thumbnailator;
 public class UploadDownloadController {
 
 	// 파일 업로드 작업
-	
 	@PostMapping("/upload")
 	@ResponseBody
 	public String upload(MultipartFile f1, List<MultipartFile> f2) throws IOException {
@@ -76,46 +77,53 @@ public class UploadDownloadController {
 	// --------------------------------------
 	
 	// 파일 다운로드 작업
-	
-	// public ModelAndView m(HttpServletRequest request, 
-	//						 HttpServletResponse response,
-	//						 HttpSession session
-	//						)
-	// 도 사용이 가능함!!
-	
+
 	@GetMapping("/download")
 	// <?> = 모든 자료형, 원래는 응답 내용의 자료형이 와야 함! 
 	// 변경 사항을 고려하여 응답 내용의 자료형이 불분명할 때 사용하면 됨
-	public ResponseEntity<?> download() throws IOException {
+	public ResponseEntity<?> download(HttpSession session, String id, String opt) throws IOException {
 		
-		String existFileName = "C:\\KOSA202307\\attaches\\칼커햄.jpg";
+		String attachesDir = "C:\\KOSA202307\\attaches";
+		File dir = new File(attachesDir);
+
+		String fileName = id + "_"+ opt +"_";
+		System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>" + fileName);
 		
 		HttpStatus status = HttpStatus.OK; // 200
-//		HttpStatus status = HttpStatus.NOT_FOUND; // 404
-//		HttpStatus status = HttpStatus.INTERNAL_SERVER_ERROR; // 505
-//		HttpStatus status = HttpStatus.BAD_REQUEST; // 
+
+		ResponseEntity entity = null;
 		
-		HttpHeaders headers = new HttpHeaders();
-		
-		// 헤더 설정
-		headers.add(
-				HttpHeaders.CONTENT_DISPOSITION, 
-				"attachment;filename = " + URLEncoder.encode(existFileName, "UTF-8")
-				);
-		
-		
-		// existFileName에 해당하는 파일 객체 생성
-		File file = new File(existFileName);
-		
-		// path를 이용해서 probeContentType() 실행으로 파일의 형식을 얻어낼 수 있음
-		String contentType = Files.probeContentType(file.toPath()); // 파일의 형식
-		headers.add(HttpHeaders.CONTENT_TYPE, contentType); // 이후 파일의 형식을 응답 형식으로 사용
-		headers.add(HttpHeaders.CONTENT_LENGTH, "" + file.length()); // 응답 길이 설정
-		
-		// 전제조건 = 파일이 존재함
-		byte[]bArr = FileCopyUtils.copyToByteArray(file); // 파일 내용을 byte형태로 return 받음. 응답 내용이 됨
-		
-		ResponseEntity entity = new ResponseEntity<>(bArr, headers, status); // 응답 상태코드
+		for(File file: dir.listFiles()) {
+			String existFileName = file.getName();
+			
+			if(existFileName.startsWith(fileName)) {
+				
+				System.out.println(existFileName + "파일입니다. 파일크기: " + file.length());
+				
+				HttpHeaders headers = new HttpHeaders();
+				
+				// 헤더 설정
+				headers.add(
+						HttpHeaders.CONTENT_DISPOSITION, 
+						"attachment;filename = " + URLEncoder.encode(existFileName, "UTF-8")
+						);
+				
+				// path를 이용해서 probeContentType() 실행으로 파일의 형식을 얻어낼 수 있음
+				String contentType = Files.probeContentType(file.toPath()); // 파일의 형식
+				
+				headers.add(HttpHeaders.CONTENT_TYPE, contentType); // 이후 파일의 형식을 응답 형식으로 사용
+				headers.add(HttpHeaders.CONTENT_LENGTH, "" + file.length()); // 응답 길이 설정
+				
+				// 전제조건 = 파일이 존재함
+				byte[]bArr = FileCopyUtils.copyToByteArray(file); // 파일 내용을 byte형태로 return 받음. 응답 내용이 됨
+				
+				entity = new ResponseEntity<>(bArr, headers, status);
+				
+				break;
+				
+			} // if
+			
+		} // for
 		
 		return entity;
 		

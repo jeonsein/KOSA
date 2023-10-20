@@ -40,7 +40,7 @@ public class SignupController extends CustomerController {
 			service.signup(c);			
 			try {
 				String originProfileFileName = attach.getFile("f1").get(0).getName();			
-				attach.upload("f1", id+"_profile_" + originProfileFileName);
+				attach.upload("f1", id+ "_profile_" + originProfileFileName);
 			}catch(Exception e) {				
 			}
 			try {
