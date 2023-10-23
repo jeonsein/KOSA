@@ -41,7 +41,7 @@ public class CustomerController {
 			map.put("status", 0);
 		} catch (FindException e) {
 			map.put("status", 1);
-		}
+		} // try-catch
 		
 	} // idDupCk()
 
@@ -49,11 +49,11 @@ public class CustomerController {
 	@PostMapping("/signup")
 	public Map<String, Object> signup(String id, String pwd, String name,
 			HttpServletRequest request, HttpServletResponse response,
-			MultipartFile f1, MultipartFile f2) {
+			MultipartFile f1, MultipartFile f2) throws Exception {
 
 		Map<String, Object> map = new HashMap<>();
 
-		try {
+//		try {
 			
 			// 회원 가입
 			Customer c = new Customer(id, pwd, name, null);
@@ -61,7 +61,7 @@ public class CustomerController {
 			service.signup(c);
 
 			// 프로필 업로드
-			try {
+//			try {
 				
 				// 파일 사이즈 유효성 검사
 				if(f1 != null  && f1.getSize() > 0) {
@@ -93,10 +93,10 @@ public class CustomerController {
 					throw new Exception();
 				} // if-else
 
-			} catch (Exception e) {} // inner-try-catch
+//			} catch (Exception e) {} // inner-try-catch
 
 			// 자기소개 업로드
-			try {
+//			try {
 
 				if(f2 != null  && f2.getSize() > 0) {
 
@@ -109,17 +109,17 @@ public class CustomerController {
 					throw new Exception();
 				} // if-else
 
-			} catch (Exception e) {} // inner-try-catch
+//			} catch (Exception e) {} // inner-try-catch
 
 			map.put("status", 1);
 			map.put("msg", "가입성공");
 
-		} catch (Exception e) {
-
-			map.put("status", 0);
-			map.put("msg", e.getMessage());
-
-		} // outer-try-catch
+//		} catch (Exception e) {
+//
+//			map.put("status", 0);
+//			map.put("msg", e.getMessage());
+//
+//		} // outer-try-catch
 
 		return null;
 

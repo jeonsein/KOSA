@@ -85,14 +85,15 @@ $(() => {
                     // $('form').serialize(), // .serialize() = post 방식의 요청일 때에만 효과가 남!
                     fd,
                 success: (responseJSONObj) => {
-                    // alert(responseJSONObj.msg);
+                    alert('결과: ' + responseJSONObj.msg)
 
                     // if(responseJSONObj.status == 1) {
                     //     location.href = './main.html'
                     // }
                     location.href = './main.html'
                 },
-                error: (jqxhr) => {
+                error: (jqxhr, responseJSONObj) => {
+                    alert('결과: ' + responseJSONObj.msg)
                     alert(jqxhr.status) // 정상처리가 되지 않으면 status = 0
                 }
             })
@@ -124,7 +125,9 @@ $(() => {
             contentType: false, // ajax 이용시 파일 첨부에 필요한 property
             processData: false, // ajax 이용시 파일 첨부에 필요한 property
             data: fd,             // 요청전달데이터
-            success: ()=>{},
+            success: (responseJSONObj)=>{
+                alert('결과: ' + responseJSONObj.msg)
+            },
             error: ()=>{}
         })
         

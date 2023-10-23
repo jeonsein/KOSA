@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.my.product.ProductMapper">
+<select id="selectByProdNo" resultType="Product">
+SELECT * FROM product WHERE prod_no=#{aaa}
+</select>
+<select id="selectAll" resultType="Product"  parameterType="hashmap">
+SELECT *
+FROM ( SELECT rownum rn, a.*
+    FROM (SELECT *
+              FROM product
+	                 ORDER BY prod_no
+	                ) a
+	      )
+WHERE rn BETWEEN #{start} AND #{end}
+</select>
+<select id="selectCount" resultType="int">
+SELECT COUNT(*)
+FROM product
+</select>
+</mapper>

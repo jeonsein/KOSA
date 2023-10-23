@@ -7,7 +7,8 @@
 	http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd
 http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.3.xsd
 ">
-	<context:component-scan base-package="control"></context:component-scan>
+	<context:component-scan base-package="control"/>
+	<context:component-scan base-package="advice" />
 	
 	<bean id="viewResolver"
 	 class="org.springframework.web.servlet.view.InternalResourceViewResolver">
@@ -17,8 +18,8 @@ http://www.springframework.org/schema/mvc http://www.springframework.org/schema/
 	
 	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
  		<property name="defaultEncoding" value="UTF-8"/> <!-- 한글깨짐 방지 -->
- 		<property name="maxUploadSize" value="1000000"/> <!-- 파일 업로드 시, 총 파일 크기 합계에 대한 최대 맥시멈 크기 지정(byte) -->
- 		<property name="maxUploadSizePerFile" value="1000000"/> <!-- 각각의 개별 파일에 대한 최대 허용 크기를 설정 -->
+ 		<property name="maxUploadSize" value="10240"/> <!-- 파일 업로드 시, 총 파일 크기 합계에 대한 최대 맥시멈 크기 지정(byte) -->
+ 		<property name="maxUploadSizePerFile" value="10240"/> <!-- 각각의 개별 파일에 대한 최대 허용 크기를 설정 -->
  	</bean>
 	
 	<mvc:annotation-driven></mvc:annotation-driven>
