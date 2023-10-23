@@ -29,7 +29,7 @@ $(() => {
             xhrFields: {
                 withCredentials: true
             },
-            url:'http://192.168.1.21:8888/backspring/iddupchk',
+            url:'http://192.168.1.21:8888/backspringconfiguration/iddupchk',
             method:'get',
             data : `id=${$idObj.val()}`,
             success : (responseJSONObj) => {
@@ -72,7 +72,7 @@ $(() => {
                 xhrFields: {
                     withCredentials: true
                 },
-                url:'http://192.168.1.21:8888/backspring/signup',
+                url:'http://192.168.1.21:8888/backspringconfiguration/signup',
                 method:'post',
                 contentType: false, // ajax 이용시 파일 첨부에 필요한 property
                 processData: false, // ajax 이용시 파일 첨부에 필요한 property
@@ -84,8 +84,9 @@ $(() => {
                     // 방법3) 폼 객체
                     // $('form').serialize(), // .serialize() = post 방식의 요청일 때에만 효과가 남!
                     fd,
-                success: (responseJSONObj) => {
+                success: (responseJSONObj, xhr) => {
                     alert('결과: ' + responseJSONObj.msg)
+                    alert(responseJSONObj.detailMsg)
 
                     // if(responseJSONObj.status == 1) {
                     //     location.href = './main.html'
@@ -120,7 +121,7 @@ $(() => {
         })
 
         $.ajax ({
-            url: 'http://192.168.1.21:8888/backspring/upload',
+            url: 'http://192.168.1.21:8888/backspringconfiguration/upload',
             method: 'post',
             contentType: false, // ajax 이용시 파일 첨부에 필요한 property
             processData: false, // ajax 이용시 파일 첨부에 필요한 property
@@ -142,7 +143,7 @@ $(() => {
             xhrFields: {
                 responseType: "blob",
             },
-            url: 'http://192.168.1.21:8888/backspring/download',
+            url: 'http://192.168.1.21:8888/backspringconfiguration/download',
             data: 'id=012',
             success: (responseData) => { // responseData = 프로필 사진
                 console.log(responseData)

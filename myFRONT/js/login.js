@@ -36,7 +36,7 @@ $(() => {
             xhrFields: {
                 withCredentials: true 
             },
-            url: 'http://192.168.1.21:8888/backspring/login',
+            url: 'http://192.168.1.21:8888/backspringconfiguration/login',
             method: 'post',
             data: data,
             success: (responseJSONObj) => { // success의 응답내용은 로그인 실패 혹은 로그인 성공!

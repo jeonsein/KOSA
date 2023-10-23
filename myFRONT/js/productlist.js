@@ -1,7 +1,7 @@
 $(() => {
     function ajaxHandler(cp) {
         $.ajax({
-            url: 'http://192.168.1.21:8888/backspring/productlistjson',
+            url: 'http://192.168.1.21:8888/backspringconfiguration/productlistjson',
             method: 'get',
             data: `currentPage=${cp}`,
             success: (responseJSONObj) => {

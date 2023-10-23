@@ -2,22 +2,23 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd 
 	http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd
+	http://www.springframework.org/schema/tx 
+	http://www.springframework.org/schema/tx/spring-tx.xsd
+	http://www.springframework.org/schema/aop 
+	http://www.springframework.org/schema/aop/spring-aop.xsd
 	">
 	
-	<!-- <context:annotation-config/>  -->
 	<context:component-scan base-package="com.my.di.dto"/>
-	
-	<!-- <bean id="a" class="com.my.di.dto.A"> -->
-		<!-- <constructor-arg value="welcome"></constructor-arg> -->
-		<!-- <property name="msg" value="하이하이"/> -->
-	<!-- </bean> -->
-	
-	<!-- <bean id="b" class="com.my.di.dto.B">
-		<property name="no" value="123"/>
-		<property name="a" ref="a"/>
-	</bean> -->
+	<context:component-scan base-package="com.my.product.dao"/>
+	<context:component-scan base-package="com.my.product.service"/>
+	<context:component-scan base-package="com.my.customer.dao"/>
+	<context:component-scan base-package="com.my.customer.service"/>
+	<context:component-scan base-package="com.my.order.dao"/>
+	<context:component-scan base-package="com.my.order.service"/>
 	
 	<bean id="dataSource" class="org.springframework.jdbc.datasource.SimpleDriverDataSource">
 		<property name="driverClass" value="oracle.jdbc.OracleDriver"/>
@@ -37,32 +38,19 @@
 		<!-- Idle = 유휴(사용되지 않은, 놀고있는) -->
 	</bean>
 	
-	<!-- <bean id="dataSourceHikari" class="com.zaxxer.hikari.HikariDataSource">
+	<bean id="dataSourceHikari" class="com.zaxxer.hikari.HikariDataSource">
 		<constructor-arg ref="hikariConfig"/>
-	</bean> -->
+	</bean>
 	
 	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
 		<property name="dataSource" ref="dataSourceHikari"/>
 		<property name="configLocation" value="classpath:mybatis-config.xml"/>
 	</bean>
 	
-	<context:component-scan base-package="com.my.product.dao"/>
-	<context:component-scan base-package="com.my.product.service"/>
-	<context:component-scan base-package="com.my.customer.dao"/>
-	<context:component-scan base-package="com.my.customer.service"/>
-	<context:component-scan base-package="com.my.order.dao"/>
-	<context:component-scan base-package="com.my.order.service"/>
-	
-	<!-- <bean id="productDAO" class="com.my.product.dao.ProductOracleMybatisRepository">
-		<property name="sqlSessionFactory" ref="sqlSessionFactory"/>
-	</bean> -->
-	 
-	<!-- <bean id="productService" class="com.my.product.service.ProductService">
-		<property name="repository" ref="productDAO"/>
-	</bean> -->
-	
-	<bean id="dataSourceHikari" class="com.zaxxer.hikari.HikariDataSource">
-		<constructor-arg ref="hikariConfig"/>
-	</bean>
+	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+    	<property name="dataSource" ref="dataSourceHikari"></property>
+    </bean>
+    
+    <tx:annotation-driven transaction-manager="transactionManager"/>
 	
 </beans>

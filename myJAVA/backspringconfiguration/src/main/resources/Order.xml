@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- xml 파일의 첫 줄은 무조건 선언부 -->
+<!-- root element = 가장 처음 만들어지는 요소 -->
+<mapper namespace="com.my.order.OrderMapper"> <!-- root element = mapper -->
+<resultMap type="OrderInfo" id="OrderInfoMap" autoMapping="true">
+
+  <!-- OrderInfo 객체 생성 기준 -->
+  <!-- <id property="orderNo" column="order_no"/>  -->
+  
+  <collection property="lines" ofType="OrderLine" autoMapping="true">
+  	<association property="orderLineNo" column="order_no"/>
+  	<association property="orderP" javaType="Product" autoMapping="true"/>
+  </collection>
+</resultMap>
+
+  <!-- parameter로 id가 필요, 바인드 변수 1개이면 parameterType 적지 않아도 됨 -->
+  <!-- <insert>에서는 resultType attribute 사용 불가능함 -->
+  <insert id="insertInfo" parameterType="string">
+    INSERT INTO order_info(order_no, order_id, order_dt)
+    VALUES (order_seq.NEXTVAL, #{aaa}, SYSDATE)
+  </insert>
+  
+  <insert id="insertLine" parameterType="OrderLine">
+    INSERT INTO order_line(order_line_no, order_prod_no, order_quantity)
+    VALUES (order_seq.CURRVAL, #{orderP.prodNo},  #{orderQuantity}) 
+    <!-- orderLine의 멤버변수들을 #{}으로 사용해줌 -->
+    <!-- parameterType으로 OrderLine을 사용했기에 가능함! -->
+  </insert>
+  
+  <!-- <select id="selectById" resultType="OrderInfo"> -->
+  <select id="selectById" resultMap="OrderInfoMap">
+    SELECT order_no, order_id, order_dt, order_quantity, 
+		   p.prod_no, prod_name, prod_price
+	FROM order_info info JOIN order_line line ON (info.order_no = line.order_line_no) 
+					     JOIN product p ON (line.order_prod_no = p.prod_no) 
+	WHERE order_id = #{id}
+	ORDER BY order_dt DESC
+  </select>
+</mapper>

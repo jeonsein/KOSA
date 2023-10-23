@@ -3,7 +3,7 @@ $(() => {
         xhrFields: {
             withCredentials: true // 인증서를 가지고 .ajax를 요청! (쿠키가 따라갈 수 있도록)
         },
-        url: 'http://192.168.1.21:8888/backspring/cartlist',
+        url: 'http://192.168.1.21:8888/backspringconfiguration/cartlist',
         method: 'get',
         // data: 요청 전달 데이터가 없기 때문에 생략
         success: (responseJSONObj) => {
@@ -56,7 +56,7 @@ $(() => {
             xhrFields: {
                 withCredentials: true
             },
-            url: 'http://192.168.1.21:8888/backspring/addorder',
+            url: 'http://192.168.1.21:8888/backspringconfiguration/addorder',
             method: 'get',
             success: (responseJSONObj) => {
                 if (responseJSONObj.status == 0) { // 주문실패
