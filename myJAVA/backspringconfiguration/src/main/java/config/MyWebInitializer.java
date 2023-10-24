@@ -24,6 +24,4 @@ public class MyWebInitializer extends AbstractAnnotationConfigDispatcherServletI
 		return new String[] {"/"}; // String 배열 타입 객체 생성 후 요청
 	} 
 	
-	// -------------------
-	
 } // end class

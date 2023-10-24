@@ -29,20 +29,24 @@ $(() => {
             xhrFields: {
                 withCredentials: true
             },
-            url:'http://192.168.1.21:8888/backspringconfiguration/iddupchk',
-            method:'get',
-            data : `id=${$idObj.val()}`,
-            success : (responseJSONObj) => {
-                if (responseJSONObj.status == 0) {
-                    alert('이미 사용중인 아이디입니다')
-                } else {
-                    alert('사용가능한 아이디입니다')
-                    // btSignupObj.style.display = 'inline-block'
-                    $btSignupObj.show()
-                } // if-else
+            url: 'http://192.168.1.21:8888/backspringconfiguration/iddupchk',
+            method: 'get',
+            data: `id=${$idObj.val()}`,
+            // success : (responseJSONObj) => {
+            // if (responseJSONObj.status == 0) {
+            //     alert('이미 사용중인 아이디입니다')
+            // } else {
+            //     alert('사용가능한 아이디입니다')
+            //     // btSignupObj.style.display = 'inline-block'
+            //     $btSignupObj.show()
+            // } // if-else
+            success: () => {
+                $btSignupObj.show()
             },
             error: (jqxhr) => {
-                alert(jqxhr.status) // 정상처리가 되지 않으면 status = 0
+                // alert(jqxhr.status) // 정상처리가 되지 않으면 status = 0
+                alert(jqxhr.responseText)
+                $idObj.select()
             }
         })
     }) // .click()
@@ -58,7 +62,7 @@ $(() => {
     $formObj.submit((e) => {
         const $pwdArr = $('form.signup>input[type=password]')   // 비밀번호 입력란 객체
         const $nameObj = $('form.signup>input[name=name]')  // 이름 입력란 객체
-        
+
         if ($pwdArr.eq(0).val() != $pwdArr.eq(1).val()) {
             alert('비밀번호를 다시 입력하세요')
             $pwdArr.eq(0).focus()
@@ -72,11 +76,11 @@ $(() => {
                 xhrFields: {
                     withCredentials: true
                 },
-                url:'http://192.168.1.21:8888/backspringconfiguration/signup',
-                method:'post',
+                url: 'http://192.168.1.21:8888/backspringconfiguration/signup',
+                method: 'post',
                 contentType: false, // ajax 이용시 파일 첨부에 필요한 property
                 processData: false, // ajax 이용시 파일 첨부에 필요한 property
-                data : 
+                data:
                     // 방법1) 문자열 
                     // `id=${$idObj.val()}&pwd=${$pwdArr.eq(0).val()}&name=${$nameObj.val()}`,
                     // 방법2) 자스 객체로 이용
@@ -111,8 +115,8 @@ $(() => {
 
     //----파일업로드용 테스트 폼 객체에서 submit이벤트 발생했을때 할 일 START----
     const $uploadForm = $('form.form1') // 객체 찾기
-    
-    $uploadForm.submit( (e)=> {
+
+    $uploadForm.submit((e) => {
         const fd = new FormData(e.target)
         fd.forEach((value, key) => {
             console.log(key)
@@ -120,24 +124,24 @@ $(() => {
             console.log("--------------")
         })
 
-        $.ajax ({
+        $.ajax({
             url: 'http://192.168.1.21:8888/backspringconfiguration/upload',
             method: 'post',
             contentType: false, // ajax 이용시 파일 첨부에 필요한 property
             processData: false, // ajax 이용시 파일 첨부에 필요한 property
             data: fd,             // 요청전달데이터
-            success: (responseJSONObj)=>{
+            success: (responseJSONObj) => {
                 alert('결과: ' + responseJSONObj.msg)
             },
-            error: ()=>{}
+            error: () => { }
         })
-        
+
         return false // 기본 이벤트 처리를 막아줌
     })
     //----파일업로드용 테스트 폼 객체에서 submit이벤트 발생했을때 할 일 END----
 
     //----파일다운로드 테스트 버튼에서 클릭이벤트 발생했을때 할 일 START----
-    $('div.download>button').click(()=>{
+    $('div.download>button').click(() => {
         const $img = $('div.download>img')
         $.ajax({
             xhrFields: {
@@ -151,7 +155,7 @@ $(() => {
                 $img.attr('src', url)
             }
         })
-        
+
     })
     //----파일다운로드 테스트 버튼에서 클릭이벤트 발생했을때 할 일 END----
 

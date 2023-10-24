@@ -12,6 +12,9 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.commons.io.FilenameUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -32,15 +35,21 @@ public class CustomerController {
 
 	// 아이디 중복 검사
 	@GetMapping("/iddupchk")
-	public void idDupCk(String id) {
-		Map<String, Object> map = new HashMap<>();
+//	public void idDupCk(String id) {
+	public ResponseEntity<?> idDupCk(String id) {
+		// Map<String, Object> map = new HashMap<>();
 
 		try {
 			service.idDupChk(id);
+//			map.put("status", 0);
 			
-			map.put("status", 0);
+			HttpHeaders headers = new HttpHeaders();
+			headers.add("Content-Type", "text/html;charset=UTF-8");
+			
+			return new ResponseEntity<> ("이미 사용중인 아이디입니다 :-(", headers, HttpStatus.BAD_REQUEST);
 		} catch (FindException e) {
-			map.put("status", 1);
+//			map.put("status", 1);
+			return new ResponseEntity<> (HttpStatus.OK);
 		} // try-catch
 		
 	} // idDupCk()
