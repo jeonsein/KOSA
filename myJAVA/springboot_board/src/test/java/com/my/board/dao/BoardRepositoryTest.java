@@ -9,15 +9,21 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.my.board.dto.Board;
+import com.my.board.dto.Reply;
 import com.my.exception.AddException;
 import com.my.exception.FindException;
 import com.my.exception.ModifyException;
 import com.my.exception.RemoveException;
 
+import lombok.extern.slf4j.Slf4j;
+
 
 @SpringBootTest
+@Slf4j // lombok에서 SLF4J용 어노테이션을 제공함
+// private Logger log = LoggerFactory.getLogger(getClass());가 처리되어 
 class BoardRepositoryTest {
 
 	@Autowired
@@ -122,6 +128,7 @@ class BoardRepositoryTest {
 	} // write()
 	 */
 
+	/*
 	// 방법2
 	@Test
 	@DisplayName("글 작성 테스트")
@@ -175,6 +182,7 @@ class BoardRepositoryTest {
 		// assertEquals(expectedBoardTitle, b.getBoardTitle());
 
 	} // write()
+	*/
 
 	/*
 	// 방법3_셍나
@@ -203,9 +211,24 @@ class BoardRepositoryTest {
 
 	} // write()
 	 */
+	
+	// 방법4
+	@Test
+	@DisplayName("게시글 쓰기")
+	@Transactional
+	void testWriteBoard() throws AddException {
+		Board b = new Board();
+		
+		b.setBoardTitle("제목");
+		b.setBoardContent("내용");
+		b.setBoardId("A");
+		
+		repository.insertBoard(b);
+	} // testWriteBoard()
 
 	// ---------------------
 
+	/*
 	@Test
 	@DisplayName("글 수정 테스트")
 	void modify() throws ModifyException, Exception {
@@ -229,6 +252,10 @@ class BoardRepositoryTest {
 		// assertEquals(expectedBoardContent, b.getBoardContent());
 
 	} // modify()
+	*/
+	
+//	@Test
+//	@DisplayName("게시글")
 
 	// ---------------------
 
@@ -255,5 +282,50 @@ class BoardRepositoryTest {
 		});
 
 	} // delete()
+	
+	// ---------------------
+	
+	@Test
+	@DisplayName("답글 작성 테스트")
+	@Transactional
+	void wirteReply() throws AddException {
+		
+		Reply r = new Reply();
+		
+		r.setReplyBoardNo(2);
+		r.setReplyParentNo(null);
+		r.setReplyContent("답글 작성 테스트1");
+		r.setReplyId("seng");
+		
+		repository.insertReply(r);
+		
+	} // wirteReply()
 
+	@Test
+	@DisplayName("답글 수정 테스트")
+	@Transactional
+	void modifyReply() throws ModifyException {
+		
+		Reply r = new Reply();
+		
+		r.setReplyNo(5);
+		r.setReplyContent("답글 수정 테스트1");
+		
+		repository.updateReply(r);
+		
+	} // modifyReply()
+	
+	@Test
+	@DisplayName("답글 삭제 테스트")
+	@Transactional
+	void deleteReply() throws RemoveException {
+		
+		Reply r = new Reply();
+		
+		int replyNo = 5;
+		
+		repository.deleteReply(replyNo);
+		
+	} // deleteReply()
+	
 } // end class

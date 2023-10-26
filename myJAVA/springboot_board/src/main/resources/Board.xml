@@ -45,5 +45,24 @@
 		FROM board
 		WHERE board_no = #{boardNo}
 	</delete>
+	
+	<!-- 답글 작성 -->
+	<insert id="insertReply" parameterType="Reply">
+		INSERT INTO board_reply (reply_no, reply_board_no, reply_parent_no, reply_content, reply_id)
+		VALUES (reply_seq.NEXTVAL, #{replyBoardNo}, #{replyParentNo}, #{replyContent}, #{replyId})
+	</insert>
+	
+	<!-- 답글 수정 -->
+	<update id="updateReply" parameterType="Reply">
+		UPDATE board_reply
+		SET reply_content = #{replyContent}
+		WHERE reply_no = #{replyNo}
+	</update>
+	
+	<!-- 답글 삭제 -->
+	<delete id="deleteReply" parameterType="int">
+		DELETE board_reply
+		WHERE reply_no = #{replyNo}
+	</delete>
 
 </mapper>
