@@ -1,7 +1,5 @@
-package com.my.board.config;
+package com.my.jpa.config;
 
-import org.apache.ibatis.session.SqlSessionFactory;
-import org.mybatis.spring.SqlSessionFactoryBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.context.properties.ConfigurationProperties;
@@ -9,8 +7,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
-import org.springframework.core.io.ClassPathResource;
-import org.springframework.core.io.Resource;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
@@ -28,25 +24,6 @@ public class MyApplicationContext {
 	@Autowired
 	Environment env;
 	
-	/*
-	@Bean
-	public HikariConfig hikariConfig() {
-		HikariConfig config = new HikariConfig();
-		
-//		config.setDriverClassName("net.sf.log4jdbc.sql.jdbcapi.DriverSpy");
-		config.setDriverClassName(hikariDriverClassName);
-		
-		config.setJdbcUrl("jdbc:log4jdbc:oracle:thin:@localhost:1521:xe");
-//		config.setUsername("hr");
-		config.setUsername(env.getProperty("spring.datasource.hikari.username"));
-		config.setPassword("hr");
-		config.setMinimumIdle(3);
-		
-		return config;
-		
-	} // hikariconfig()
-	*/
-	
 	@Bean
 	@ConfigurationProperties("spring.datasource.hikari")
 	public HikariConfig hikariConfig() {
@@ -59,18 +36,6 @@ public class MyApplicationContext {
 		return new HikariDataSource(hikariConfig());
 	} // dataSourceHikari()
 	
-	@Bean
-	public SqlSessionFactory sqlSessionFactory() throws Exception {
-		SqlSessionFactoryBean ssfb = new SqlSessionFactoryBean();
-		
-		ssfb.setDataSource(dataSourceHikari());
-		Resource resource = new ClassPathResource("mybatis-config.xml");
-		
-		ssfb.setConfigLocation(resource);
-		
-		return (SqlSessionFactory)ssfb.getObject();
-		
-	} // sqlSessionFactory()
 	
 	@Bean
 	public DataSourceTransactionManager transactionManager() {
