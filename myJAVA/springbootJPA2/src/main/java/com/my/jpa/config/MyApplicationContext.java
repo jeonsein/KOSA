@@ -36,13 +36,12 @@ public class MyApplicationContext {
 		return new HikariDataSource(hikariConfig());
 	} // dataSourceHikari()
 	
-	
-	@Bean
-	public DataSourceTransactionManager transactionManager() {
-		DataSourceTransactionManager tx = new DataSourceTransactionManager();
-		tx.setDataSource(dataSourceHikari());
-		
-		return tx;
-	} // DataSourceTransactionManager()
+//	@Bean
+//	public DataSourceTransactionManager transactionManager() {
+//		DataSourceTransactionManager tx = new DataSourceTransactionManager();
+//		tx.setDataSource(dataSourceHikari());
+//		
+//		return tx;
+//	} // DataSourceTransactionManager()
 	
 } // end class
