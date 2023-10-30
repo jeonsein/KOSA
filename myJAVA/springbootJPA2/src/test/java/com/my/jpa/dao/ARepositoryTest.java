@@ -1,6 +1,7 @@
 package com.my.jpa.dao;
 
 import java.math.BigDecimal;
+import java.util.List;
 import java.util.Optional;
 
 import org.junit.jupiter.api.Assertions;
@@ -21,6 +22,16 @@ import lombok.extern.slf4j.Slf4j;
 class ARepositoryTest {
 
 	@Autowired ARepository r;
+	
+	@Test
+	void test() {
+		// r 객체 확인
+		// 의존성을 주입받은 ARepository의 실제 구현체가 자동 제공됨
+		log.error(r.getClass().getName());
+		
+	} // test()
+	
+	// ------------------
 	
 	@Test
 	@DisplayName("test1Save()")
@@ -124,5 +135,83 @@ class ARepositoryTest {
 		aOpt.ifPresent(a -> r.delete(a));
 		
 	} // test4Delete()
+	
+	// ------------------
+	
+	@Test
+	void test5QueryMethod() {
+		
+		// 모든 행을 객체의 리스트로 반환
+		// r.findAll();
+		
+		// 기본제공되는 findById()와 findAll()가 아닌 직접 메소드 만들어서 사용 가능
+		// ARepository의 선언부에 선언하기
+		List<A> list = r.findByA4("a4one");
+		
+		// log.error(list); => 오류남. list 자료형이기 때문에 아래처럼 포맷팅 해줘야함
+		log.error("r.findByA4(a4one) 결과: {}", list);
+		
+	} // test5QueryMethod()
+	
+	// ------------------
+	
+	@Test
+	void test6FindByA4Like() {
+		String word = "%4f%";
+		
+		List<A> list = r.findByA4Like(word);
+		log.error("r.findByA4Like(4f)의 결과: {}", list);
+		
+	} // test6FindByA4Like(0
+	
+	// ------------------
+	
+	@Test
+	void test7FindByA4LikeOrderByA4() {
+		String word = "%4f%";
+		
+		List<A> list = r.findByA4LikeOrderByA4(word);
+		log.error("r.findByA4LikeOrderByA4(4f)의 결과: {}", list);
+	} // test7FindByA4LikeOrderByA4()
+	
+	// ------------------
+	
+	@Test
+	void test8FindByA4LikeJpql() {
+		String word = "%4f%";
+		
+		List<A> list = r.findByA4LikeJpql(word);
+		log.error("r.test8FindByA4LikeJpql(4f)의 결과: {}", list);
+	} // test8FindByA4LikeJpql()
+	
+	// ------------------
+	
+	@Test
+	void test9FindByA4LikeJpqlA1A4() {
+		String word = "%4f%";
+		
+		List<Object[]> list = r.findByA4LikeJpqlA1A4(word);
+		
+		for(Object[] arr : list) {
+			log.error("r.findByA4LikeJpqlA1A4(4f)의 결과: {}, {}", arr[0], arr[1]);
+		} // enhanced for()
+	} // test9FindByA4LikeJpqlA1A4()
+	
+	// ------------------
+	
+	@Test
+	@Transactional
+	@Commit
+	void test10Modify() {
+		String a_1 = "one";
+//		BigDecimal a_2 = new BigDecimal(999);
+		BigDecimal a_2 = new BigDecimal(888);
+		
+//		r.modify(a_1, a_2);
 
+		int rowcnt = r.modify(a_1, a_2);
+		log.error("수정된 행 수 : {}", rowcnt);
+
+	} // test10Modify()
+	
 } // end class
