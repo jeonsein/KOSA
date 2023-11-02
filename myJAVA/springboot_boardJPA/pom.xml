@@ -11,9 +11,9 @@
 	</parent>
 	
 	<groupId>com.my</groupId>
-	<artifactId>jpa</artifactId>
+	<artifactId>springboot_boardJPA</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>springbootJPA2</name>
+	<name>springboot_boardJPA</name>
 	<description>Demo project for Spring Boot</description>
 	
 	<properties>
