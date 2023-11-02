@@ -161,25 +161,3 @@ public class BoardController {
 	} // removeReply()
 	
 } // end class
-
-/*
-	// POST /board/reply/1
-	// POST /board/reply/1/9
-	@PostMapping(value= {"reply/{boardNo}/{parentNo}", "reply/{boardNo}"})
-	public ResponseEntity<?> writeReply(@PathVariable int boardNo,
-										@PathVariable(name = "parentNo") Optional<Integer> optParentNo),
-										@RequestBody Reply reply) throws AddException {
-
-		System.out.println(reply);
-		
-		reply.setReplyBoardNo(boardNo);
-		optParentNo.ifPresent(parentNo -> {
-			reply.setReplyParentNo(parentNo);
-		});
-		
-		service.writeReply(reply);
-
-		return new ResponseEntity<>(HttpStatus.OK);
-
-	} // writeReply()
- */
