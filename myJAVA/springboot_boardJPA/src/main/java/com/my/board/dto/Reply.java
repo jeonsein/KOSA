@@ -2,6 +2,8 @@ package com.my.board.dto;
 
 import java.util.Date;
 
+import javax.persistence.Transient;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -11,7 +13,7 @@ import lombok.ToString;
 
 @Setter @Getter @NoArgsConstructor @AllArgsConstructor 
 @ToString
-public class ReplyDTO {
+public class Reply {
 
 	private Integer replyNo;
 	private Integer replyBoardNo;

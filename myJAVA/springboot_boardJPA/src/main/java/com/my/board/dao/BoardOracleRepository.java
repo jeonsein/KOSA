@@ -3,16 +3,19 @@ package com.my.board.dao;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
-import com.my.board.entity.Board;
+import com.my.board.dto.Board;
+import com.my.board.entity.BoardEntity;
+import com.my.board.entity.ReplyEntity;
 import com.my.exception.AddException;
 import com.my.exception.FindException;
 import com.my.exception.ModifyException;
 import com.my.exception.RemoveException;
 
-public interface BoardOracleRepository extends JpaRepository<Board, Integer>  {
+public interface BoardOracleRepository extends JpaRepository<BoardEntity, Integer>  {
 
 	/**
 	 * 게시글 목록을 검색한다(전체 게시글 목록을 검색할 메소드)
@@ -70,24 +73,16 @@ public interface BoardOracleRepository extends JpaRepository<Board, Integer>  {
 		} // try-catch-finally
 	} // selectByBoardNoOptional()
 	*/
-	
+
 	/**
 	 * 글 작성
 	 * @param board
 	 * @throws AddException
 	 */
-	/*
-	@Query(value = "		INSERT INTO board(board_no, board_title, board_content, board_id) \r\n"
-			+ "		VALUES(board_seq.NEXTVAL, #{boardTitle}, #{boardContent}, #{boardId})",
-			nativeQuery = true)
-	public void insertBoard(Board board);
-	*/
+	@Modifying
 	@Query(value = "INSERT INTO board(board_no, board_title, board_content, board_id) " +
-            		"VALUES(board_seq.NEXTVAL, :boardTitle, :boardContent, :boardId)",
-            			nativeQuery = true)
-	public void insertBoard(@Param("boardTitle") String boardTitle, 
-							@Param("boardContent") String boardContent, 
-							@Param("boardId") String boardId);
+            	   "VALUES(board_seq.NEXTVAL, :#{#board.boardTitle}, :#{#board.boardContent}, :#{#board.boardId})")
+	public void insertBoard(BoardEntity board);
 	
 	
 	/**
@@ -95,69 +90,55 @@ public interface BoardOracleRepository extends JpaRepository<Board, Integer>  {
 	 * @param board
 	 * @throws ModifyException
 	 */
-	/*
-	@Query(value = "		UPDATE board\r\n"
-			+ "		SET board_content = #{boardContent}\r\n"
-			+ "		WHERE board_no = #{boardNo}",
-			nativeQuery = true)
-	public void updateBoard(Board board);
-	*/
+	@Modifying
 	@Query(value = "UPDATE board " +
-            		"SET board_content = :boardContent " +
-            		"WHERE board_no = :boardNo",
-            nativeQuery = true)
-	public void updateBoard(@Param("boardContent") String boardContent, @Param("boardNo") Integer boardNo);
+            		"SET board_content = :#{#boardContent} " +
+            		"WHERE board_no = :#{#board.boardNo}")
+	public void updateBoard(BoardEntity board);
 	
 	/**
 	 * 글 삭제
 	 * @param boardNo
 	 * @throws RemoveException
 	 */
+	@Modifying
 	@Query(value = "DELETE\r\n"
 					+ "FROM board\r\n"
-					+ "WHERE board_no = :boardNo",
-			nativeQuery = true)
-	public void deleteByBoardNo(@Param("boardNo") Integer boardNo);
+					+ "WHERE board_no = :#{#board.boardNo}")
+	public void deleteByBoardNo(BoardEntity board);
 	
 	/**
 	 * 답글 작성
 	 * @param reply
 	 * @throws AddException
 	 */
-	/*
-	@Query(value = "		INSERT INTO board_reply (reply_no, reply_board_no, reply_parent_no, reply_content, reply_id)\r\n"
-			+ "		VALUES (reply_seq.NEXTVAL, #{replyBoardNo}, #{replyParentNo}, #{replyContent}, #{replyId})",
-			nativeQuery = true)
-	public void insertReply(Reply reply);
-	*/
+	@Modifying
 	@Query(value = "INSERT INTO board_reply (reply_no, reply_board_no, reply_parent_no, reply_content, reply_id) " +
-            "VALUES (reply_seq.NEXTVAL, :replyBoardNo, :replyParentNo, :replyContent, :replyId)",
+            "VALUES (reply_seq.NEXTVAL, :#{#reply.replyBoardNo}, :#{#reply.replyParentNo}, :#{#reply.replyContent}, :#{#reply.replyId})",
     nativeQuery = true)
-	public void insertReply(@Param("replyBoardNo") Integer replyBoardNo,
-	                     @Param("replyParentNo") Integer replyParentNo,
-	                     @Param("replyContent") String replyContent,
-	                     @Param("replyId") String replyId);
+	public void insertReply(ReplyEntity reply);
 	
 	/**
 	 * 답글 수정
 	 * @param reply
 	 * @throws ModifyException
 	 */
+	@Modifying
 	@Query(value = "UPDATE board_reply\r\n"
-					+ "SET reply_content = :replyContent\r\n"
-					+ "WHERE reply_no = :replyNo",
+					+ "SET reply_content = :#{#reply.replyContent}\r\n"
+					+ "WHERE reply_no = :#{#reply.replyNo}",
 			nativeQuery = true)
-	public void updateReply(@Param("replyContent") String replyContent, 
-							@Param("replyNo") Integer replyNo);
+	public void updateReply(ReplyEntity reply);
 	
 	/**
 	 * 답글 삭제
 	 * @param replyNo
 	 * @throws RemoveException
 	 */
+	@Modifying
 	@Query(value = "DELETE board_reply\r\n"
-					+ "WHERE reply_no = :replyNo",
+					+ "WHERE reply_no = :#{#reply.replyNo}",
 			nativeQuery = true)
-	public void deleteReply(@Param("replyNo") Integer replyNo);
+	public void deleteReply(ReplyEntity reply);
 	
 } // end class

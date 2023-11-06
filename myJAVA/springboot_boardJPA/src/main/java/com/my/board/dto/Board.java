@@ -15,7 +15,7 @@ import lombok.ToString;
 
 @Setter @Getter @NoArgsConstructor @AllArgsConstructor 
 @ToString
-public class BoardDTO {
+public class Board {
 
 	private Integer boardNo;
 	
@@ -31,7 +31,8 @@ public class BoardDTO {
 	private Date boardDt;
 	
 	// 게시글 하나에 답글은 여러개일 수 있음
-	private List<ReplyDTO> replies; // 답글 목록
+	private List<Reply> replies; // 답글 목록
+	
 	private Integer replycnt; // 답글 수
 	
 } // end class

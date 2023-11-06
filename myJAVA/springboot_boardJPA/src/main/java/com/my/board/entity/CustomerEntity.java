@@ -2,6 +2,7 @@ package com.my.board.entity;
 
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -18,7 +19,7 @@ import lombok.Setter;
 @Builder
 @Entity
 @Table(name="customer")
-public class Customer {
+public class CustomerEntity {
 	
 	@Id
 	@Column(name="id")
@@ -30,10 +31,12 @@ public class Customer {
 	@Column(name="name")
 	String name;
 	
-	@OneToMany(mappedBy = "boardId")
-	private List<Board> boards;
-	
-	@OneToMany(mappedBy = "replyId")
-    private List<Reply> replies;
+	@OneToMany(mappedBy = "boardId", 
+			cascade = CascadeType.REMOVE)
+	private List<BoardEntity> boards;
+
+	@OneToMany(mappedBy = "replyId", 
+			cascade = CascadeType.REMOVE)
+    private List<ReplyEntity> replies;
 	
 } // end class

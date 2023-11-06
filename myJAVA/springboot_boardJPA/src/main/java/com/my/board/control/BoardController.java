@@ -17,8 +17,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.my.board.entity.Board;
-import com.my.board.entity.Reply;
+import com.my.board.dto.Board;
+import com.my.board.dto.Reply;
 import com.my.board.service.BoardService;
 import com.my.exception.AddException;
 import com.my.exception.FindException;
@@ -109,8 +109,8 @@ public class BoardController {
 			 reply.setReplyBoardNo(boardNo);
 			
 			optParentNo.ifPresent(parentNo -> {
-//				reply.setReplyParentNo(parentNo);
-				reply.setReplyParentNo(reply);
+				reply.setReplyParentNo(parentNo);
+//				reply.setReplyParentNo(reply);
 			});
 			
 			if(!optParentNo.isPresent()) {	// parentNo가 없는 경우 -- 일반 답글 쓰기
