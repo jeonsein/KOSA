@@ -1,0 +1,35 @@
+#1. 스프링 프로젝트 Dockerfile 작성
+#2. 스프링 프로젝트 maven build로 jar 파일 생성
+#3. 이미지 빌드 - 컨테이너 생성 - 시작 : docker-compose up -d --build
+#4. 중지: docker-compose stop
+#5. 시작: docker-compose start
+
+#version: "3.3"
+services:
+  database: #서비스 이름
+    #image:
+    container_name: condb #컨테이너 이름을 지정
+    build:
+      context: /dbDocker3/ #폴더명
+      dockerfile: Dockerfile #도커파일명
+    #environmnet:
+    ports:
+      - "1522:1521"
+    networks:
+      - composenetwork
+  jpa: #서비스 이름
+    container_name: conjpa3
+    build:
+      context: ./springbootDocker3/ #폴더명
+      dockerfile: Dockerfile #도커파일명
+    depends_on: #database 서비스가 실행된 후에 실행
+      - database
+    environment:
+      TZ: "Asia/Seoul"
+      JDBC-URL: "jdbc:log4jdbc:oracle:thin:@condb:1521:xe"
+    ports:
+      - "8883:9993"
+    networks:
+      - composenetwork
+networks: #네트워크 설정
+  composenetwork:
