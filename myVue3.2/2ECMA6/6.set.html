@@ -1,0 +1,26 @@
+<html>    
+    <head>
+        <script>
+            //Set : Unique Value
+            const animal2 = [
+                {name: '앵무새', category: 'bird'},
+                {name: '매', category: 'bird'},
+                {name: '참치', category: 'fish'},
+                {name: '메뚜기', category: 'insect'},
+                {name: '거미', category: 'insect'},
+            ]
+
+            // .map()으로 카테고리들을 모음
+            let category = animal2.map((a)=> a.category)
+            console.log(category)// ['bird', 'bird', 'fish', 'insect', 'insect']
+            
+            // Set() 적용 -> 중복되는 값을 제거
+            category = new Set(animal2.map((a)=> a.category))
+            console.log(category)// {'bird', 'fish', 'insect'}
+
+            // spread 연산자 사용 + [] 
+            // -> 각 요소들을 펼친 다음에 다시 배열로 만들어줌
+            console.log([...category]) //['bird', 'fish', 'insect']
+        </script>
+    </head>
+</html>

@@ -1,0 +1,78 @@
+<html>
+<head>
+    <script>
+        //...기호로 spread연산자와 rest파라메터를 표현할 수 있습니다
+
+        //1.배열 및 객체 분해할때  spread연산자 ...을 사용할 수 있습니다
+        const bird = ['앵무새','매','벌새']
+        const fish = ['참치', '새우'] 
+        const insect = ['메뚜기', '거미']
+        const animal1 = bird + fish + insect //
+        console.log(animal1) //문자열 "앵무새,매,벌새참치,새우메뚜기,거미"가  됩니다
+
+        const animal2 = bird //animal2는 bird객체와 같은 메모리를 참조합니다
+        animal2[1] = '독수리'
+        console.log(animal2) //['앵무새','독수리','벌새']
+        console.log(bird)    //['앵무새','독수리','벌새'] // 같은 메모리를 참조했기 때문에 값도 같이 바뀜
+
+
+        /* 이렇게 하지 말기!
+        const animal3 = []
+        bird.forEach(value, index => {
+            animal3[index] = value
+        })
+        */
+        const animal3 = [...bird] //객체 내부 값만 복사하고 bird와 다른 객체가 됩니다
+        animal3[1] = '부엉이'
+        console.log(animal3)  //['앵무새','부엉이','벌새']
+        console.log(bird)     //['앵무새','독수리','벌새']
+
+        const animal4 = [...bird, ...fish, ...insect] 
+        console.log(animal4)
+
+        const info1 = {name: '매', category:'bird'}
+        const info2 = {roam: '날아다닌다',  food: ['토끼','오리']  }
+        const hawk = {...info1, ...info2}
+        console.log(hawk)//{name: '매', category: 'bird', roam: '날아다닌다', food: Array(2)}
+        
+        //2. rest는 배열, 객체, 함수의 파라메터에서 사용가능합니다
+
+        //2-1.배열에 할당할 때 특정인덱스외의 값을 제외한 나머지값들을 rest파라메터안에 넣습니다
+        const fruits = ["Mango", "Pineapple", "Orange", "Lemon", "Apple"];
+
+        const [first, ...rest1] = fruits
+        console.log(first) // Mango
+        console.log(rest1) //['Pineapple', 'Orange', 'Lemon', 'Apple']
+        //나머지값 할당연산자는 반드시 마지막에만 사용가능가능합니다
+        //아래와 같이 실행하면 오류가 발생합니다
+        //const [...rest1, ff] = fruits
+
+        //2-2.객체에 할당하면 특정이름의 프로퍼티를 제외한 나머지 프로퍼티들을 rest파라메터안에 넣습니다
+        const info3 = {name: '홍차', category:'tea', madein:'실론'}
+        // const {category, ...rest2} = info3;
+        // console.log(category); //tea
+        // console.log(rest2); //{name: '홍차', madein:'실론'}
+
+        const {category, madein, ...rest2} = info3;
+        console.log(category); //tea
+        console.log(madein); // 실론
+        console.log(rest2); //{name: '홍차'}
+
+        //2-3. 함수에 할당하면 특정파라메터를 제외한 나머지 인자들이 배열형태로 전달됩니다
+        function f(name, age, ...favoriteFood){
+            console.log(name + "," + age) //홍길동, 10
+            console.log(favoriteFood)   //[햄버거, 파스타,불고기]
+        }
+
+        f('홍길동', 10, "햄버거",  "파스타", "불고기")
+
+
+
+        
+        
+
+        
+</script>
+</head>
+<body></body>
+</html>

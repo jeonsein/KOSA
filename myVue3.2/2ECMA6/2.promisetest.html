@@ -1,0 +1,44 @@
+<html>
+    <head>
+        <script>
+            /*
+            비동기처리가 완료되면 콜백함수가 호출되도록 작성하는 것이 일반적인 형태였습니다. 
+            하지만 이 방법은 비동기로 처리할 작업이 순차적으로 반복되면 콜백 함수들이 중첩되어
+            예외 처리가 힘들어지고 복잡도가 증가되는 문제점이 있습니다.
+
+            new Promise()객체를 생성할 때 인자로 전달하는 함수를 시작함수라고 부르고 
+            Promise객체가 생성됨과 동시에 시작함수를 실행합니다. 
+            시작함수에는 비동기로 처리할 작업을 정의합니다. 
+            작업이 완료되면 처리결과에 따라 
+                - 작업이 성공이라면 시작함수의 인자로 전달받는 resolve함수를 호출하여 
+                    then()에 등록한 함수가 실행됩니다. 
+                - 작업이 성공하지 않았다면 시작함수의 내부에서 reject함수가 호출하고, 
+                    catch에 등록해둔 함수가 실행됩니다.
+            
+            Promise패턴기반의 라이브러리로 axios가 있다
+            */
+            let addName = function(time, name){
+
+                return new Promise((resolve, reject) => { // promise 타입의 객체 리턴
+                    
+                    if(name){
+                        setTimeout(()=>{
+                            console.log(name)
+                            resolve() //then()에 등록된 함수가 호출된다
+                        },time)
+                    }else{
+                        reject('No such name') //catch에 등록된 함수가 호출된다
+                    } // if-else
+
+                }) // Promise()
+
+            } // function()
+
+
+            addName(2000, '오문정')
+            .then(()=>addName(2000, 'Victoria'))
+            .then(()=>addName(2000))
+            .catch((err)=>console.log(err))
+        </script>
+    </head>
+</html>

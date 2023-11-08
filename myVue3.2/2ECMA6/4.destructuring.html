@@ -1,0 +1,48 @@
+<html>
+<head>
+    <script>
+        //배열 및 객체 분해
+        const fruits = ["Mango", "Pineapple", "Orange", "Lemon", "Apple"];
+
+        const [f1, f2, f3] = fruits // 배열 변수를 선언 ([]로 한 번에 선언함)
+        console.log(f1, f2, f3)
+
+        //일부 반환값 무시하기
+        const [, , , f4, f5] = fruits
+        console.log(f4, f5)
+        
+        // 배열 분해는 []
+        // 객체 분해는 {}
+        const Susan = {
+            firstName: "Susan",
+            lastName: "Steward",
+            age: 14,
+            hobbies: [
+                "singing",
+                "dancing"
+            ],
+            contact: {
+                phone: 114,
+                email: "a@b.com"
+            },
+            
+        };
+        const {firstName, age} = Susan
+        console.log(firstName, age)
+
+        const {firstName: fn, age:a} = Susan
+        console.log(fn, a)
+
+        const {lastName, address = 'NY'} = Susan
+        console.log(lastName, address)
+
+        const {hobbies, hobbies:[h0, h1]} = Susan
+        console.log(hobbies)
+        console.log(h0, h1)
+
+        const {contact:{email}} = Susan
+        console.log(email)        
+    </script>
+</head>
+
+</html>

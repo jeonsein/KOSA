@@ -1,0 +1,25 @@
+<html>
+    <head>
+        <script>
+            let lion = {}
+            lion.first_name = 'Mufasa'
+            // js의 사용 가능 특수문자: _, $
+            // => lion.last-name = 'King' // 하이픈은 error 발생함
+            
+            // 프로퍼티 이름을 하이픈을 포함한 이름으로 저장하고 싶다면,
+            // [] 사용해서 하이픈을 포함한 문자열을 넣어줌
+            lion['last-name'] = 'King' //OK
+            console.log(lion.first_name + ", " + lion['last-name'])
+        
+            // 동적 프로퍼티 이름으로 사용하고 싶다면 이렇게 해보기!!!
+            // let prop = 'category' // 미리 선언한 변수의 값으로 프로퍼티 이름을 대신함
+            let prop = 'type' // 프로퍼티 이름이 type이 됨!
+            let lion2 = {
+                first_name : 'Simba',
+                'last-name': 'King',
+                [prop] : 'animal' // 프로퍼티 이름으로 category를 사용
+            }
+            console.log(lion2)
+        </script>
+    </head>
+</html>
