@@ -14,10 +14,23 @@ import com.my.util.PageGroup;
 
 public class ProductListJsonController extends ProductController {
 
+	static private ProductListJsonController controller = new ProductListJsonController();
+	public ProductListJsonController() {}
+	public static ProductListJsonController getInstance() {
+		return controller;
+	}
+	
 	@Override
 	public String execute(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
+		// delay 시키기
+		try {
+			Thread.sleep(5*1000);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+		
 		// 서블릿이 응답할 형식 지정하기
 		response.setContentType("application/json;charset=utf-8");
 

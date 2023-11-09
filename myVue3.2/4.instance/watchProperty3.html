@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>watchProperty3.html</title>
+</head>
+<body>
+    <div id="app">
+        <!-- watch property는 비동기 처리에 적합함!
+            네트워크 트래픽을 줄일 수 있도록 model property값의 변화를 감지하여
+            watch property용 함수로 작성하기
+            ex) model property: currentPage
+            ex) watch: currentPage(new, old){ new가 변경된 값이 존재할 경우에만 비동기 처리
+            return은 안함! } -->
+        검색할 페이지를 입력하세요:<input type="text" v-model="currentPage">
+
+        <hr>
+        <!-- {{ajaxTest()}}  -->
+        <!-- 10초동안 기다렸다가 결과 받음 -->
+        <hr>
+        {{products}}
+        <table>
+            <thead>
+                <tr>
+                    <th>상품번호</th>
+                    <th>상품명</th>
+                    <th>상품가격</th>
+                </tr>
+            </thead>
+            <!-- 배열인 경우 v-for"value in 배열"
+                            v-for="(value, index) in 배열"
+            -->
+            <!-- 객체인 경우 v-for"(value, key) in 객체" -->
+            <!-- 반복해서 내용을 채워주기 위해 v-for! property로는 products 사용 -->
+            <!-- products라는 모델 요소 하나하나가 p 변수에 대입이 됨 -->
+            <tbody>
+                <tr v-for="p in products">
+                    <td>{{p.prodNo}}</td>
+                    <td>{{p.prodName}}</td>
+                    <td>{{p.prodPrice}}</td>
+                </tr>
+            </tbody>
+        </table>
+        <hr>
+        <!-- {{flag}} -->
+        <div v-show="flag">결과 수신 완료</div>
+    </div>
+
+    <script src="http://unpkg.com/vue"></script>
+    <script src="http://unpkg.com/axios"></script>
+    <script>
+        let vm = Vue.createApp({
+            name: "App",
+            data() {
+                return {     
+                    currentPage: '',          
+                    products:[],
+                    flag: false
+                }
+            },
+            /* delay 걸리는 경우 methods나 computed를 사용하지 않고 watch를 사용함!!*/
+            methods:{
+                ajaxTest(){
+                    let url = `http://localhost:8888/back2/productlistjson?currentPage=${this.currentPage}`
+                    axios
+                    .get(url)
+                    .then((response)=>{
+                        console.log(response.data)
+                        this.products= response.data.list
+                        this.flag = true
+                    })
+                }
+            },
+            watch:{
+                currentPage(newdata, olddata){
+                    console.log("changed")
+                    if(newdata >= 1 ){
+                        this.ajaxTest() // 변경됐을때만 ajaxTest()
+                    } else { // 사용자가 currentPage를 0으로 변경하려고 하면, 빈 배열
+                        products  = []
+                    }
+                }
+                // ajaxTest(){
+                //     axios
+                //     .get("http://localhost:8888/back2/productlistjson")
+                //     .then((response)=>{
+                //         console.log(response.data)
+                //         this.products= response.data.list
+                //         this.flag = true
+                //     })
+                // }
+            }
+        }).mount('#app')
+    </script>
+</body>
+
+</html>
