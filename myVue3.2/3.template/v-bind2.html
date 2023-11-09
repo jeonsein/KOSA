@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+    <head>
+
+    </head>
+
+    <body>
+        <!-- {{}}는 v-text 또는 v-html 디렉티브와 동일함 -->
+        <!-- 요소의 속성값에 바인딩할 때 v-bind 디렉티브를 사용함 -->
+        <!-- v-bind 디렉티브는 단방향 데이터 바인딩!! -->
+        <div id="app">    
+            <img src="{{imgPath}}">
+            <img v-bind:src="imgPath"> <!-- v-bind 사용해서 요소 속성(=src) 바인딩 -->
+            <img :src="imgPath">
+        </div>
+        
+        <script src="http://unpkg.com/vue"></script>
+        <script>
+            Vue.createApp({
+                name: "App",
+                data() {
+                    // 모델 변수 선언 안하고 직접 return
+                    return {
+                        imgPath : "../images/teacher.png"
+                    }
+                }
+            }).mount("#app")
+        </script>
+    </body>
+</html>

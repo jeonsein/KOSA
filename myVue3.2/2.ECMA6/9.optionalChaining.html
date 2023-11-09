@@ -1,0 +1,45 @@
+<html>
+
+<head>
+    <script>
+        // 객체 3개를 포함한 배열
+        let users = [
+            {
+                name: 'Sam',
+                address: 'NY',
+                contact: {
+                    phone: 114,
+                    email: "a@b.com"
+                }
+            },
+            {
+                name: "Dave" // contact이 없는 property!
+            },
+            {
+                name: 'Jacob',
+                address: 'LA',
+                contact: {
+                    phone: 112
+                }
+            },
+        ]
+
+        // address가 없는 객체의 property를 출력하려고 하기 때문에 없는 자료는 undefined 출력됨!
+        users.forEach((user) => {
+            console.log(user.address) // NY undefined LA
+        })
+
+        // contact 자체가 없는 인덱스 -> undefined가 됨 -> undefined.email 실행시키는데 못찾음 -> 에러 발생
+        // users.forEach((user) => {
+        //    console.log(user.contact.email) // a@b.com TypeError: Cannot read properties of undefined (reading 'email')
+        // })
+
+        // contact이 없으면 undefined 처리하고 반환, 
+        // contact이 존재할 경우만 .찍고 email property를 찾아가라!
+        users.forEach((user) => {
+            console.log(user.contact ?.email) // a@b.com undefined undefined
+        })
+    </script>
+</head>
+
+</html>

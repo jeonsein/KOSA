@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+    <head>
+
+    </head>
+
+    <body>
+        <div id="app">
+            <!-- amount가 0보다 작을 때만 이미지를 보여줌 -->
+            <img v-show="amount<0" src="../images/clover.png">
+        </div>
+        
+        <script src="http://unpkg.com/vue"></script>
+        <script>
+            Vue.createApp({
+                name: "App",
+                data() {
+                    return {
+                        // amount: -10
+                        amount: 10
+                    }
+                }
+            }).mount("#app")
+        </script>
+    </body>
+</html>

@@ -1,0 +1,89 @@
+<html>
+    <head>
+        <script>
+            const arr = [20, 30, 10]
+            let total = 0 //합
+            arr.forEach((value, index, array)=>{
+                total += value
+                console.log(`[${index}]값은 ${value}, 합은${total}`);
+            })
+            console.log(`forEach()이용한 20, 30, 10 합은 ${total}`)
+            console.log('---------------------')
+            
+
+            // 0번 인덱스가 total에 사용되었기 때문에 인덱스는 1부터 시작
+            let result = arr.reduce((total, value, index, array)=>{
+                total += value
+                console.log(`[${index}]값은 ${value}, 합은${total}`);
+                return total
+            }) //If you don’t pass in an initial value, reduce will assume the first item in your array is your initial value
+            console.log(`초기값없는 reduce()이용한 20, 30, 10 합은 ${result}`)
+            console.log('---------------------')
+            
+
+            result = arr.reduce((total, value, index, array)=>{
+                total += value
+                console.log(`[${index}]값은 ${value}, 합은${total}`);
+                return total
+            }, 0)
+            console.log(`초기값있는 reduce()이용한 20, 30, 10 합은 ${result}`)            
+            console.log('---------------------')
+            
+
+            const staffs = [
+                { name: "Susan", age: 14, salary: 10 },
+                { name: "Daniel", age: 16, salary: 20 },
+                { name: "Bruno", age: 56, salary: 30 },
+                { name: "Jacob", age: 15, salary: 40 },
+                { name: "Sam", age: 64, salary: 50 },
+                { name: "Dave", age: 56, salary: 60 },
+                { name: "Neils", age: 65, salary: 70 }
+            ];
+            let totalSalary = 0
+            let avg = 0
+            staffs.forEach((staff, index, array)=>{
+                totalSalary += staff.salary
+                if(index == array.length-1){
+                    avg = totalSalary /array.length
+                }
+            })
+            console.log(`forEach()이용한 총급여 ${totalSalary}, 평균급여 ${avg}`) //총급여 280, 평균:40
+            console.log('---------------------')
+
+
+            const callback = (result, staff, index, array)=>{
+                result.total += staff.salary
+                if(index == array.length-1){
+                    result.avg = result.total/array.length
+                }
+                return result
+            }          
+            const reduceResult =staffs.reduce(callback, {total:0, avg:0}) //콜백함수, result 초기값
+            console.log(`reduce()이용한 총급여 ${reduceResult.total}, 평균:${reduceResult.avg}`) //총급여 280, 평균:40
+            console.log('---------------------')
+
+
+            function increment(input){return input+1}
+            function decrement(input){return input-1}
+            function double(input){return input*2}
+            function halve(input){return input/2}
+            
+            let pipelineResult = 10
+            pipelineResultInc = increment(pipelineResult)
+            pipelineResultDob = double(pipelineResultInc)
+            pipelineResultDec = decrement(pipelineResultDob)
+            console.log(`((10+1)*2)-1)는 ${pipelineResultDec}`)
+
+
+            // 초기값이 존재할 경우, 0번 인덱스의 값부터 처리됨
+            // -> 0번 인덱스의 값이 reduce의 인자인 func에 대입이 됨 = result = 0 (=increment 함수가 됨)
+            // 이하 반복
+            let pipeline = [increment, double, decrement] // 배열이 함수들로 구성되어 있음
+            let pipelineResult1 = pipeline.reduce((result, func)=>{
+                return func(result)                
+            }, 10) // 초기값 = 10
+            console.log(`reduce()이용한 ((10+1)*2)-1)는 ${pipelineResult1}`)
+
+        </script>
+    </head>
+</html>

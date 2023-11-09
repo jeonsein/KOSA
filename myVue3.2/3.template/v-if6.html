@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+    <head>
+
+    </head>
+
+    <body>
+        <div id="app">
+            <!-- amount가 0보다 작을 때만 이미지를 보여줌 -->
+            <img v-if="amount<0" src="../images/clover.png">
+
+            <span v-else-if="amount>=1000">천만원이상</span>
+            <span v-else-if="amount>=500">오백만원이상</span>
+            <span v-else>{{amount}}원</span>
+
+            <br>
+    
+            <input type="text" v-model="amount">
+        </div>
+        
+        <script src="http://unpkg.com/vue"></script>
+        <script>
+            Vue.createApp({
+                name: "App",
+                data() {
+                    return {
+                        // amount: -10
+                        // amount: 10
+                        // amount: 600
+                        amount: 0
+                    }
+                }
+            }).mount("#app")
+        </script>
+    </body>
+</html>

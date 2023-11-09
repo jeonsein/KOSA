@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html>
+<head>   
+    <script type="module">
+        // import { add } from './export.js'
+        // import { test } from './export.js'
+        import { add, test } from './export.js' // export.js가 가지고 있는 add와 test 함수를 사용하겠다
+        console.log(add(4)) // 매개변수 x에 4가 전달됨 -> base(=100) + 4 = 104
+        test()
+    </script>
+</head>
+</html>

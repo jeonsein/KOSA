@@ -6,21 +6,21 @@
             <h2>{{message}}</h2>
             <div>{{message}}</div>
             <hr>
-            <h3>{{name}}</h3>
+            <!-- <h3>{{name}}</h3> -->
         </div>
 
         <script src="http://unpkg.com/vue"></script>
         <script>
-            // let model = {message: 'SENGNA'}
+            let model = {message: 'SENGNA'}
             // name property = 문자열, data property = 함수
             let vm = Vue.createApp({
                 name: "App",
                 data() {
-                    // return model
-                    return {
-                        message: 'SENGNA',
-                        name: 'JEON'
-                    }
+                    return model
+                    // return {
+                    //     message: 'SENGNA',
+                    //     name: 'JEON'
+                    // }
                 }
             }).mount('#app') 
             // div 영역을 제대로 찾기 위해 선택자를 사용해 id 속성값을 적어줌 

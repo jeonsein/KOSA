@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+    <head>
+
+    </head>
+
+    <body>
+        <div id="app">
+            <table>
+                <thead>
+                    <tr>
+                        <th>상품번호</th>
+                        <th>상품명</th>
+                    </tr>
+                </thead>
+                <!-- 배열인 경우 v-for"value in 배열"
+                                v-for="(value, index) in 배열"
+                -->
+                <!-- 객체인 경우 v-for"(value, key) in 객체" -->
+                <!-- 반복해서 내용을 채워주기 위해 v-for! property로는 products 사용 -->
+                <!-- products라는 모델 요소 하나하나가 p 변수에 대입이 됨 -->
+                <tbody>
+                    <tr v-for="p in products">
+                        <td>{{p.prodNo}}</td>
+                        <td>{{p.prodName}}</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <hr>
+
+            <select>
+                <!-- <option v-for="(key, value) in regions"> -->
+                <option v-for="(value, key) in regions" v-bind:value="key">
+                    {{value}}
+                    <!-- {{key}} -->
+                </option>
+            </select>
+
+            <hr>
+
+            <!-- 여러 요소들을 같이 반복될 수 있도록 하려면 template 태그를 사용하면 됨! -->
+            <!-- 여러 요소를 묶어서 반복 렌더링하기 -->
+            <template v-for="(value, key) in regions">
+                <div>{{value}}</div>
+                <hr>
+            </template>
+
+        </div>
+        
+        <script src="http://unpkg.com/vue"></script>
+        <script>
+            Vue.createApp({
+                name: "App",
+                data() {
+                    return {
+                        products: [
+                            {prodNo:'C0001', prodName:'아메리카노'},
+                            {prodNo:'C0002', prodName:'쿨라임피지오'},
+                            {prodNo:'C0003', prodName:'캐모마일릴렉서'}
+                        ], // 객체 배열
+                        regions: {
+                            ASIA: "아시아",
+                            AMERICA: "아메리카",
+                            AFRICA: "아프리카"
+                        }
+                    }
+                }
+            }).mount("#app")
+        </script>
+    </body>
+</html>

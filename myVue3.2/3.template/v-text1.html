@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+    <head></head>
+
+    <body>
+        <div id="app">
+            {{message}}
+            <hr>
+            <h2>{{message}}</h2>
+            <h1 v-text="message"></h1> <!-- v-text = Vue.js의 전용 속성 -->
+            <!-- v-text는 h1obj.innerText = model.message와 동일 효과 -->
+
+            <h1 v-html="message2"></h1>
+            <!-- v-html은 h1obj.innerHtml = model.message2와 동일 효과 -->
+        </div>
+
+        <script src="http://unpkg.com/vue"></script>
+        <script>
+            const model = {message: "WELCOME👻", message2: '<a href="#">햄슷따🐹</a>'}
+            let vm = Vue.createApp({
+                name: "App",
+                data() {
+                    return model
+                }
+            }).mount('#app')
+        </script>
+    </body>
+</html>
