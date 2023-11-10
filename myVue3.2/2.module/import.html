@@ -7,6 +7,11 @@
         import { add, test } from './export.js' // export.js가 가지고 있는 add와 test 함수를 사용하겠다
         console.log(add(4)) // 매개변수 x에 4가 전달됨 -> base(=100) + 4 = 104
         test()
+        // export된 변수, 함수, 객체, 클래스 이름을 정확히 import하기!
+        // 아래와 같이 export된 함수명을 다르게 import하면 오류가 발생함
+        // import { a, t } from './export.js'
+        // console.log(a(4))
+        // t()
     </script>
 </head>
 </html>

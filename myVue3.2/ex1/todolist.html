@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8"/>
+        <title>todolist.html</title>
+        <link
+            rel="stylesheet"
+            href="https://unpkg.com/bootstrap@5.2.3/dist/css/bootstrap.min.css"
+        />
+        <style>
+            body {
+                margin: 0;
+                padding: 0;
+                font-family: sans-serif;
+            }
+
+            .title {
+                text-align: center;
+                font-weight: bold;
+                font-size: 20pt;
+            }
+
+            .todo-done {
+				font-weight: bold;
+                text-decoration: line-through;
+            }
+
+            .container {
+                padding: 10px 10px 10px 10px;
+            }
+
+            .card-borderless {
+                border: 0;
+                box-shadow: none;
+            }
+
+            .pointer {
+                cursor: pointer;
+            }
+        </style>
+    </head>
+
+    <body>
+        <div id="app" class="container">
+
+			<!-- 👻 3. 템플릿 완성 -->
+            <div class="card card-body bg-light">
+                <div class="title">🐹SENGNA's Todolist App🐹 </div>
+            </div>
+
+            <div class="card card-default card-borderless">
+
+                <div class="card-body">
+                    <div class="row mb-3">
+                        <div class="col">
+                            <div class="input-group">
+                                <input
+                                    id="msg"
+                                    type="text"
+                                    class="form-control"
+                                    name="msg"
+                                    placeholder="할일을 여기에 입력!"
+									v-model="todo"
+									v-on:keyup.enter="add()"
+                                /> <!-- 사용자가 입력할 값을 todo라는 이름으로 바인딩 시켜주기-->
+                                <span class="btn btn-primary input-group-addon"
+										v-on:click="add()"
+                                    >추가</span
+                                >
+                            </div>
+                        </div>
+                    </div>
+
+					<!-- 해당 리스트가 todolist라는 데이터로 채워져야 함 -->
+                    <div class="row">
+                        <div class="col">
+                            <ul class="list-group">
+                                <li
+                                    class="list-group-item list" 
+									v-for="list in todolist"
+									v-bind:class="list.completed? 'list-group-item-success': ''"
+                                >
+                                    <span class="pointer"
+									v-on:click="upd(list.id)"
+									v-bind:class="list.completed? 'todo-done' : ''"
+                                        > {{list.todo}} {{list.completed? '✅' : ''}}
+										</span
+                                    >
+                                    <span
+                                        class="float-end badge bg-secondary pointer"
+										v-on:click="del(list.id)"
+                                        >삭제</span
+                                    >
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <script src="https://unpkg.com/vue"></script>
+        <script type="text/javascript">
+
+			let idCnt = 0
+
+			// 👻 1. 데이터
+			// 1-1. 할 일(TODO) 데이터: id(식별해줄 수 있는 id값), 내용, 완료 여부(true, false)
+			// 1-2. 샘플링 -> 객체 형태 (여러개이기 때문에 배열 사용)
+			/*	
+				let todolist =
+				[
+					{id:1, todo: '내용1', completed: false},
+					{id:1, todo: '내용1', completed: false},
+					{id:1, todo: '내용1', completed: false}
+				]
+			*/
+			// createApp의 옵션 객체로 사용되는 프로퍼티로는 data 함수가 있고,
+			// 해당 data 함수에서 return할 객체가 모델 프로퍼티이기 때문에 아래와 같이 선언하기
+			Vue.createApp({
+				data() {
+					return {
+						// 사용자로부터 입력받을 요소 한개
+						todo: "", // 텍스트 박스에 사용자가 입력한 내용과 바인드될 프로퍼티
+
+						// 목록과 바인드될 프로퍼티
+						todolist: [],
+						completed: false
+					}
+				}, // data()
+
+				// 👻 2. 메소드
+				/*
+				추가: 추가 버튼 클릭하면 todolist에 텍스트 박스에 사용자가 입력한 내용을 추가
+				삭제: 삭제 버튼 클릭하면 todolist에서 id를 이용해서 todo 아이템을 찾아 삭제
+				변경: 할 일 한 건을 클릭하면 id를 이용해서 completed 값을 토글(false->true->flase..)
+				*/
+				methods: {
+					// 추가 메소드
+					add() {
+						// const ids = this.todolist.filter(todo => todo.id)
+						// const maxId = Math.max(...ids)
+						// console.log(maxId)
+						// this.todolist.push({id: maxId+1, todo: this.todo, completed: false})
+						this.todolist.push({id: idCnt++, todo: this.todo, completed: false})
+
+						console.log('in add() this.todolist')
+						console.log(this.todolist)
+
+						// 추가 이후에 입력창 초기화
+						this.clearInput()
+					},
+
+					// 삭제 메소드
+					del(id) {
+						const index = this.todolist.findIndex((todo) => {
+							return todo.id === id
+						})
+						this.todolist.splice(index, 1)
+
+						console.log('in del() this.todolist')
+						console.log(this.todolist)
+					},
+
+					// 변경 메소드
+					upd(id) {
+						const index = this.todolist.findIndex((todo) => {
+							return todo.id === id
+						})
+						this.todolist[index].completed = !this.todolist[index].completed
+
+						console.log('in upd() this.todolist')
+						console.log(this.todolist)
+					},
+
+					// 입력창 초기화 메소드
+					clearInput: function() {
+						this.todo = "";
+					}
+				}
+			}).mount('#app')
+
+		</script>
+    </body>
+</html>
+
+<!-- 셍나가... 해야할... 일... 🎃 -->
+<!-- 사용자가 입력한 데이터 바인딩해주기 -->
+<!-- 추가, 삭제 기능 -->
+<!-- 변경 기능) 아이템 하나를 클릭했을 때에 대한 기능 => 완료 시 stroke 처리됨 -->
+<!-- 요소 추가 push(), 삭제 splice() 사용하기 -->
+<!-- 요소 검색 시 Array findIndex() 사용하기 -->

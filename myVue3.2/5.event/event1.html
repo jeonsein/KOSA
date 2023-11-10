@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>event1.html</title>
+    </head>
+
+    <body>
+        <div id="app">
+            <!-- 
+            키보드 관련 수식어 : ctl, alt, esc, enter, shift
+            키보드 이벤트 수식어 조합: ctrl + enter 하려면 @keyup.ctrl.enter="..."
+            ※ 주의 ※
+            ex) 1. ctrl + enter 이벤트 처리
+            ex) 2. ctrl + alt + enter 이벤트 처리
+            ctrl + alt + enter 이벤트가 발생하면 1번, 2번 처리가 모두 됨
+            그렇기에 위와 같은 이벤트가 발생할 경우, 2번만 정확히 처리되도록 하기 위해
+            @keyup.ctrl.alt.enter.exact 로 exact 수식어 사용해서 처리해주기
+            -->
+            💸 잔액: {{balance}}<br>
+            💳 금액: <input type="text" v-model.number="amount"
+                                        v-on:keyup.enter="search">
+
+            <!-- v-on:click="" => button이 클릭되었을 때 할일 -->
+            <button v-on:click="balance += amount">입금</button>
+
+            <!-- - 이하로 계속 내려감! 조건 추가해주기 -->
+            <!-- <button v-on:click="balance -= amount">출금</button> -->
+            <!-- <button v-on:click="withdraw">출금</button> -->
+            <button @click="withdraw">출금</button>
+            <button @click.once="withdraw">한번만 출금</button> <!-- 이벤트 발생이 한 번만 일어남 -->
+        </div>
+        
+        <script src="http://unpkg.com/vue"></script>
+        <script>
+            let vm = Vue.createApp({
+                name: "App",
+                data() {
+                    return {
+                        amount: 0,
+                        balance: 0
+                    }
+                },
+                methods: {
+                    withdraw() {
+                        if(this.amount > this.balance) {
+                            alert('잔액이 부족합니다.')
+                        } else {
+                            this.balance -= this.amount
+                        } // if-else
+                    }, // withdraw()
+                    search() {
+                        alert(this.amount)
+                    } // search()
+                }
+            }).mount("#app")
+        </script>
+    </body>
+</html>
