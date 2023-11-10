@@ -80,10 +80,14 @@
 									v-for="list in todolist"
 									v-bind:class="list.completed? 'list-group-item-success': ''"
                                 >
+								<!-- 
+									이벤트 전파 중지: e.stopPropagation() v-on:click.stop
+									기본 이벤트 처리 중지: e.preventDefault() v-on:click.prevent
+								-->
                                     <span class="pointer"
-									v-on:click="upd(list.id)"
+									v-on:click.stop="upd(list.id)"
 									v-bind:class="list.completed? 'todo-done' : ''"
-                                        > {{list.todo}} {{list.completed? '✅' : ''}}
+                                        > {{list.completed? '✅' : ''}} {{list.todo}}
 										</span
                                     >
                                     <span

@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <title>ex1\todolist.html</title>
+        <link
+            rel="stylesheet"
+            href="https://unpkg.com/bootstrap@5.2.3/dist/css/bootstrap.min.css"
+        />
+        <style>
+            body {
+                margin: 0;
+                padding: 0;
+                font-family: sans-serif;
+            }
+            .title {
+                text-align: center;
+                font-weight: bold;
+                font-size: 20pt;
+            }
+            .todo-done {
+                text-decoration: line-through;
+            }
+            .container {
+                padding: 10px 10px 10px 10px;
+            }
+            .card-borderless {
+                border: 0;
+                box-shadow: none;
+            }
+            .pointer {
+                cursor: pointer;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="app" class="container">
+            <!--3. 템플릿 완성-->
+            <div class="card card-body bg-light">
+                <div classe="title">:: Todolist App</div>
+            </div>
+            <div class="card card-default card-borderless">
+                <div class="card-body">
+                    <div class="row mb-3">
+                        <div class="col">
+                            <div class="input-group">
+                                <input
+                                    id="msg"
+                                    type="text"
+                                    class="form-control"
+                                    name="msg"
+                                    placeholder="할일을 여기에 입력!"
+                                    v-model="todo"
+                                    @keyup.enter="add"
+                                />
+                                <span
+                                    class="btn btn-primary input-group-addon"
+                                    v-on:click="add"
+                                    >추가</span
+                                >
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <ul class="list-group">
+                                <li
+                                    class="list-group-item"
+                                    v-for="item in todolist"
+                                    :class="item.completed? 'list-group-item-success': ''"
+                                >
+                                    <!--이벤트 전파 중지    : e.stopPropagation()  v-on:click.stop
+                    기본이벤트처리 중지 : e.preventDefault()   v-on:click.prevent
+                -->
+                                    <span
+                                        class="pointer"
+                                        @click="upd(item.id)"
+                                        v-bind:class="item.completed? 'todo-done' :''"
+                                        >{{item.todo}}{{item.completed?
+                                        '(완료)': ''}}</span
+                                    >
+                                    <span
+                                        class="float-end badge bg-secondary pointer"
+                                        @click="del(item.id)"
+                                        >삭제</span
+                                    >
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script src="https://unpkg.com/vue"></script>
+        <script type="text/javascript">
+            //할일(Todo)데이터 : id, 내용, 완료여부(true,false)
+            // let todollist =
+            // [{id:1, todo: '내용1', completed: false},
+            //  {id:1, todo: '내용1', completed: false},
+            //  {id:1, todo: '내용1', completed: false}
+            // ]
+
+            const vm = Vue.createApp({
+                /*
+        1. 데이터
+        */
+                data() {
+                    return {
+                        todo: "", //텍스트박스에 사용자가 입력한 내용과 바인드될 프로퍼티
+                        //목록과 바인드될 프로퍼티
+                        todolist: [
+                            { id: 1, todo: "내용1", completed: false },
+                            { id: 2, todo: "내용2", completed: true },
+                            { id: 3, todo: "내용3", completed: false },
+                        ],
+                    };
+                },
+
+                /*
+        2. 메서드
+        추가 : add()  추가버튼클릭하면 todolist에 텍스트박스에 사용자가 입력한 내용을 추가
+        삭제 : del()  삭제버튼클릭하면 todolist에서 id를 이용해서 todo아이템을 찾아 삭제
+        변경 : upd()  할일 한 건을 클릭하면 id를 이용해서 completed값을 토글(false->true->false....)
+        */
+                methods: {
+                    add() {
+                        const ids = this.todolist.map((todo) => {
+                            return todo.id;
+                        });
+                        const maxId = ids.length == 0 ? 0 : Math.max(...ids);
+                        this.todolist.push({
+                            id: maxId + 1,
+                            todo: this.todo,
+                            completed: false,
+                        });
+                    },
+                    //del(3)
+                    del(id) {
+                        const index = this.todolist.findIndex((todo) => {
+                            return todo.id === id;
+                        });
+                        this.todolist.splice(index, 1);
+                    },
+                    upd(id) {
+                        const index = this.todolist.findIndex((todo) => {
+                            return todo.id === id;
+                        });
+                        this.todolist[index].completed =
+                            !this.todolist[index].completed;
+                    },
+                },
+            }).mount("#app");
+        </script>
+    </body>
+</html>
