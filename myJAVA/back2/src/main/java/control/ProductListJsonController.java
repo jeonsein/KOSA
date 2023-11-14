@@ -25,17 +25,20 @@ public class ProductListJsonController extends ProductController {
 			throws ServletException, IOException {
 
 		// delay 시키기
+		/*
 		try {
 			Thread.sleep(5*1000);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
+		*/
 		
 		// 서블릿이 응답할 형식 지정하기
 		response.setContentType("application/json;charset=utf-8");
 
 		// 헤더 설정
-		response.setHeader("Access-Control-Allow-Origin", "http://192.168.1.21:5500");
+//		response.setHeader("Access-Control-Allow-Origin", "http://192.168.1.21:5500");
+		response.setHeader("Access-Control-Allow-Origin", "http://192.168.1.21:5173");
 		response.setHeader("Access-Control-Allow-Credentials", "true");
 
 		// 응답 출력 스트림 얻기
