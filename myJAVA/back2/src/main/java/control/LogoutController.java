@@ -14,7 +14,8 @@ public class LogoutController extends CustomerController {
 			throws ServletException, IOException {
 		
 		// 헤더 설정
-		response.setHeader("Access-Control-Allow-Origin", "http://192.168.1.21:5500");
+//		response.setHeader("Access-Control-Allow-Origin", "http://192.168.1.21:5500");
+		response.setHeader("Access-Control-Allow-Origin", "http://192.168.1.21:5173");
 		response.setHeader("Access-Control-Allow-Credentials", "true");
 		
 		HttpSession session = request.getSession();

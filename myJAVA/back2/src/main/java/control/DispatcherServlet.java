@@ -49,7 +49,8 @@ public class DispatcherServlet extends HttpServlet {
 			throws ServletException, IOException {
 		
 		// 여기 헤더를 설정해놓으면 각 컨트롤러에서 굳이 따로 설정해줄 필요가 없음!!
-		response.setHeader("Access-Control-Allow-Origin", "http://192.168.1.21:5500");
+		response.setHeader("Access-Control-Allow-Origin", "http://192.168.1.21:5173");
+		response.setHeader("Access-Control-Allow-Headers", "*");
 		response.setHeader("Access-Control-Allow-Credentials", "true");
 		
 		System.out.println("request.getServletPath()=" + request.getServletPath());

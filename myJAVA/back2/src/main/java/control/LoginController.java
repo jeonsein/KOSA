@@ -22,7 +22,8 @@ public class LoginController extends CustomerController {
 	public String execute(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		
-		response.setHeader("Access-Control-Allow-Origin", "http://192.168.1.21:5500");
+//		response.setHeader("Access-Control-Allow-Origin", "http://192.168.1.21:5500");
+		response.setHeader("Access-Control-Allow-Origin", "http://192.168.1.21:5173");
 		response.setHeader("Access-Control-Allow-Credentials", "true");
 		
 		response.setContentType("application/json;charset=utf-8");

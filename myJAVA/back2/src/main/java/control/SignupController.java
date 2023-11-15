@@ -25,7 +25,8 @@ public class SignupController extends CustomerController {
 		// 서블릿이 응답할 형식 지정하기
 		response.setContentType("application/json;charset=utf-8");
 		// 헤더 설정
-		response.setHeader("Access-Control-Allow-Origin", "http://192.168.1.21:5500");
+//		response.setHeader("Access-Control-Allow-Origin", "http://192.168.1.21:5500");
+		response.setHeader("Access-Control-Allow-Origin", "http://192.168.1.21:5173");
 		response.setHeader("Access-Control-Allow-Credentials", "true");
 		
 		// 응답 출력 스트림 얻기
