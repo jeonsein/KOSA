@@ -12,7 +12,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 section {
     /* width: 710px; */
     height: 500px;

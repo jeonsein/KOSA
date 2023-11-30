@@ -18,7 +18,7 @@ public class DownloadController implements Controller {
 
 		response.setContentType("application/octet-stream;charset=UTF-8");
 
-		response.setHeader("Access-Control-Allow-Origin", "http://192.168.1.21:5500");
+//		response.setHeader("Access-Control-Allow-Origin", "http://192.168.1.21:5500");
 		response.setHeader("Access-Control-Allow-Credentials", "true");
 
 		//		PrinterWriter out = response.getWriter();

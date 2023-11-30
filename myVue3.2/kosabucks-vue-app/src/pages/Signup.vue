@@ -30,33 +30,22 @@
         <br>
 
         <label for="f1">프로필: </label>
-        <input type="file" name="f1" id="f1">
+        <input type="file" name="f1" id="f1"
+            @change="profileChangeHandler">
         <!-- 선택한 파일이 이미지 형태로 보여지는 영역 -->
-        <div>
-            <img class="profile">
+        <div class="profile">
+            <img class="profile" v-bind:src="profile">
         </div>
         <br>
-        <label for="f2">자기소개: </label><input type="file" name="f2" id="f2">
+
+        <label for="f2">자기소개: </label>
+        <input type="file" name="f2" id="f2">
 
         <!-- 조건에 따라 다른 클래스 속성을 위해 바인드 속성 사용 -->
         <button type="submit" :class="[isBtSignup?'btSignupShow':'btSignupHide']">가입하기</button>
     </form>
 
     <hr>
-
-    <!-- 프로필 사진 -->
-    <!-- <form method="post" enctype="multipart/form-data" action="http://192.168.1.21:8888/back/upload">
-        <input type="file" multiple name="f1">
-        <input type="text" name="t" value="tValue"><br>
-        <button type="submit">첨부</button>
-    </form>
-    <hr> -->
-    <!-- ajax로 바꿔보기 -->
-    <!-- <form class="form1">
-        <input type="file" multiple name="f1">
-        <input type="text" name="t" value="tValue"><br>
-        <button type="submit">첨부</button>
-    </form> -->
 
     <div class="download">
         <img>
@@ -80,6 +69,8 @@ export default {
                 pwd: '',
                 name: ''
             },
+
+            profile: '',
 
             // 가입 버튼 보여주기 여부
             isBtSignup: false,
@@ -114,7 +105,8 @@ export default {
         },
         //----중복확인버튼객체에서 클릭이벤트 발생했을때 할 일 END----
 
-        signupFormSubmitHandler() {
+        //----폼객체에서 submit이벤트 발생했을때 할 일 START----
+        signupFormSubmitHandler(e) {
             if(this.c.pwd != this.pwd1) {
                 alert('비밀번호가 일치하지 않습니다. 다시 입력해주세요.')
                 
@@ -125,9 +117,21 @@ export default {
                 pwdObj.select()
             } else {
                 const url = `${this.backURL}/signup`
-                const data = this.c // 요청 전달 데이터
+                // const data = this.c // 요청 전달 데이터
 
-                axios.post(url, data)
+                const fd = new FormData(e.target)
+                const data = fd
+
+                fd.forEach((value, key) => {
+                    console.log('key: ' + key)
+                    console.log('value: ' + value)
+                    console.log('-----------')
+                })
+
+                axios.post(url, data, {
+                    contentType: false, //파일첨부용 프로퍼티
+                    processData: false, //파일첨부용 프로퍼티
+                })
                     .then(response => {
                         alert('결과: ' + response.data.msg)
 
@@ -141,7 +145,16 @@ export default {
 
                 console.log(data)
             }
+        },
+        //----폼 객체에서 submit이벤트 발생했을때 할 일 END----
+
+        //----프로필 input 객체에서 체인지 이벤트 발생했을때 할 일 START----
+        profileChangeHandler(e) {
+            const url = URL.createObjectURL(e.target.files[0])
+            this.profile = url
         }
+        //----프로필 input 객체에서 체인지 이벤트 발생했을때 할 일 END----
+
     }
 }
 </script>

@@ -3,8 +3,8 @@
     <header>
         <!-- 아래 코드는Path에 해당하는 라우터 영역의 view를 보여주는 것임! 새로고침 XX -->
         <!-- <router-link to="/"><img src="/images/logo.png" alt="로고"></router-link> -->
-        
-        <img src="/images/logo.png" alt="로고" @click="logoClickHandler"/>
+
+        <img src="/images/logo.png" alt="로고" @click="logoClickHandler" />
     </header>
 
     <!-- 메뉴바 -->
@@ -21,19 +21,29 @@
                 <router-link class="nav-link" to="/signup">가입</router-link>
             </li>
 
-            <!-- <li><a href="#" class="intro">자기소개서</a></li> -->
-            <!-- <li><img class="profile"></li> -->
+            <template v-if="loginedId !== ''">
+                <li><a href="#" class="intro">자기소개서</a></li>
+                <li>
+                    <!-- :src="profile" => 데이터의 profile값을 쓰겠다는 의미임 -->
+                    <img v-show="profile" v-bind:src="profile" class="profile">
+                </li>
+                <!-- 자료형까지 구분하기 위해 === 와 !== 사용 -->
+                <li v-if="loginedId !== ''"> <!-- 로그인이 된 경우 -->
+                    <a href="#" class="logout" @click="logoutClickHandler()">
+                        {{ loginedId }}님 로그아웃
+                    </a>
+                </li>
+            </template>
 
-            <!-- 자료형까지 구분하기 위해 === 와 !== 사용 -->
-            <li v-if="loginedId !== ''"> <!-- 로그인이 된 경우 -->
-                <a href="#" class="logout" @click="logoutClickHandler()">
-                    {{loginedId}}님 로그아웃
-                </a>
+            <li>
+                <router-link class="nav-link" to="/productlist"> 상품목록 </router-link>
             </li>
-
-            <!-- <li><a href="#" class="productlist">상품목록</a></li> -->
-            <!-- <li><a href="#" class="cartlist">장바구니목록</a></li> -->
-            <!-- <li><a href="#" class="orderlist">주문목록</a></li> -->
+            <li>
+                <a href="#" class="cartlist">장바구니목록</a>
+            </li>
+            <li>
+                <a href="#" class="orderlist">주문목록</a>
+            </li>
         </ul>
     </nav>
 </template>
@@ -46,14 +56,34 @@ export default {
     data() {
         return {
             loginedId: '',
+            // profile: '../images/profile.png'
+            profile: ''
         }
     },
     created() {
         const loginedId = localStorage.getItem('loginedId')
 
-        if(loginedId != null) {
+        if (loginedId != null) {
             this.loginedId = loginedId
         }
+
+        //----프로필이미지파일 다운로드 START----
+        const url = `${this.backURL}/download?id=${this.loginedId}&opt=profile`
+        axios.get(url,
+            {
+                responseType: 'blob'
+            }
+        ).then(response => {
+            // console.log(response)
+            if (response.data.size > 0) { //다운로드 파일이 있는 경우                   
+                const blob = new Blob([response.data]);
+                const url = URL.createObjectURL(blob)
+                this.profile = url
+            } else { //다운로드파일이 없는 경우
+                this.profile = '../images/profile.png'
+            }
+        })
+        //----프로필이미지 다운로드 END----
     },
     methods: {
         // 〓〓 로고 img 객체에서 클릭이벤트가 발생했을 때 할 일 START 〓〓)
@@ -67,7 +97,7 @@ export default {
             const loginedId = localStorage.getItem('loginedId')
 
             axios
-                .get(url, loginedId, {withCredentials: true})
+                .get(url, loginedId, { withCredentials: true })
                 .then(response => {
                     console.log(response)
                     alert('로그아웃 성공')
